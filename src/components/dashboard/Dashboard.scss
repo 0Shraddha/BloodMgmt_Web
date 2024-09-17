@@ -1,0 +1,30 @@
+.sidebar-container{
+    margin-top: -150px;
+    position: relative;
+    width: 15vw;
+    margin-right: 2.5rem;
+    background: #FFFBFB;
+    box-shadow: 2px 0px 10.2px 1px rgba(0, 0, 0, 0.06);
+  }
+  .navbar{
+    position: fixed;
+    padding: 3rem;
+    width: 15vw;
+    height: 100vh!important;
+   
+  }
+  .title{
+    color  : #404F9C;
+  }
+.bloodTabContent{
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+    margin-right: 3px;
+    width: 95%;
+    background-color: aliceblue;
+}
+.type{
+    font-size: large;
+    color: rgb(221, 16, 16);
+    font-weight: 500;
+}

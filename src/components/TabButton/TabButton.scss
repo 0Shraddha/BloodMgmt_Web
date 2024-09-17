@@ -1,0 +1,39 @@
+body{
+    width: 100%;
+    height: fit-content;
+}
+/* Style for the tab list */
+#bloodTab {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  display: flex; /* Align items horizontally */
+  justify-content: left; /* Center items horizontally */
+}
+
+/* Style for individual tab buttons */
+.nav .tab-button {
+  display: inline-block; /* Make the button inline-block */
+  padding: 10px 20px; /* Add padding inside the button */
+  margin: 0 5px; /* Add space between buttons */
+  border: 1px solid #ddd; /* Border around the button */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #f8f9fa; /* Background color */
+  color: #B60C0C; /* Text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-align: center; /* Center text inside button */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+/* Style for tab buttons on hover */
+.nav .tab-button:hover {
+  background-color: #B60C0C; /* Change background on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+/* Style for the active tab button */
+.nav .tab-button.active {
+  background-color: #B60C0C; /* Background color for active tab */
+  color: #fff; /* Text color for active tab */
+  border-color: #B60C0C; /* Border color for active tab */
+}
