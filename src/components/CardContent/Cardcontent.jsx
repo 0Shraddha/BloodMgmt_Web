@@ -1,9 +1,12 @@
 import React from 'react'
 import Card from './Card'
+import Topbar from '../topbar/Topbar'
 
 const Cardcontent = () => {
   return (
     <>
+    <Topbar title="Weekly Sumup"
+              desc="Get summary of weekly transactions here."/>
         <div className="row d-flex" id="main_contents">
             <div className="col">
               <Card title="Total Donors"

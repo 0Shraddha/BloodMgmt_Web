@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import '../TabButton/TabButton.scss'
 import { TabsContent } from '../../data';
+import Topbar from '../topbar/Topbar';
+import Tabs from './Tabs';
 
 
 const TabButtonWrapper = () => {
@@ -11,18 +13,21 @@ const TabButtonWrapper = () => {
     }
   return (
     <>
-     <div className="row" style={{ marginTop : '100px'}}>
-            <h2 className="title">Blood Availability</h2>
-            <small className="text-muted">Blood Available  in various Centers (1 UNITS equals to 450/500 ml)</small>
-            
-            <ul className="nav my-3 list-inline px-0" id="bloodTab" role="tablist">
+     <div className="row" style={{ marginTop : '50px'}}>
+      <Topbar title="Blood Availability" desc="Blood Available  in various Centers (1 UNITS equals to 450/500 ml)" />
+
+      <Tabs
+      buttonsContainer="menu"   //string for built in components &&&  {section}--{} for custom components
+      buttons={<>
+        <ul className="nav my-3 list-inline px-0" id="bloodTab" role="tablist">
               <li className={`tab-button ${selectedTab === 'A+' ? 'active' : ''}`} onClick={() => handleSelectTabs('A+')}>A+</li>
               <li className={`tab-button ${selectedTab === 'A-' ? 'active' : ''}`} onClick={() => handleSelectTabs('A-')}>A-</li>
               <li className={`tab-button ${selectedTab === 'B+' ? 'active' : ''}`} onClick={() => handleSelectTabs('B+')}>B+</li>
               <li className={`tab-button ${selectedTab === 'B-' ? 'active' : ''}`} onClick={() => handleSelectTabs('B-')}>B-</li>
             </ul>
-                {/*<p>Available {selectedTab} Blood</p>*/}
-                {TabsContent[selectedTab]?.map((centerInfo, index)=>(
+      </>}
+      >
+      {TabsContent[selectedTab]?.map((centerInfo, index)=>(
                   <div className='row bloodTabContent px-2 py-4 mx-2 mb-4'>
                     <div className="col-6">
                       
@@ -41,7 +46,9 @@ const TabButtonWrapper = () => {
                     </div>
                   </div>
                 ))}
-             
+        </Tabs>  
+           
+                
             
           </div>
     </>

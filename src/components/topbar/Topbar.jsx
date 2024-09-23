@@ -5,7 +5,7 @@ import { RxAvatar } from "react-icons/rx";
 
 import './Topbar.scss'
 
-const Topbar = ({title, desc}) => {
+const Topbar = ({title, desc,  ...props}) => {
   return (
     <>
         {/* <div className="row d-flex text-end" id="topbar">
@@ -21,7 +21,7 @@ const Topbar = ({title, desc}) => {
             </div>
         </div> */}
 
-        <div className="row heading mt-5">
+        <div className="row heading mt-5" {...props}>
           <h3 style={{ color: '#404F9C' }}>{title}</h3>
           <small className="text-muted">{desc}</small>
         </div>
