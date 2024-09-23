@@ -3,9 +3,6 @@ import Input from './Input'
 import './Input.scss';
 
 const Signup = () => {
-
-   
-
   return (
     <>
     <div className="signup-container row">
