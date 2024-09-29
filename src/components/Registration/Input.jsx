@@ -11,7 +11,7 @@ const Input = ({ label, textarea, select, options = [], type, ...props }) => {
   return (
     <div>
       <p>
-        <label class="form-label">{label}</label>
+        <label className="form-label">{label}</label>
         {textarea ? (
           <textarea {...props} />
         ) : select ? (

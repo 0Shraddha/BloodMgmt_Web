@@ -25,6 +25,8 @@ function App() {
 
 
             <Route path="/add-center" element={<AddDonor />} />
+            <Route path="/req-blood" element={<RequestList />} />
+
           </Routes>
         </div>
       </div>

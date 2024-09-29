@@ -1,30 +1,46 @@
-.sidebar-container{
-    margin-top: -150px;
-    position: relative;
-    width: 15vw;
-    margin-right: 2.5rem;
-    background: #FFFBFB;
-    box-shadow: 2px 0px 10.2px 1px rgba(0, 0, 0, 0.06);
-  }
-  .navbar{
-    position: fixed;
-    padding: 3rem;
-    width: 15vw;
-    height: 100vh!important;
-   
-  }
-  .title{
-    color  : #404F9C;
-  }
-.bloodTabContent{
-    border: 1px solid #d8d8d8;
-    border-radius: 8px;
-    margin-right: 3px;
-    width: 95%;
-    background-color: aliceblue;
+// Variables
+$primary-color: #404F9C;
+$sidebar-bg: #FFFBFB;
+$box-shadow: 2px 0px 10.2px 1px rgba(0, 0, 0, 0.06);
+$border-color: #d8d8d8;
+$blood-tab-bg: aliceblue;
+$type-color: rgb(221, 16, 16);
+
+// Sidebar container styles
+.sidebar-container {
+  margin-top: -150px;
+  position: relative;
+  width: 15vw;
+  margin-right: 2.5rem;
+  background: $sidebar-bg;
+  box-shadow: $box-shadow;
 }
-.type{
-    font-size: large;
-    color: rgb(221, 16, 16);
-    font-weight: 500;
+
+// Navbar styles
+.navbar {
+  position: fixed;
+  padding: 3rem;
+  width: 15vw;
+  height: 100vh !important;
+}
+
+// Title styles
+.title {
+  color: $primary-color;
+}
+
+// Blood tab content styles
+.bloodTabContent {
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  margin-right: 3px;
+  width: 95%;
+  background-color: $blood-tab-bg;
+}
+
+// Type styles
+.type {
+  font-size: large;
+  color: $type-color;
+  font-weight: 500;
 }

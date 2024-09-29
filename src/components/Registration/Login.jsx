@@ -7,11 +7,11 @@ const Login = () => {
   return (
    <>
         <div className="login-container align-items-center">
-            <h2 class="py-3 form-heading text-center">Login</h2>
+            <h2 className="py-3 form-heading text-center">Login</h2>
 
             <form className='py-4 px-5' action="" width="300px">
                 <Input label="Username" type="text" placeholder="Enter your username "/>
-                <Input label="Password" type="password" placeholder="Enter your password "/>
+                <Input label="address" type="addrress" placeholder="Enter your addrress "/>
                 <div>
                     <Link to="/" className='btn' id="btnSubmit">Login</Link>
                 </div>

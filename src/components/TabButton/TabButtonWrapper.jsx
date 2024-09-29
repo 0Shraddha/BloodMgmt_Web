@@ -3,6 +3,7 @@ import '../TabButton/TabButton.scss'
 import { TabsContent } from '../../data';
 import Topbar from '../topbar/Topbar';
 import Tabs from './Tabs';
+import { Link } from 'react-router-dom';
 
 
 const TabButtonWrapper = () => {
@@ -41,7 +42,7 @@ const TabButtonWrapper = () => {
             <p>Plasma: <span className='type'> {centerInfo.type.plasma} </span>Units Available</p>
           </div>
           <div className="col">
-            <button className='btn btn-sm btn-outline-success'>Request</button>
+            <Link to="/req-blood" className='btn btn-sm btn-outline-success'>Request</Link>
           </div>
         </div>
       ))}

@@ -1,48 +1,71 @@
-.login-container, .signup-container,.add-container{
+// Variables
+$primary-color: #B60C0C;
+$secondary-color: #404F9C;
+$input-bg-color: #f5f5f5;
+$input-border-color: #e6e5e5;
+$container-bg: #FFFFFF;
+$box-shadow-color: #ECECEC;
+$placeholder-color: #626262;
+
+// Mixins
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+// Container styles
+.login-container, 
+.signup-container,
+.add-container,
+.req-container {
   margin-top: 100px;
-    margin-left: 100px;
-    padding: 20px;
-    width: 65%;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 10px #ECECEC;
-    border-radius: 20px;
-  }
+  margin-left: 100px;
+  padding: 20px;
+  width: 65%;
+  background: $container-bg;
+  box-shadow: 0px 0px 10px $box-shadow-color;
+  border-radius: 20px;
+}
 
-.input{
-  background-color: #f5f5f5;
-  border: 1px solid #e6e5e5;
+// Input styles
+.input {
+  background-color: $input-bg-color;
+  border: 1px solid $input-border-color;
   padding: 12px;
+
+  &::placeholder {
+    color: $placeholder-color;
+  }
 }
 
-.input::placeholder{
-  color: #626262;
-}
-
+// Button styles
 .button {
-    display: inline-block; 
-    padding: 10px 20px; 
-    margin: 0 5px; 
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    background-color: #f8f9fa; 
-    color: #B60C0C; 
-    cursor: pointer; 
-    text-align: center; 
-    transition: background-color 0.3s, color 0.3s;
-  }
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  @include button-style(#f8f9fa, $primary-color);
 
-  .button:hover{
-    background-color: #B60C0C; 
-    color: #fff;}
-  
-  .button.active {
-    background-color: #B60C0C; 
-    color: #fff; 
-    border-color: #B60C0C;
-  }
-  
-  #btnSubmit, #btnAdd, #btnSignup{
-    background-color: #404F9C;
+  &:hover {
+    background-color: $primary-color;
     color: #fff;
   }
 
+  &.active {
+    background-color: $primary-color;
+    color: #fff;
+    border-color: $primary-color;
+  }
+}
+
+// Specific button IDs
+#btnSubmit,
+#btnAdd,
+#btnSignup,
+#btnRequest {
+  @include button-style($secondary-color, #fff);
+}

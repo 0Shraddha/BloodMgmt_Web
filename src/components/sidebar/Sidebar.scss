@@ -1,84 +1,87 @@
-.navbar-expand-lg .navbar-nav{
-    flex-direction: column!important;
-}
-.navbar-brand{
-    padding-left: 2.5rem;
-}
-#navbarNav{
-    margin-top: 4rem;
-}
-.nav-link.active{
-    color: #B60C0C!important;
-    border-radius: 4px;
-    font-family: "Lato", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-.nav-item{
-    padding-left: 1rem; 
-}
-.nav-item:has(.nav-link.active) {
-    background-color: #fde0e0; 
-  }
+// Variables
+$primary-color: #B60C0C;
+$active-bg-color: #fde0e0;
+$font-family: "Lato", sans-serif;
+$padding-left-navbar: 2.5rem;
+$margin-top-navbar: 4rem;
+$padding-left-item: 1rem;
 
-/* Font classes */
+// Navbar styles
+.navbar-expand-lg {
+  .navbar-nav {
+    flex-direction: column !important;
+  }
+}
+
+.navbar-brand {
+  padding-left: $padding-left-navbar;
+}
+
+#navbarNav {
+  margin-top: $margin-top-navbar;
+}
+
+.nav-link {
+  &.active {
+    color: $primary-color !important;
+    border-radius: 4px;
+    font-family: $font-family;
+    font-weight: 700;
+    font-style: normal;
+  }
+}
+
+.nav-item {
+  padding-left: $padding-left-item;
+
+  &:has(.nav-link.active) {
+    background-color: $active-bg-color;
+  }
+}
+
+// Font classes
+@mixin lato-font($weight, $style: normal) {
+  font-family: $font-family;
+  font-weight: $weight;
+  font-style: $style;
+}
+
 .lato-thin {
-    font-family: "Lato", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-  }
-  
-  .lato-light {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  .lato-regular {
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .lato-bold {
-    font-family: "Lato", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .lato-black {
-    font-family: "Lato", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-  }
-  
-  .lato-thin-italic {
-    font-family: "Lato", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-  }
-  
-  .lato-light-italic {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-  }
-  
-  .lato-regular-italic {
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-  }
-  
-  .lato-bold-italic {
-    font-family: "Lato", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-  }
-  
-  .lato-black-italic {
-    font-family: "Lato", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-  }
-  
+  @include lato-font(100);
+}
+
+.lato-light {
+  @include lato-font(300);
+}
+
+.lato-regular {
+  @include lato-font(400);
+}
+
+.lato-bold {
+  @include lato-font(700);
+}
+
+.lato-black {
+  @include lato-font(900);
+}
+
+.lato-thin-italic {
+  @include lato-font(100, italic);
+}
+
+.lato-light-italic {
+  @include lato-font(300, italic);
+}
+
+.lato-regular-italic {
+  @include lato-font(400, italic);
+}
+
+.lato-bold-italic {
+  @include lato-font(700, italic);
+}
+
+.lato-black-italic {
+  @include lato-font(900, italic);
+}
