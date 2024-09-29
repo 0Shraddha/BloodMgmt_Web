@@ -20,6 +20,16 @@ export const TabsContent = {
             platelets: '19',
             plasma: '0'
         }  
+    },{
+        center : 'Patan Hospital Pvt Ltd',
+        location : 'Lagankhel',
+        contact : '01-4280824/01-4253802',
+        type : {
+            whole_blood : '25',
+            red_blood_cells: '15',
+            platelets: '22',
+            plasma: '30'
+        }
     }],
     'A-': [{
         center : 'Patan Hospital Pvt Ltd',
@@ -30,6 +40,26 @@ export const TabsContent = {
             red_blood_cells: '15',
             platelets: '22',
             plasma: '30'
+        }
+    },{
+        center : 'Bir Hospital',
+        location : 'Sundhara',
+        contact : '01-4585482/01-4454802',
+        type : {
+            whole_blood : '50',
+            red_blood_cells: '35',
+            platelets: '32',
+            plasma: '40'
+        }
+    },{
+        center : 'Bir Hospital',
+        location : 'Sundhara',
+        contact : '01-4585482/01-4454802',
+        type : {
+            whole_blood : '50',
+            red_blood_cells: '35',
+            platelets: '32',
+            plasma: '40'
         }
     },{
         center : 'Alka Hospital Pvt Ltd',
@@ -51,6 +81,16 @@ export const TabsContent = {
             red_blood_cells: '35',
             platelets: '32',
             plasma: '40'
+        }
+    },{
+        center : 'Patan Hospital Pvt Ltd',
+        location : 'Lagankhel',
+        contact : '01-4280824/01-4253802',
+        type : {
+            whole_blood : '25',
+            red_blood_cells: '15',
+            platelets: '22',
+            plasma: '30'
         }
     },{
         center : 'Grande Hospital Pvt Ltd',

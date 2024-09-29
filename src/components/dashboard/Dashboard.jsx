@@ -13,22 +13,10 @@ const Dashboard = () => {
   
   return (
     <>
-      <div className='row'>
-        <div className="col-1 sidebar-container">
-          <Sidebar />
-        </div>
-        <div className="col"> 
+     
           {/* THE CONTENTS GOES HERE */}
             <Cardcontent  />
             <TabButtonWrapper />
-         
-      </div>
-    </div >
-
-    <Signup  />
-    <Login />
-
-    <AddDonor />
     </>
   )
 }

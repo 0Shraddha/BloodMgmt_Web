@@ -13,8 +13,8 @@ const TabButtonWrapper = () => {
     }
   return (
     <>
-     <div className="row" style={{ marginTop : '50px'}}>
-      <Topbar title="Blood Availability" desc="Blood Available  in various Centers (1 UNITS equals to 450/500 ml)" />
+     <div className="row" style={{ marginTop : '10px'}}>
+      <Topbar title="Blood Availability In Different Center" desc="Blood Available  in various Centers (1 UNITS equals to 450/500 ml)" />
 
       <Tabs
       buttonsContainer="menu"   //string for built in components &&&  {section}--{} for custom components
@@ -27,25 +27,25 @@ const TabButtonWrapper = () => {
             </ul>
       </>}
       >
-      {TabsContent[selectedTab]?.map((centerInfo, index)=>(
-                  <div className='row bloodTabContent px-2 py-4 mx-2 mb-4'>
-                    <div className="col-6">
-                      
-                      <h4 style={{ color : '#404F9C'}}>{index+1}. {centerInfo.center}</h4>
-                      <i>{centerInfo.location}</i><br/>
-                      <a href='tel:{centerInfo.contact}'  style={{ textDecoration: 'none' , color : '#222'}}><i>{centerInfo.contact}</i></a>
-                    </div>
-                    <div className="col-5">
-                      <p>Whole Blood : <span className='type'> {centerInfo.type.whole_blood} </span>Units Available</p>
-                      <p>Red Blood Cells : <span className='type'> {centerInfo.type.red_blood_cells} </span>Units Available</p>
-                      <p>Platelets : <span className='type'> {centerInfo.type.platelets} </span>Units Available</p>
-                      <p>Plasma : <span className='type'> {centerInfo.type.plasma} </span>Units Available</p>
-                    </div>
-                    <div className="col">
-                      <button className='btn btn-sm btn-outline-success'>Request</button>
-                    </div>
-                  </div>
-                ))}
+      {TabsContent[selectedTab]?.map((centerInfo, index) => (
+        <div className='row bloodTabContent px-2 py-4 mx-2 mb-4' key={index}>
+          <div className="col-6">
+            <h4 style={{ color: '#404F9C' }}>{index + 1}. {centerInfo.center}</h4>
+            <i>{centerInfo.location}</i><br />
+            <a href={`tel:${centerInfo.contact}`} style={{ textDecoration: 'none', color: '#222'}}><i>{centerInfo.contact}</i></a>
+          </div>
+          <div className="col-5">
+            <p>Whole Blood: <span className='type'> {centerInfo.type.whole_blood} </span>Units Available</p>
+            <p>Red Blood Cells: <span className='type'> {centerInfo.type.red_blood_cells} </span>Units Available</p>
+            <p>Platelets: <span className='type'> {centerInfo.type.platelets} </span>Units Available</p>
+            <p>Plasma: <span className='type'> {centerInfo.type.plasma} </span>Units Available</p>
+          </div>
+          <div className="col">
+            <button className='btn btn-sm btn-outline-success'>Request</button>
+          </div>
+        </div>
+      ))}
+
         </Tabs>  
            
                 

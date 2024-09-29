@@ -1,8 +1,11 @@
-.signup-container{
-    margin-left: 300px;
-    border: 1px solid #b8b6b6; 
-    padding-bottom: 20px;
-    width: 60%;
+.login-container, .signup-container,.add-container{
+  margin-top: 100px;
+    margin-left: 100px;
+    padding: 20px;
+    width: 65%;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px #ECECEC;
+    border-radius: 20px;
   }
 
 .input{
@@ -38,7 +41,8 @@
     border-color: #B60C0C;
   }
   
-  #btnSubmit, #btnAdd{
+  #btnSubmit, #btnAdd, #btnSignup{
     background-color: #404F9C;
     color: #fff;
   }
+

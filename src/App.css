@@ -2,3 +2,8 @@ body
 {
   overflow-x: hidden;
 }
+
+.form-heading{
+  align-items: center;
+  color :#404F9C;
+}
