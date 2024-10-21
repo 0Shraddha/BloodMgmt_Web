@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../Registration/Input';
 import '../Registration/Input.scss';
 
 const AddDonor = () => {
+
+    
+
     return (
         <>
             <div className="add-container px-5 py-4">
-                    <h2 class="py-3 form-heading text-center">Fill up the Form</h2>
+                    <h2 className="py-3 form-heading text-center">Fill up the Form</h2>
                 <form action="" className='addDonorForm'>
                     <div className='row'>
                      <div className="px-0">
@@ -33,7 +36,7 @@ const AddDonor = () => {
                             </div>
                             <Input
                                 select
-                                label="Blood Group: (Select your blood group) "
+                                label="Blood Group: (Select blood group) "
                                 name="bloodType"
                                 options={[
                                     { value: 'A+', label: 'A+' },
@@ -48,7 +51,7 @@ const AddDonor = () => {
                             />
                         </div>
                         <div>
-                            <button className='btn' id="btnAdd">Add Donor</button>
+                            <button className='btn mt-3' id="btnAdd">Add Center</button>
                         </div>
                 </form>
             </div>

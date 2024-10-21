@@ -7,6 +7,7 @@ import Signup from './components/Registration/Signup';
 import CenterList from './components/AddDonor/CenterList';
 import AddDonor from './components/AddDonor/AddDonor';
 import RequestList from './components/Request/RequestList';
+import Campaign from './components/Campaign/Campaign';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
             <Route path="/add-center" element={<AddDonor />} />
             <Route path="/req-blood" element={<RequestList />} />
+            <Route path="/campaign" element={<Campaign/>} />
 
           </Routes>
         </div>

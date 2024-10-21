@@ -7,7 +7,7 @@ const CenterList = () => {
     <>
     <div className="row" style={{ marginTop:70, marginRight:50, marginBottom:0}}>
         <div className="col-12 text-end">
-            <Link to="/add-center" className='btn' id="btnSubmit">Add Donor</Link>
+            <Link to="/add-center" className='btn' id="btnSubmit">Add Center</Link>
         </div>
     </div>
         <TabButtonWrapper />

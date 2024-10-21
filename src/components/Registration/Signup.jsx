@@ -13,7 +13,7 @@ const Signup = () => {
     return (
         <>
             <div className="signup-container row">
-                <h2 class="py-3 form-heading text-center">Signup</h2>
+                <h2 className="py-3 form-heading text-center">Signup</h2>
                 <form onSubmit={handleSignup}> {/* Add form submission handler */}
                     <div className='row px-2'>
                         <div className="col-12 d-flex gap-4 py-1">
