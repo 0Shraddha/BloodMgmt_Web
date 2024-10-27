@@ -1,5 +1,5 @@
 import React from 'react'
-import './TabButton.scss'
+import '../../Styles/TabButton.scss'
 
 const TabButton = ({children, onSelect}) => {
 

@@ -10,6 +10,10 @@ const GetCenterList = () => {
     useEffect(() => {
       fetch('http://localhost:8080/center', {
         method: 'GET',
+        credentials: "include",
+        headers: {
+          "Content-Type" : "application/json"
+        }
       })
         .then(response => {
           if (!response.ok) {
@@ -30,9 +34,11 @@ const GetCenterList = () => {
         <ul>
           {centers.map((center, index) => (
             <li key={index}>
-              <h3>{center.name}</h3>
+              <h3>{center.centerName}</h3>
               <p>Location: {center.location}</p>
-              <p>Contact: {center.contact}</p>
+              <p>Contact: {center.phone}</p>
+              <p>Email: {center.email}</p>
+
             </li>
           ))}
         </ul>

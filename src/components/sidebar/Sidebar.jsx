@@ -1,5 +1,5 @@
 import React from 'react';
-import './Sidebar.scss';
+import '../../Styles/Sidebar.scss';
 import { Link } from 'react-router-dom'; 
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FaListUl } from "react-icons/fa6";

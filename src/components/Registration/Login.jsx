@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Input from './Input';
-import './Input.scss';
+import '../../Styles/Input.scss';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -15,6 +15,7 @@ const Login = () => {
     try {
       const response = await fetch('http://localhost:8080/center', {
         method: 'POST',
+        credentials: "include",
         body: JSON.stringify({ email, password }),
         headers: {
           'Content-Type': 'application/json',

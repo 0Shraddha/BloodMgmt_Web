@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../Sidebar/Sidebar'
 import '../../App.css';
-import './Dashboard.scss'
+import '../../Styles/Dashboard.scss'
 import Cardcontent from '../CardContent/Cardcontent';
 import TabButtonWrapper from '../TabButton/TabButtonWrapper';
 import Signup from '../Registration/Signup';

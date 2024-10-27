@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Input.scss';
+import '../../Styles/Input.scss';
 
 const Input = ({ label, textarea, select, options = [], type, ...props }) => {
   const [selectedValue, setSelectedValue] = useState('');

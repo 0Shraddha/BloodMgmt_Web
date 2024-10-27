@@ -1,6 +1,6 @@
 import React from 'react'
 import Input from '../Registration/Input'
-import '../Registration/Input.scss';
+import '../../Styles/Input.scss';
 
 
 const Campaign = () => {

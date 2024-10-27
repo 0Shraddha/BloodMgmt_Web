@@ -3,7 +3,7 @@ import { IoMailOutline } from "react-icons/io5";
 import { MdNotificationsNone } from "react-icons/md";
 import { RxAvatar } from "react-icons/rx";
 
-import './Topbar.scss'
+import '../../Styles/Topbar.scss'
 
 const Topbar = ({title, desc,  ...props}) => {
   return (

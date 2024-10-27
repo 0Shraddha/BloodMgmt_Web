@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './TabButton.scss'
+import '../../Styles/TabButton.scss'
 import { TabsContent } from '../../data';
 import Topbar from '../topbar/Topbar';
 import Tabs from './Tabs';

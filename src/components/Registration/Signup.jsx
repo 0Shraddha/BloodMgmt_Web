@@ -1,6 +1,6 @@
 import React from 'react';
 import Input from './Input';
-import './Input.scss';
+import '../../Styles/Input.scss';
 import { Link } from 'react-router-dom'; // Import Link
 
 const Signup = () => {

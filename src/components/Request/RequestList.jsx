@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css'
 // import Input from '../Registration/Input'
-import '../Registration/input.scss'
+import '../../Styles/Input.scss'
 import StatusBtn from './StatusBtn'
 import Topbar from '../topbar/Topbar'
 import ReqStatusCard from './ReqStatusCard'
