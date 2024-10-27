@@ -15,14 +15,6 @@ const AddDonor = () => {
                      <div className="px-0">
                         <Input label="Center Name: " type="text" id="centername" name="centerName" placeholder="Enter the center name... " />
                         </div>
-                        <div className="col-12 d-flex py-1 px-1 gap-2">
-                            <div className="col-6">
-                                <Input label="Firstname: " name="fname" id="fname" placeholder="Enter your firstname " type="text" />
-                            </div>
-                            <div className="col-6">
-                                <Input label="Lastname: " name="lname" id="lname" placeholder="Enter your lastname " type="text" />
-                            </div>
-                        </div>
                         <div className="px-0">
                         <Input label="Email: " name="email" id="email" placeholder="Enter your email address " type="text" />
 

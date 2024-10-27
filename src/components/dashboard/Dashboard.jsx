@@ -1,5 +1,5 @@
 import React from 'react'
-import Sidebar from '../sidebar/Sidebar'
+import Sidebar from '../Sidebar/Sidebar'
 import '../../App.css';
 import './Dashboard.scss'
 import Cardcontent from '../CardContent/Cardcontent';
