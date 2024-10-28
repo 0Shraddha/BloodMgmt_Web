@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from '../Components/dashboard/Dashboard';
 import Sidebar from '../Components/Sidebar/Sidebar';
-import Login from '../Components/Registration/Login';
+import Login from '../components/Registration/Login';
 import Signup from '../Components/Registration/Signup';
 import CenterList from '../Components/AddDonor/CenterList';
 import AddDonor from '../Components/AddDonor/AddDonor';

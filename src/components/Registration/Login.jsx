@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import Input from './Input';
 import '../../Styles/Input.scss';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8080/center', {
+      const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
         credentials: "include",
         body: JSON.stringify({ email, password }),
@@ -28,6 +30,7 @@ const Login = () => {
 
       const data = await response.json();
       console.log('response', data);
+      navigate('/')
     } catch (err) {
       console.error(err);
       setError(err.message); // Display error message if request fails

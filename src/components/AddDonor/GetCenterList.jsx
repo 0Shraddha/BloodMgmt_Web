@@ -8,7 +8,7 @@ const GetCenterList = () => {
   
     // Fetch donors from the backend when the component loads
     useEffect(() => {
-      fetch('http://localhost:8080/center', {
+      fetch('http://localhost:5000/center', {
         method: 'GET',
         credentials: "include",
         headers: {
