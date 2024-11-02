@@ -5,9 +5,10 @@ import Sidebar from '../Components/Sidebar/Sidebar';
 import Login from '../components/Registration/Login';
 import Signup from '../Components/Registration/Signup';
 import CenterList from '../Components/AddDonor/CenterList';
-import AddDonor from '../Components/AddDonor/AddDonor';
+import AddDonor from '../components/AddDonor/AddDonor';
 import RequestList from '../Components/Request/RequestList';
 import Campaign from '../Components/Campaign/Campaign';
+import Request from '../components/Request/Request';
 
 
 const Layout = () => {
@@ -28,7 +29,7 @@ const Layout = () => {
 
 
             <Route path="/add-center" element={<AddDonor />} />
-            <Route path="/req-blood" element={<RequestList />} />
+            <Route path="/req-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
 
           </Routes>

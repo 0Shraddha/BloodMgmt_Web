@@ -3,11 +3,12 @@ import TabButtonWrapper from '../TabButton/TabButtonWrapper'
 import { Link } from 'react-router-dom'
 import GetCenterList from './GetCenterList'
 
+
 const CenterList = () => {
   return (
     <>
 
-<GetCenterList/>
+<GetCenterList />
 
     <div className="row" style={{ marginTop:70, marginRight:50, marginBottom:0}}>
         <div className="col-12 text-end">
