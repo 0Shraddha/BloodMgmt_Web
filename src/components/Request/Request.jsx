@@ -6,7 +6,8 @@ const Request = () => {
 
     const [requestDetail, setRequestDetail] = useState({
         requestedBy : '',
-        date : '',
+        units : '',
+        bloodType: '',
         reason : ''
     })
     
@@ -28,7 +29,8 @@ const Request = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('requestedBy', requestDetail.requestedBy);
-        formData.append('date', requestDetail.date);
+        formData.append('bloodType', requestDetail.bloodType);
+        formData.append('units', requestDetail.units);
         formData.append('reason', requestDetail.reason);
         formData.append('document', document);
         try{
@@ -68,12 +70,28 @@ const Request = () => {
               value={requestDetail.requestedBy}
               onChange={handleChange}
             />
+             <select
+                id="bloodType"
+                name="bloodType"
+                value={requestDetail.bloodType}
+                onChange={handleChange}
+              >
+                <option value="">Select blood type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
             <Input
-              label="Date"
-              type="date"
-              placeholder="Book a date"
-              name="date"
-              value={requestDetail.date}
+              label="Blood Units"
+              type="number"
+              placeholder="Enter your blood Units"
+              name="units"
+              value={requestDetail.units}
               onChange={handleChange}
             />
             <Input
