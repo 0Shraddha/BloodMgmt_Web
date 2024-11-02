@@ -7,11 +7,15 @@ const Request = () => {
     const [requestDetail, setRequestDetail] = useState({
         requestedBy : '',
         date : '',
-        reason : '',
-        document : '',
+        reason : ''
     })
+    
     const [error, setError] = useState(null);
+    const [document, setDocument] = useState(null); // Separate state for file
 
+    const handleFileChange = (e) => {
+      setDocument(e.target.files[0]); // Set the actual file in state
+  };
     const handleChange = (e) => {
         const {name, value} = e.target;
         setRequestDetail((prevValues) => ({
@@ -22,19 +26,19 @@ const Request = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        const formData = new FormData();
+        formData.append('requestedBy', requestDetail.requestedBy);
+        formData.append('date', requestDetail.date);
+        formData.append('reason', requestDetail.reason);
+        formData.append('document', document);
         try{
-            const response = await fetch('http://localhost:5000//blood-request',{
+            const response = await fetch('http://localhost:5000/blood-request',{
                 method : 'POST',
                 credentials : 'include',
-                body: JSON.stringify({ 
-                    requestedBy : requestDetail.requestedBy,
-                    date : requestDetail.date,
-                    reason : requestDetail.reason,
-                    document : requestDetail.document}),
-                headers : {
-                    'Content-Type' : 'application/json',
-                },
+                body: formData,
+                // headers : {
+                //     'Content-Type' : 'application/json',
+                // },
             });
             if (!response.ok) {
                 throw new Error('Request Failed. Please try again.');
@@ -55,7 +59,7 @@ const Request = () => {
         <div className="login-container align-items-center">
           <h2 className="py-3 form-heading text-center">Request</h2>
     
-          <form className="py-4 px-5" onSubmit={handleSubmit}>
+          <form className="py-4 px-5" onSubmit={handleSubmit} encType="multipart/form-data">
             <Input
               label="Fullname"
               type="text"
@@ -77,8 +81,8 @@ const Request = () => {
               type="file"
               placeholder="Upload proof of document"
               name="document"
-              value={requestDetail.document}
-              onChange={handleChange}
+              accept="application/pdf"
+              onChange={handleFileChange}
             />
             <Input
               textarea
