@@ -29,7 +29,7 @@ const Layout = () => {
 
 
             <Route path="/add-center" element={<AddDonor />} />
-            <Route path="/req-blood" element={<Request />} />
+            <Route path="/request-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
 
           </Routes>

@@ -1,4 +1,5 @@
 import React from "react";
+import { BiBorderBottom } from "react-icons/bi";
 
 const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, bloodFor, profileImage }) => {
   return (
@@ -34,15 +35,16 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
 
 const styles = {
   card: {
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-    padding: "16px",
+    // border: "1px solid #ddd",
+    // borderRadius: "8px",
+    padding: "25px 16px",
     marginBottom: "16px",
     backgroundColor: "#fff",
     display: "flex",
     flexDirection: "column",
     gap: "8px",
-    boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)"
+    borderBottom: "1px solid #ddd",
+    // boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)"
   },
   header: {
     display: "flex",

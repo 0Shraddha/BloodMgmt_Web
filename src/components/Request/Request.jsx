@@ -71,6 +71,7 @@ const Request = () => {
               onChange={handleChange}
             />
              <select
+              className='form-control'
                 id="bloodType"
                 name="bloodType"
                 value={requestDetail.bloodType}
