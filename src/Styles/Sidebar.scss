@@ -1,87 +1,61 @@
 // Variables
 $primary-color: #B60C0C;
-$active-bg-color: #fde0e0;
-$font-family: "Lato", sans-serif;
-$padding-left-navbar: 2.5rem;
-$margin-top-navbar: 4rem;
-$padding-left-item: 1rem;
+$secondary-color: rgb(64, 79, 156);
+$active-bg-color: #fff0f0;
+$hover-bg-color: #f0f4f7; // Subtle hover background color
+$font-family: "Poppins", sans-serif;
 
-// Navbar styles
-.navbar-expand-lg {
-  .navbar-nav {
-    flex-direction: column !important;
-  }
-}
-
-.navbar-brand {
-  padding-left: $padding-left-navbar;
-}
-
-#navbarNav {
-  margin-top: $margin-top-navbar;
-}
-
-.nav-link {
-  &.active {
-    color: $primary-color !important;
-    border-radius: 4px;
-    font-family: $font-family;
-    font-weight: 700;
-    font-style: normal;
-  }
-}
-
-.nav-item {
-  padding-left: $padding-left-item;
-
-  &:has(.nav-link.active) {
-    background-color: $active-bg-color;
-  }
-}
-
-// Font classes
-@mixin lato-font($weight, $style: normal) {
+// Sidebar styles
+#sidebar {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 250px;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  background-color: #f5f6f7;
   font-family: $font-family;
-  font-weight: $weight;
-  font-style: $style;
+
+  // Optional: Add a shadow for a subtle 3D effect
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
 }
 
-.lato-thin {
-  @include lato-font(100);
+#sidebar ul {
+  list-style: none;
+  padding: 0;
 }
 
-.lato-light {
-  @include lato-font(300);
+#sidebar li:first-child {
+  margin: 2em 0 3em;
 }
 
-.lato-regular {
-  @include lato-font(400);
+#sidebar li a {
+  display: flex;
+  align-items: center;
+  color: $secondary-color;
+  padding: 0.7em 1em;
+  font-weight: 400;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
 }
 
-.lato-bold {
-  @include lato-font(700);
+#sidebar li a {
+  padding: 0.7em 1em;
+  margin: 0 1em;
 }
 
-.lato-black {
-  @include lato-font(900);
+#sidebar li a:hover {
+  background-color: $hover-bg-color;
+  color: $primary-color;
 }
 
-.lato-thin-italic {
-  @include lato-font(100, italic);
-}
-
-.lato-light-italic {
-  @include lato-font(300, italic);
-}
-
-.lato-regular-italic {
-  @include lato-font(400, italic);
-}
-
-.lato-bold-italic {
-  @include lato-font(700, italic);
-}
-
-.lato-black-italic {
-  @include lato-font(900, italic);
+#sidebar li a.active {
+  color: $primary-color;
+  background-color: #fff;
+  // border: 2px solid $primary-color;
+  border-radius: 6px;
+  padding: 0.7em 1em;
+  font-weight: 500;
+  margin: 0 1em;
 }

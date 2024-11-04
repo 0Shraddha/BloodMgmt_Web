@@ -3,8 +3,8 @@ import '../../App.css'
 // import Input from '../Registration/Input'
 import '../../Styles/Input.scss'
 import StatusBtn from './StatusBtn'
-import Topbar from '../topbar/Topbar'
 import ReqStatusCard from './ReqStatusCard'
+import Heading from '../Heading/Heading'
 
 const RequestList = () => {
     function handleStatus(){
@@ -14,7 +14,7 @@ const RequestList = () => {
   return (
    <>
     <div className="row" style={{ marginTop : '10px'}}>
-      <Topbar title="Blood Request Lists" desc="Blood Request Status to be checked" />
+      <Heading title="Blood Request Lists" desc="Blood Request Status to be checked" />
 
         <div className="btn-container d-flex my-3">
             <StatusBtn btnClass="mx-1 btn btn-warning" onClick={handleStatus}>Pending</StatusBtn>

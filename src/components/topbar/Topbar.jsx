@@ -1,29 +1,22 @@
 import React from 'react'
-import { IoMailOutline } from "react-icons/io5";
-import { MdNotificationsNone } from "react-icons/md";
-import { RxAvatar } from "react-icons/rx";
+import { IoMailOpenOutline } from 'react-icons/io5'
+import { MdNotificationsNone } from 'react-icons/md'
+import { RxAvatar } from 'react-icons/rx'
 
-import '../../Styles/Topbar.scss'
-
-const Topbar = ({title, desc,  ...props}) => {
+const Topbar = () => {
   return (
     <>
-        {/* <div className="row d-flex text-end" id="topbar">
+         <div className="row d-flex text-end position-absolute">
           <div>
-            <span><IoMailOutline size={20}/></span>
+            <span><IoMailOpenOutline size={20}/></span>
             <span><MdNotificationsNone size={20}/></span>
-            <span><RxAvatar size={30}/></span>
+            <span><RxAvatar size={20}/></span>
+            </div>
           
             <div>
                 <span>Shraddha Dongol</span>
                 <p>ADMIN</p>
             </div>
-            </div>
-        </div> */}
-
-        <div className="row heading mt-5" {...props}>
-          <h3 style={{ color: '#404F9C' }}>{title}</h3>
-          <small className="text-muted">{desc}</small>
         </div>
     </>
   )

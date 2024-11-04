@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import '../../Styles/TabButton.scss'
 import { TabsContent } from '../../data';
-import Topbar from '../topbar/Topbar';
+import Heading from '../Heading/Heading';
 import Tabs from './Tabs';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const TabButtonWrapper = () => {
   return (
     <>
      <div className="row" style={{ marginTop : '10px'}}>
-      <Topbar title="Blood Availability In Different Center" desc="Blood Available  in various Centers (1 UNITS equals to 450/500 ml)" />
+      <Heading title="Blood Availability In Different Center" desc="Blood Available  in various Centers (1 UNITS equals to 450/500 ml)" />
 
       <Tabs
       buttonsContainer="menu"   //string for built in components &&&  {section}--{} for custom components

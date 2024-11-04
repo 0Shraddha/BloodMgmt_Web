@@ -6,14 +6,10 @@ $border-color: #d8d8d8;
 $blood-tab-bg: aliceblue;
 $type-color: rgb(221, 16, 16);
 
-// Sidebar container styles
-.sidebar-container {
-  margin-top: -150px;
-  position: relative;
-  width: 15vw;
-  margin-right: 2.5rem;
-  background: $sidebar-bg;
-  box-shadow: $box-shadow;
+//
+.main-wrapper{
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 
 // Navbar styles

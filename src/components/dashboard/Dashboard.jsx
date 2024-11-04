@@ -11,10 +11,11 @@ const Dashboard = () => {
   
   return (
     <>
-          {/* THE CONTENTS GOES HERE */}
-            <Cardcontent  />
+         
+      <ApexChart />
+      {/* THE CONTENTS GOES HERE */}
+      <Cardcontent  />
             <TabButtonWrapper />
-     <ApexChart />
 
     </>
   )

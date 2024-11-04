@@ -134,17 +134,17 @@ class ApexChart extends React.Component {
   render() {
     return (
       <div>
-        <div className="row ">
-            <div className="col-4 p-4 border">
+        <div className="row mt-5">
+            <div className="col-4 p-5">
                 <div className="text-center my-3">
                     <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #FF6699',backgroundColor: 'rgb(253,224,224, .5)'}}>Blood Inventory</span>
                 </div>
-                <div id="chart">
+                <div id="chart" className="mt-4">
                     <ReactApexChart options={this.state.polarOptions} series={this.state.polarSeries} type="polarArea" />
                 </div>
             
             </div>
-            <div className="col-4 p-4 border">
+            <div className="col-4 p-4">
                  {/* Radial Bar Chart */}
                  <div className="text-center my-3">
                     <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #3577f1',backgroundColor: 'rgba(53, 119, 241, .1)'}}>Blood Requests</span>
@@ -153,7 +153,7 @@ class ApexChart extends React.Component {
                 <ReactApexChart options={this.state.radialOptions} series={this.state.radialSeries} type="radialBar" />
                 </div>
             </div>
-                <div className="col-4 p-4 border">
+                <div className="col-4 p-4">
                     {/* Radial Bar Chart */}
                     <div className="text-center my-3">
                         <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #0AB39C',backgroundColor: 'rgba(3, 259, 141, .1)'}}>Blood Received</span>

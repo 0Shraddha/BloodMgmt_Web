@@ -1,11 +1,11 @@
 import React from 'react'
 import Card from './Card'
-import Topbar from '../topbar/Topbar'
+import Heading from '../Heading/Heading'
 
 const Cardcontent = () => {
   return (
     <>
-    <Topbar title="Weekly Sumup"
+    <Heading title="Weekly Sumup"
               desc="Get summary of weekly transactions here."/>
         <div className="row d-flex" id="main_contents">
             <div className="col">
