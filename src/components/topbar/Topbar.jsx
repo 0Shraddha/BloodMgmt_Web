@@ -6,18 +6,19 @@ import { RxAvatar } from 'react-icons/rx'
 const Topbar = () => {
   return (
     <>
-         <div className="row d-flex text-end position-absolute">
+         <div className="row d-flex text-end position-absolute bg-light py-2">
           <div>
-            <span><IoMailOpenOutline size={20}/></span>
-            <span><MdNotificationsNone size={20}/></span>
-            <span><RxAvatar size={20}/></span>
+            <div className="px-4 d-inline">
+              <span><IoMailOpenOutline size={20}/></span>
+              <span><MdNotificationsNone size={20}/></span>
             </div>
-          
-            <div>
+             <span className="mx-2">
+                <span className='px-1'><RxAvatar size={20}/></span>
                 <span>Shraddha Dongol</span>
-                <p>ADMIN</p>
-            </div>
-        </div>
+             </span>
+            <span className='px-1 py-1 rounded-pill' style={{ color:'#22A777',backgroundColor: '#f2fff1'}}>ADMIN</span>
+          </div>
+          </div>
     </>
   )
 }

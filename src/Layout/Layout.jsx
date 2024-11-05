@@ -20,11 +20,11 @@ const Layout = () => {
           <div className="row topbar">
             <Topbar />
           </div>
-      <div className='row main-wrapper'>
+      <div className='row main-wrapper gap-0'>
         <div className="col-1 sidebar-container">
           <Sidebar />
         </div>
-        <div className="col"> 
+        <div className="col px-5"> 
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />

@@ -5,6 +5,10 @@ $active-bg-color: #fff0f0;
 $hover-bg-color: #f0f4f7; // Subtle hover background color
 $font-family: "Poppins", sans-serif;
 
+.row {
+   --bs-gutter-x: 0;
+}
+
 // Sidebar styles
 #sidebar {
   box-sizing: border-box;
@@ -17,7 +21,7 @@ $font-family: "Poppins", sans-serif;
   font-family: $font-family;
 
   // Optional: Add a shadow for a subtle 3D effect
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
 }
 
 #sidebar ul {

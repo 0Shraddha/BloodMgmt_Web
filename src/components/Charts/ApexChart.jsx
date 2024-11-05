@@ -134,10 +134,10 @@ class ApexChart extends React.Component {
   render() {
     return (
       <div>
-        <div className="row mt-5">
-            <div className="col-4 p-5">
+        <div className="row mt-5 ">
+            <div className="col-4 p-4">
                 <div className="text-center my-3">
-                    <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #FF6699',backgroundColor: 'rgb(253,224,224, .5)'}}>Blood Inventory</span>
+                    <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:'#FB8E3B',backgroundColor: '#FFF2E8'}}>Blood Inventory</span>
                 </div>
                 <div id="chart" className="mt-4">
                     <ReactApexChart options={this.state.polarOptions} series={this.state.polarSeries} type="polarArea" />
