@@ -5,7 +5,7 @@ const Heading = ({title, desc,  ...props}) => {
     <>
        
 
-        <div className="row heading mt-5" {...props}>
+        <div className="row heading" {...props}>
           <h3 style={{ color: '#404F9C' }}>{title}</h3>
           <small className="text-muted">{desc}</small>
         </div>
