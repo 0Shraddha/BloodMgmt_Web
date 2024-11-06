@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import Input from '../Registration/Input';
 import '../../Styles/Input.scss'
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AddDonor = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const centerData = location.state?.centerData;
+
 
     const [centerValues, setCenterValues] = useState({
-        centerName : '',
-        email : '',
-        phone : '',
-        location : ''
+        centerName : centerData ?.centerName || '',
+        email : centerData ?.email || '',
+        phone : centerData ?.phone ||'',
+        location : centerData ?.location ||''
     });
     const [error, setError] = useState(null);
 
@@ -23,15 +26,17 @@ const AddDonor = () => {
 
     }
 
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try{
-            const response = await fetch('http://localhost:5000/center',{
-                method : 'POST',
+            const method = centerData ? 'PUT' : 'POST';
+            const url = centerData
+                ? `http://localhost:5000/center/${centerData._id}`
+                : 'http://localhost:5000/center';
+
+            const response = await fetch(url,{
+                method,
                 credentials : 'include',
                 body: JSON.stringify({ 
                     centerName : centerValues.centerName,
@@ -95,7 +100,7 @@ const AddDonor = () => {
                                  onChange={handleValues}
                                  /></div>
                             </div>
-                            <Input
+                            {/* <Input
                                 select
                                 label="Blood Group: (Select blood group) "
                                 name="bloodType"
@@ -109,10 +114,10 @@ const AddDonor = () => {
                                     { value: 'O+', label: 'O+' },
                                     { value: 'O-', label: 'O-' },
                                 ]}
-                            />
+                            /> */}
                         </div>
                         <div>
-                            <button className='btn mt-3' id="btnAdd">Add Center</button>
+                            <button className='btn mt-3' id="btnAdd">{centerData ? 'Update Center' : 'Add Center'}</button>
                         </div>
                 </form>
             </div>
