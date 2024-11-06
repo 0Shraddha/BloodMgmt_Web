@@ -1,19 +1,20 @@
 import React from 'react'
 import Input from '../../components/Registration/Input'
 import '../../Styles/Input.scss';
+import Heading from '../Heading/Heading';
 
 
 const Campaign = () => {
   return (
     <>
     <div className="add-container px-5 py-4">
-              <h2 className="py-3 form-heading text-center">Add The Upcoming Campaign Details</h2>
+      <Heading title='Campaign Form'/>
                 <form action="" className='addCampaignForm'>
                     <div className='row'>
-                       <div className="px-0">
+                       <div className="px-0" style={{marginBottom: '10px'}}>
                             <Input label="Center Name: " type="text" id="centername" name="centerName" placeholder="Enter the center name... " />
                         </div>
-                        <div className="col-12 d-flex py-1 px-1 gap-2">
+                        <div className="col-12 d-flex py-1 px-1 gap-2" style={{marginBottom: '10px'}}>
                             <div className="col-12">
                                 <Input label="Title: " name="title" id="title" placeholder="Enter event title " type="text" />
                             </div>
@@ -25,7 +26,7 @@ const Campaign = () => {
                             <Input label="Event Date: " name="date" id="date" placeholder="Enter your phone number " type="date" />
                         </div>
 
-                        <div className="col-12 d-flex py-1 px-1 gap-2">
+                        <div className="col-12 d-flex py-1 px-1 gap-2" style={{marginBottom: '10px', marginTop: '10px'}}>
                              <div className="col-12">
                                 <Input textarea label="Description: " name="description" id="description" placeholder="Enter your description "  />
                               </div>

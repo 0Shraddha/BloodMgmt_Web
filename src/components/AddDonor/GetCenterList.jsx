@@ -47,6 +47,8 @@ const GetCenterList = () => {
       selector: row => row.centerName,
       sortable: true,
       style: { color: '#404f9c', fontWeight: '500', textTransform: 'capitalize' },
+      width: '350px',
+
     },
     {
       name: 'Location',
@@ -56,6 +58,8 @@ const GetCenterList = () => {
     {
       name: 'Contact',
       selector: row => row.phone,
+      width: '150px',
+
     },
     {
       name: 'Email',
@@ -77,7 +81,6 @@ const GetCenterList = () => {
   ];
 
   const handleEdit = (row) => {
-    console.log("the id:: ", row._id);
     const centerId = row._id;
 
     const fetchEditCenters = async () => {
@@ -102,7 +105,6 @@ const GetCenterList = () => {
         setError(error.message);
       }
     };
-
     fetchEditCenters();
   }
 

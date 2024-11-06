@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Input from '../Registration/Input';
+import Heading from '../Heading/Heading';
 import '../../Styles/Input.scss'
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -64,7 +65,8 @@ const AddDonor = () => {
     return (
         <>
             <div className="add-container px-5 py-4">
-                    <h2 className="py-3 form-heading text-center">Fill up the Form</h2>
+          <Heading title="Center Form"/>
+
                 <form onSubmit={handleSubmit} className='addDonorForm'>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -79,17 +81,20 @@ const AddDonor = () => {
                             name="centerName" 
                             placeholder="Enter the center name... " 
                             value={centerValues.centerName}
-                            onChange={handleValues} />
+                            onChange={handleValues}
+                            style={{marginBottom: '10px'}} 
+                            />
                         </div>
                         <div className="px-0">
                         <Input label="Email: " name="email" id="email" placeholder="Enter your email address " type="text" 
                          value={centerValues.email}
                          onChange={handleValues}
+                         style={{marginBottom: '10px'}}
                         />
 
                         </div>
 
-                        <div className="col-12 d-flex py-1 px-1 gap-2">
+                        <div className="col-12 d-flex py-1 px-1 gap-2" style={{marginBottom: '10px'}}>
                              <div className="col-6">
                                 <Input label="Phone no.: " name="phone" id="phone" placeholder="Enter your phone number " type="number"
                                  value={centerValues.phone}
