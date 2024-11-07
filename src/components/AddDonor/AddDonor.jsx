@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Input from '../Registration/Input';
 import Heading from '../Heading/Heading';
+import Map from '../MapWithSearch/Map';
 import '../../Styles/Input.scss'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from "react-toastify";
@@ -16,7 +17,9 @@ const AddDonor = () => {
         centerName: centerData?.centerName || '',
         email: centerData?.email || '',
         phone: centerData?.phone || '',
-        location: centerData?.location || ''
+        location: centerData?.location || '',
+        latitude: centerData?.latitude || '',
+        longitude: centerData?.longitude || '',
     });
     const [error, setError] = useState(null);
 
@@ -28,6 +31,19 @@ const AddDonor = () => {
         }));
 
     }
+
+    const updateLocation = (newLocation) => {
+        setCenterValues((prevValues) => ({
+          ...prevValues,
+          location: newLocation.address, 
+          latitude : newLocation.latitude,
+          longitude: newLocation.longitude
+          
+          // Update the location field
+        }));
+        console.log(newLocation);
+
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -45,7 +61,7 @@ const AddDonor = () => {
                     centerName: centerValues.centerName,
                     email: centerValues.email,
                     phone: centerValues.phone,
-                    location: centerValues.location
+                    location: centerValues.location,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +137,8 @@ const AddDonor = () => {
                                 required
                             />
                         </div>
-                        <div className="px-0">
+                        <div className="col-12 d-flex py-1 px-1 gap-2" style={{ marginBottom: '10px' }}>
+                            <div className="col-6">
                             <Input label="Email: " name="email" id="email" placeholder="Enter your email address " type="text"
                                 value={centerValues.email}
                                 onChange={handleValues}
@@ -129,10 +146,7 @@ const AddDonor = () => {
                                 required
 
                             />
-
-                        </div>
-
-                        <div className="col-12 d-flex py-1 px-1 gap-2" style={{ marginBottom: '10px' }}>
+                            </div>
                             <div className="col-6">
                                 <Input label="Phone no.: " name="phone" id="phone" placeholder="Enter your phone number " type="number"
                                     value={centerValues.phone}
@@ -140,15 +154,39 @@ const AddDonor = () => {
                                     required
                                 />
                             </div>
-                            <div className="col-6">
-                                <Input label="Location: " name="location" id="location" placeholder="Enter your location " type="text"
-                                    value={centerValues.location}
+                        </div>
+                        <div className="row">
+                           {/* {centerData ? 
+                           <Input 
+                           label="Location: " 
+                           name="location" 
+                           id="location" 
+                           placeholder="Enter your location" 
+                           type="text"
+                           value={centerValues.location}
+                           required
+                         />
+                   
+                            : */}
+
+                            <Map onLocationChange={updateLocation} />
+                            <Input label="Longitude: " name="longitude" 
+                            // type="hidden"
+                                        value={centerValues.latitude}
+                                        onChange={handleValues}
+                                        required
+                                    />
+                             <Input label="Latitude " name="latitude" 
+                            //  type="hidden"
+                                    value={centerValues.longitude}
                                     onChange={handleValues}
                                     required
-
                                 />
+                            {/* } */}
+                       
+
+                              
                             </div>
-                        </div>
                         {/* <Input
                                 select
                                 label="Blood Group: (Select blood group) "

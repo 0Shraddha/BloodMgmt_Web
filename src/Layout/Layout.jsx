@@ -11,6 +11,7 @@ import RequestList from '../components/Request/RequestList';
 import Campaign from '../Components/Campaign/Campaign';
 import Request from '../components/Request/Request';
 import BloodInventory from '../components/Inventory/BloodInventory';
+import Map from '../components/MapWithSearch/Map';
 
 
 const Layout = () => {
@@ -21,7 +22,7 @@ const Layout = () => {
             <Topbar />
           </div>
       <div className='row main-wrapper gap-0'>
-        <div className="col-1 sidebar-container">
+        <div className="col-2 sidebar-container">
           <Sidebar />
         </div>
         <div className="col px-5"> 
@@ -37,6 +38,7 @@ const Layout = () => {
             <Route path="/blood-inventory" element={<BloodInventory />} />
             <Route path="/request-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
+            <Route path="/map" element={<Map/>} />
 
           </Routes>
         </div>

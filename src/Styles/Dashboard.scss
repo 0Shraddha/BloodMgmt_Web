@@ -8,8 +8,7 @@ $type-color: rgb(221, 16, 16);
 
 //
 .main-wrapper{
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
 }
 
 // Navbar styles

@@ -4,7 +4,6 @@ import '../../Styles/Dashboard.scss'
 import Cardcontent from '../CardContent/Cardcontent';
 import TabButtonWrapper from '../TabButton/TabButtonWrapper';
 import ApexChart from '../Charts/ApexChart';
-import MapComponent from '../MapWithSearch/MapComponent';
 
 
 
@@ -37,7 +36,7 @@ const Dashboard = () => {
         placeholder="Enter latitude, longitude"
         onBlur={handleLocationChange}
       />
-      <MapComponent location={location} />
+      {/* <MapComponent location={location} /> */}
     </>
   )
 }
