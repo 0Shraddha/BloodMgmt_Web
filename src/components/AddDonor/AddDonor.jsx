@@ -32,17 +32,13 @@ const AddDonor = () => {
 
     }
 
-    const updateLocation = (newLocation) => {
+    const handleLocationChange = (address, latitude, longitude) => {
         setCenterValues((prevValues) => ({
           ...prevValues,
-          location: newLocation.address, 
-          latitude : newLocation.latitude,
-          longitude: newLocation.longitude
-          
-          // Update the location field
+          location: address,
+          latitude: latitude,
+          longitude: longitude,
         }));
-        console.log(newLocation);
-
       };
 
     const handleSubmit = async (e) => {
@@ -62,6 +58,8 @@ const AddDonor = () => {
                     email: centerValues.email,
                     phone: centerValues.phone,
                     location: centerValues.location,
+                    latitude: centerValues.latitude,
+                    longitude: centerValues.longitude,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,7 +114,7 @@ const AddDonor = () => {
 
             <ToastContainer position="top-right" autoClose={3000} />
             <div className="add-container px-5 py-4">
-                <Heading title="Center Form" />
+                <Heading title="Center Form" className="py-3"/>
 
                 <form onSubmit={handleSubmit} className='addDonorForm'>
 
@@ -156,36 +154,9 @@ const AddDonor = () => {
                             </div>
                         </div>
                         <div className="row">
-                           {/* {centerData ? 
-                           <Input 
-                           label="Location: " 
-                           name="location" 
-                           id="location" 
-                           placeholder="Enter your location" 
-                           type="text"
-                           value={centerValues.location}
-                           required
-                         />
-                   
-                            : */}
-
-                            <Map onLocationChange={updateLocation} />
-                            <Input label="Longitude: " name="longitude" 
-                            // type="hidden"
-                                        value={centerValues.latitude}
-                                        onChange={handleValues}
-                                        required
-                                    />
-                             <Input label="Latitude " name="latitude" 
-                            //  type="hidden"
-                                    value={centerValues.longitude}
-                                    onChange={handleValues}
-                                    required
-                                />
-                            {/* } */}
-                       
-
-                              
+                          
+                            <Map onLocationChange={handleLocationChange}/>
+                    
                             </div>
                         {/* <Input
                                 select
@@ -204,8 +175,7 @@ const AddDonor = () => {
                             /> */
                         }
                     </div>
-                    <div>
-                        <button className='btn mt-3' id="btnAdd">{centerData ? 'Update Center' : 'Add Center'}</button>
+                    <div className='btn mt-3' style={{width:'100%'}} id="btnAdd">{centerData ? 'Update Center' : '+  Add Center'}
                     </div>
                 </form>
             </div>

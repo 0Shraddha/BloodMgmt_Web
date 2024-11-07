@@ -1,103 +1,109 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Input from '../Registration/Input';
+import React, { useEffect, useState, useRef } from 'react';
 import L from 'leaflet';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-geosearch/dist/geosearch.css';
+import Input from '../Registration/Input';
+import { FaSearch } from 'react-icons/fa';
+import "../../Styles/Map.scss"
 
 const Map = ({ onLocationChange }) => {
-  const mapRef = useRef(null);
-  const [currentMarker, setCurrentMarker] = useState(null);
-  const [location, setLocation] = useState({
-    address: 'None',
-    latitude: 'None',
-    longitude: 'None',
-  });
-
-  let mapInstance = useRef(null); // To keep track of map instance
+  const mapContainerRef = useRef(null); // Ref to store the map container
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [address, setAddress] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const mapRef = useRef(null); // Store the map instance in a ref
 
   useEffect(() => {
-    // Initialize the map centered on Kathmandu Sundhara only once
-    mapInstance.current = L.map(mapRef.current).setView([27.7017, 85.324], 13);
+    if (!mapRef.current) {
+      // Initialize map only once
+      mapRef.current = L.map(mapContainerRef.current).setView([27.7017, 85.324], 13);
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap',
-    }).addTo(mapInstance.current);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap',
+      }).addTo(mapRef.current);
 
-    // Handle map clicks
-    mapInstance.current.on('click', async (event) => {
-      const { lat, lng } = event.latlng;
+      // Ensure click event is triggered
+      mapRef.current.on('click', handleMapClick);
+    }
 
-      // Remove the previous marker
-      if (currentMarker) {
-        currentMarker.remove();
-      }
-
-      // Place a new marker
-      const marker = L.marker([lat, lng]).addTo(mapInstance.current);
-      setCurrentMarker(marker);
-
-      // Reverse geocode to get the address
-      const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`;
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const address = data.display_name || 'Address not found';
-        const locationData = {
-          address,
-          latitude: lat.toFixed(6),
-          longitude: lng.toFixed(6),
-        };
-        setLocation(locationData);
-        onLocationChange(locationData); // Pass the location back to the parent
-      } catch (error) {
-        console.error('Error retrieving address:', error);
-        const locationData = {
-          address: 'Error retrieving address.',
-          latitude: lat.toFixed(6),
-          longitude: lng.toFixed(6),
-        };
-        setLocation(locationData);
-        onLocationChange(locationData); // Pass the error location back to the parent
-      }
-    });
-
-    // Cleanup on unmount: remove the map
+    // Cleanup on unmount
     return () => {
-      mapInstance.current.remove();
+      if (mapRef.current) {
+        mapRef.current.off('click', handleMapClick);
+      }
     };
-  }, [currentMarker, onLocationChange]); // Re-run effect only when `currentMarker` changes
+  }, []);
+
+  const handleMapClick = (event) => {
+    console.log('Map clicked!', event.latlng); // Debugging line
+
+    const { lat, lng } = event.latlng;
+
+    // Remove previous markers if they exist
+    if (mapRef.current) {
+      mapRef.current.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          mapRef.current.removeLayer(layer);
+        }
+      });
+    }
+
+    // Add new marker and update state
+    const newMarker = L.marker([lat, lng]).addTo(mapRef.current);
+    setLatitude(lat);
+    setLongitude(lng);
+
+    // Fetch address via reverse geocoding
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`)
+      .then(response => response.json())
+      .then(data => {
+        const newAddress = data.display_name || 'Address not found';
+        setAddress(newAddress);
+        setSearchQuery(newAddress); // Update search input
+        if (onLocationChange) {
+          onLocationChange(newAddress, lat, lng); // Send data to parent component
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setAddress('Error retrieving address.');
+      });
+  };
 
   const handleSearch = async (event) => {
-    if (event.key === 'Enter') {
-      const query = event.target.value;
+    // Ensure search is triggered on Enter key
+    if (event.key === 'Enter' && searchQuery.trim()) {
+      event.preventDefault();
       const provider = new OpenStreetMapProvider();
-      const results = await provider.search({ query });
+      const results = await provider.search({ query: searchQuery });
 
       if (results.length > 0) {
         const result = results[0];
-        const { x: lng, y: lat, label: address } = result;
+        const { x: lng, y: lat, label: newAddress } = result;
 
-        // If there's a current marker, remove it from the map
-        if (currentMarker) {
-          currentMarker.remove();
+        // Remove previous markers if they exist
+        if (mapRef.current) {
+          mapRef.current.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+              mapRef.current.removeLayer(layer);
+            }
+          });
         }
 
-        // Create a new marker and update the map
-        const marker = L.marker([lat, lng]).addTo(mapInstance.current);
-        setCurrentMarker(marker);
-        mapInstance.current.setView([lat, lng], 13);
+        // Update marker
+        const newMarker = L.marker([lat, lng]).addTo(mapRef.current);
+        mapRef.current.setView([lat, lng], 13);
 
-        // Update the location state with the search result
-        const locationData = {
-          address,
-          latitude: lat.toFixed(6),
-          longitude: lng.toFixed(6),
-        };
-        setLocation(locationData);
-        onLocationChange(locationData); // Pass the location back to the parent
+        // Update state
+        setLatitude(lat);
+        setLongitude(lng);
+        setAddress(newAddress);
+        if (onLocationChange) {
+          onLocationChange(newAddress, lat, lng); // Send data to parent component
+        }
       } else {
         alert('Location not found. Please try another search.');
       }
@@ -106,37 +112,41 @@ const Map = ({ onLocationChange }) => {
 
   return (
     <div>
-      <div id="search-container" className='row'>
-        <div className="col-6"> 
-          <Input 
+      <div className='row bg-light px-3 py-4 d-flex' id="search-container" style={{ marginTop: '10px' }}>
+        <div className="col-12 d-flex justify-content-end">
+          <div className="input-wrapper" style={{ position: 'relative', width: '40%' }}>
+            <input
+              className='px-2 form-control'
+              type="text"
+              id="search-input"
+              placeholder="Search for a location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)} // onChange for input
+              onKeyDown={handleSearch} // Trigger search on Enter key press
+            />
+          </div>
+        </div>
+        <div className="col-12">
+          <Input
+            label="Location:"
             type="text"
-            placeholder="Search for a location..."
-            onKeyPress={handleSearch} 
+            id="location"
+            placeholder="Use the search bar to find your location"
+            value={address}
+            required
           />
         </div>
-        <div className="col-6 mt-4 ps-2">
-          <small className='text-secondary'>*Please enter to search the location in map</small>
+        <span className='pe-4 text-end text-secondary fs-12'>
+          <small><strong>Latitude:</strong> {latitude !== null ? latitude.toFixed(6) : 'None'}, <strong>Longitude:</strong> {longitude !== null ? longitude.toFixed(6) : 'None'}</small>
+        </span>
+
+        <div
+          id="map"
+          ref={mapContainerRef}
+          style={{ height: '400px', width: '100%', marginTop: '20px' }}
+        >
         </div>
       </div>
-
-      {/* Map container */}
-      <div id="map" ref={mapRef} style={{ height: '400px', width: '100%', marginTop: '20px' }}></div>
-      
-      {/* Location Information */}
-      <Input 
-        label="Location: " 
-        name="location" 
-        id="location" 
-        placeholder="Enter your location" 
-        type="text"
-        value={location.address}
-        readOnly
-        required
-      />
-
-      {/* Hidden inputs for latitude and longitude */}
-      <input type="hidden" className='form-control' value={location.latitude} />
-      <input type="hidden" className='form-control' value={location.longitude} />
     </div>
   );
 };
