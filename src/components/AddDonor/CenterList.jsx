@@ -20,7 +20,7 @@ const CenterList = () => {
     </div>
 <GetCenterList />
    
-        <TabButtonWrapper />
+        {/* <TabButtonWrapper /> */}
 
     </>
 
