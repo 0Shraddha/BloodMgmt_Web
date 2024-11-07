@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 import { useNavigate } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
+import { toast, ToastContainer } from 'react-toastify';
 
 const GetCenterList = () => {
   const [centers, setCenters] = useState([]);
@@ -28,6 +29,7 @@ const GetCenterList = () => {
 
         const data = await response.json();
         setCenters(data);
+
       } catch (error) {
         setError(error.message);
       }
@@ -72,8 +74,8 @@ const GetCenterList = () => {
           <span style={{ cursor: 'pointer', marginRight: '10px' }} onClick={() => handleEdit(row)}>
             <FaRegEdit size={'16px'} color='#fcba28'/>
           </span>
-          <span style={{ cursor: 'pointer' }}>
-            <MdDeleteOutline size={'17px'} color='#207ad8'/>
+          <span style={{ cursor: 'pointer' }} onClick={()=> handleDelete(row)}>
+            <MdDeleteOutline size={'17px'} color='#e1002d'/>
           </span>
         </div>
       ),
@@ -108,8 +110,45 @@ const GetCenterList = () => {
     fetchEditCenters();
   }
 
+  const handleDelete = (row) => {
+    const centerId = row._id;
+  
+    const deleteData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/center/${centerId}`, {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to delete the center');
+        }else{
+          toast.success("Successfully deleted!");
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
+        }
+
+       
+        
+      } catch (error) {
+        // Handle error (e.g., display error message)
+        toast.error(error.message); // Show error toast
+        console.error(error); // Log the error for debugging
+      }
+    };
+  
+    deleteData();
+  };
+  
+
   return (
     <div>
+            <ToastContainer position="top-right" autoClose={3000} />
+
 
       {error ? (
         <p

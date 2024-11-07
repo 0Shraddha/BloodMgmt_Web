@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../Styles/Input.scss';
+import { toast,ToastContainer } from 'react-toastify';
 
 const Input = ({ label, textarea, select, options = [], type, ...props }) => {
   const [selectedValue, setSelectedValue] = useState('');
@@ -10,6 +11,13 @@ const Input = ({ label, textarea, select, options = [], type, ...props }) => {
     setBloodInput(true);
     console.log("clicked!")
   };
+
+  const handleKeyDown = (e) => {
+    if(["e","E","+","-"].includes(e.key)){
+      e.preventDefault();
+      toast.warn("Must be a number");
+    }
+  }
 
   let bloodInputContainer;
     if(bloodInput){
@@ -49,7 +57,7 @@ const Input = ({ label, textarea, select, options = [], type, ...props }) => {
             <div>{bloodInputContainer}</div>
           </div>
         ) : (
-          <input className="input form-control" type={type} {...props} />
+          <input className="input form-control" type={type} onKeyDown={type === "number" ? handleKeyDown : undefined} {...props} />
         )}
       </div>
     </div>
