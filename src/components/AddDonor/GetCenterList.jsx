@@ -49,12 +49,13 @@ const GetCenterList = () => {
       selector: row => row.centerName,
       sortable: true,
       style: { color: '#404f9c', fontWeight: '500', textTransform: 'capitalize' },
-      width: '350px',
+      width: '300px',
 
     },
     {
       name: 'Location',
       selector: row => row.location,
+      width: '350px',
       sortable: true,
     },
     {
@@ -66,6 +67,7 @@ const GetCenterList = () => {
     {
       name: 'Email',
       selector: row => row.email,
+      width: '220px',
     },
     {
       name: 'Action',
