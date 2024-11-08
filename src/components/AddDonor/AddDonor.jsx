@@ -175,7 +175,9 @@ const AddDonor = () => {
                             /> */
                         }
                     </div>
-                    <div className='btn mt-3' style={{width:'100%'}} id="btnAdd">{centerData ? 'Update Center' : '+  Add Center'}
+                    <div>
+                    <button className='btn mt-3' style={{width:'100%'}} id="btnAdd">{centerData ? 'Update Center' : '+  Add Center'}
+                    </button>
                     </div>
                 </form>
             </div>
