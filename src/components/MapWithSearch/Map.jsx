@@ -113,8 +113,8 @@ const Map = ({ onLocationChange }) => {
   return (
     <div>
       <div className='row bg-light px-3 py-4 d-flex' id="search-container" style={{ marginTop: '10px' }}>
-        <div className="col-12 d-flex justify-content-end">
-          <div className="input-wrapper" style={{ position: 'relative', width: '40%' }}>
+        <div className="col-6 d-flex">
+          <div className="input-wrapper" style={{ position: 'relative', width: '100%' }}>
             <input
               className='px-2 form-control'
               type="text"
@@ -126,19 +126,18 @@ const Map = ({ onLocationChange }) => {
             />
           </div>
         </div>
-        <div className="col-12">
-          <Input
-            label="Location:"
-            type="text"
-            id="location"
-            placeholder="Use the search bar to find your location"
-            value={address}
-            required
-          />
+        <div className="col-4 px-2">
+          <small className="text-muted">**Enter to search the location</small>
         </div>
-        <span className='pe-4 text-end text-secondary fs-12'>
+  
+        <div className=' row pe-4 mt-3 text-secondary fs-12'>
+          <div className="col-6 border p-2">
+          <small><strong>Address:</strong> <br/>{address !== null ? address : 'Use the search bar to find your location'}</small>
+          </div>
+          <div className="col-6 border p-2">
           <small><strong>Latitude:</strong> {latitude !== null ? latitude.toFixed(6) : 'None'}, <strong>Longitude:</strong> {longitude !== null ? longitude.toFixed(6) : 'None'}</small>
-        </span>
+          </div>
+        </div>
 
         <div
           id="map"

@@ -9,7 +9,8 @@ const Input = ({ label, textarea, select, options = [], type, ...props }) => {
   const handleBtnClick = (value) => {
     setSelectedValue(value);
     setBloodInput(true);
-    console.log("clicked!")
+    console.log("clicked! " + selectedValue)
+
   };
 
   const handleKeyDown = (e) => {

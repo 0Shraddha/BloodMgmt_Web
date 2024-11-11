@@ -113,7 +113,7 @@ const AddDonor = () => {
         <>
 
             <ToastContainer position="top-right" autoClose={3000} />
-            <div className="add-container px-5 py-4">
+            <div className="add-container px-5 py-4 mb-5">
                 <Heading title="Center Form" className="py-3"/>
 
                 <form onSubmit={handleSubmit} className='addDonorForm'>
@@ -176,7 +176,7 @@ const AddDonor = () => {
                         }
                     </div>
                     <div>
-                    <button className='btn mt-3' style={{width:'100%'}} id="btnAdd">{centerData ? 'Update Center' : '+  Add Center'}
+                    <button className='btn my-3' style={{width:'100%'}} id="btnAdd">{centerData ? 'Update Center' : '+  Add Center'}
                     </button>
                     </div>
                 </form>

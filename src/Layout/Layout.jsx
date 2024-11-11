@@ -12,6 +12,7 @@ import Campaign from '../Components/Campaign/Campaign';
 import Request from '../components/Request/Request';
 import BloodInventory from '../components/Inventory/BloodInventory';
 import Map from '../components/MapWithSearch/Map';
+import DisplayBloodInventory from '../components/Inventory/DisplayBloodInventory';
 
 
 const Layout = () => {
@@ -39,6 +40,8 @@ const Layout = () => {
             <Route path="/request-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
             <Route path="/map" element={<Map/>} />
+            <Route path="/blood-inventory-list" element={<DisplayBloodInventory/>} />
+
 
           </Routes>
         </div>
