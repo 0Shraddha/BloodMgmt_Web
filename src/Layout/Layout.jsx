@@ -10,9 +10,10 @@ import AddDonor from '../components/AddDonor/AddDonor';
 import RequestList from '../components/Request/RequestList';
 import Campaign from '../Components/Campaign/Campaign';
 import Request from '../components/Request/Request';
-import BloodInventory from '../components/Inventory/BloodInventory';
 import Map from '../components/MapWithSearch/Map';
-import DisplayBloodInventory from '../components/Inventory/DisplayBloodInventory';
+// import DisplayBloodInventory from '../components/Inventory/DisplayBloodInventory';
+import BloodInventoryList from '../components/Inventory/BloodInventoryList';
+import BloodInventoryForm from '../components/Inventory/BloodInventoryForm';
 
 
 const Layout = () => {
@@ -36,11 +37,12 @@ const Layout = () => {
 
             
             <Route path="/add-center" element={<AddDonor />} />
-            <Route path="/blood-inventory" element={<BloodInventory />} />
             <Route path="/request-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
             <Route path="/map" element={<Map/>} />
-            <Route path="/blood-inventory-list" element={<DisplayBloodInventory/>} />
+            <Route path="/blood-inventory-list" element={<BloodInventoryList/>} />
+            <Route path="/blood-inventory-form" element={<BloodInventoryForm/>} />
+
 
 
           </Routes>

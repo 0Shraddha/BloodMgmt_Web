@@ -5,7 +5,7 @@ import Heading from '../Heading/Heading';
 import Input from '../Registration/Input';
 import { useNavigate } from 'react-router-dom';
 
-const BloodInventory = ({ centerData = null }) => {
+const BloodInventoryForm = ({ centerData = null }) => {
 
   const navigate = useNavigate();
   const [centerValues, setCenterValues] = useState({
@@ -55,7 +55,7 @@ const BloodInventory = ({ centerData = null }) => {
       console.log('response:', data);
       toast.success(centerData ? "Data updated successfully!" : "Data added successfully!");
 
-      // Set bloodInventory and totalBlood only on successful submission
+      // Set Formand totalBlood only on successful submission
       setBloodInventory(data.bloodInventory);
       setTotalBlood(data.totalBlood);
       console.log('Submission response:', data);
@@ -165,4 +165,4 @@ const BloodInventory = ({ centerData = null }) => {
   );
 };
 
-export default BloodInventory;
+export default BloodInventoryForm;

@@ -1,8 +1,8 @@
 import React from 'react'
-import TabButtonWrapper from '../TabButton/TabButtonWrapper'
+// import TabButtonWrapper from '../TabButton/TabButtonWrapper'
 import { Link } from 'react-router-dom'
 import GetCenterList from './GetCenterList'
-import Heading from '../Heading/Heading';
+import Heading from '../Heading/Heading'
 
 
 
