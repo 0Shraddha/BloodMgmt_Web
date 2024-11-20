@@ -26,7 +26,7 @@ const Sidebar = () => {
               <NavLink className="nav-link fw-semibold" to="/center"><FaListUl/><span className="px-3">Center List</span></NavLink>
             </li>
             <li>
-              <NavLink className="nav-link fw-semibold" to="/blood-inventory"><MdOutlineInventory2 /><span className="px-3">Blood Inventory</span></NavLink>
+              <NavLink className="nav-link fw-semibold" to="/blood-inventory-list"><MdOutlineInventory2 /><span className="px-3">Blood Inventory</span></NavLink>
             </li>
             <li>
               <NavLink className="nav-link fw-semibold" to="/request-list"><FaRegFile /><span className="px-3">Request List</span></NavLink>
