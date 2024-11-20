@@ -1,45 +1,33 @@
 import React, { useState } from 'react';
 import '../../Styles/Input.scss';
-import { toast,ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
-const Input = ({ label, textarea, select, options = [], type, ...props }) => {
+const Input = ({ label, textarea, select, options = [], type, error, onClearError, ...props }) => {
   const [selectedValue, setSelectedValue] = useState('');
-  const [bloodInput, setBloodInput ] = useState(false);
+  const [bloodInput, setBloodInput] = useState(false);
 
   const handleBtnClick = (value) => {
     setSelectedValue(value);
     setBloodInput(true);
-    console.log("clicked! " + selectedValue)
-
   };
 
   const handleKeyDown = (e) => {
-    if(["e","E","+","-"].includes(e.key)){
+    if (["e", "E", "+", "-"].includes(e.key)) {
       e.preventDefault();
       toast.warn("Must be a number");
     }
-  }
-
-  let bloodInputContainer;
-    if(bloodInput){
-        bloodInputContainer = <div className="row d-flex p-3 mt-3 bg-light"> 
-                                <div className="col-6">
-                                <Input label={`Units ( For ${selectedValue})`} type="number" id="units" name={`blood-unit-${selectedValue}`} placeholder={`Enter the units for ${selectedValue} `} />
-                                </div>
-                                <div className="col-6 text-center text-muted">
-                                  <p>[ <strong>1 Units</strong> euquivalent to <strong>4/5 l </strong>]</p>
-                                </div>
-                                 </div>;
-    }else{
-        bloodInputContainer = "";
-    }
+  };
 
   return (
     <div>
       <div>
         <label className="form-label">{label}</label>
         {textarea ? (
-          <textarea className='textarea form-control' {...props} />
+          <textarea
+            className='textarea form-control'
+            {...props}
+            onFocus={onClearError} // Clear error on focus
+          />
         ) : select ? (
           <div>
             {options.map((option, index) => (
@@ -52,15 +40,20 @@ const Input = ({ label, textarea, select, options = [], type, ...props }) => {
                 {option.label}
               </button>
             ))}
-            
             {/* Hidden input to capture selected value */}
-            <input  type="hidden" name={props.name} value={selectedValue} readOnly />
-            <div>{bloodInputContainer}</div>
+            <input type="hidden" name={props.name} value={selectedValue} readOnly />
           </div>
         ) : (
-          <input className="input form-control" type={type} onKeyDown={type === "number" ? handleKeyDown : undefined} {...props} />
+          <input
+            className="input form-control"
+            type={type}
+            onKeyDown={type === "number" ? handleKeyDown : undefined}
+            {...props}
+            onFocus={onClearError} // Clear error on focus
+          />
         )}
       </div>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 };

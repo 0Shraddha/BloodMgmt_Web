@@ -1,79 +1,232 @@
-import React from 'react';
-import Input from './Input';
-import '../../Styles/Input.scss';
-import { Link } from 'react-router-dom'; // Import Link
+import React, { useState } from 'react';
+// import React from "react";
+import Input from "./Input";
+import "../../Styles/Input.scss";
+import { Link, useNavigate  } from "react-router-dom"; // Import Link
 
 const Signup = () => {
-    const handleSignup = (e) => {
-        e.preventDefault();
-        // Handle the signup logic here (e.g., form validation, API call)
-        console.log("Signup submitted");
+	const [errors, setErrors] = useState({});
+	const navigate = useNavigate();
+	const handleSignup = async (e) => {
+		e.preventDefault();
+	
+		const formData = {
+            firstname: e.target.firstname.value.trim(),
+            lastname: e.target.lastname.value.trim(),
+            username: e.target.username.value.trim(),
+            email: e.target.email.value.trim(),
+            phone: e.target.phone.value.trim(),
+            password: e.target.password.value,
+            repassword: e.target.repassword.value,
+            bloodType: e.target.bloodType.value,
+			adminAuthCode:  e.target.adminAuthCode? e.target.adminAuthCode.value: "",
+			role: e.target.role.value
+        };
+	
+		// Validate the form data (example)
+		if (formData.password !== formData.repassword) {
+			console.error("Passwords do not match!");
+			return;
+		}
+	
+		try {
+			// Make the API call
+			const response = await fetch("http://localhost:5000/signup", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(formData),
+			});
+	
+			if (!response.ok) {
+				const data = await response.json();
+                setErrors(data);
+				throw new Error("Signup failed: " + response.statusText);
+			}
+	
+			const data = await response.json();
+			console.log("Signup successful", data);
+			setErrors({});
+			alert(data.message)
+			navigate("/login")
+			
+		} catch (error) {
+			console.error("Error during signup:", error);
+		}
+	};
+		
+
+    const [isAdmin, setIsAdmin] = useState(false);
+
+	const handleClearError = (fieldName) => {
+		setErrors((prevErrors) => ({
+		  ...prevErrors,
+		  [fieldName]: '', // Clear the error for the specific field
+		}));
+	  };
+
+    const handleRoleChange = (event) => {
+      setIsAdmin(event.target.value === 'admin');
     };
 
-    return (
-        <>
-            <div className="signup-container row">
-                <h2 className="py-3 form-heading text-center">Signup</h2>
-                <form onSubmit={handleSignup}> {/* Add form submission handler */}
-                    <div className='row px-2'>
-                        <div className="col-12 d-flex gap-4 py-1">
-                            <div className="col-6">
-                                <Input label="Firstname: " name="fname" id="fname" placeholder="Enter your firstname " type="text" />
-                            </div>
-                            <div className="col-6">
-                                <Input label="Lastname: " name="lname" id="lname" placeholder="Enter your lastname " type="text" />
-                            </div>
-                        </div>
-                        <div className="col-12 d-flex gap-4 py-1">
-                            <div className="col-6">
-                                <Input label="Username: " name="uname" id="uname" placeholder="Enter your username " type="text" />
-                            </div>
-                            <div className="col-6">
-                                <Input label="Email: " name="email" id="email" placeholder="Enter your email address " type="email" />
-                            </div>
-                        </div>
-                        <div className="col-12 d-flex gap-4 py-1">
-                            <div className="col-6">
-                                <Input label="Phone no.: " name="phone" id="phone" placeholder="Enter your phone number " type="tel" />
-                            </div>
-                            <div className="col-6">
-                                <Input label="Location: " name="location" id="location" placeholder="Enter your location " type="text" />
-                            </div>
-                        </div>
-                        <div className="col-12 d-flex gap-4 py-1">
-                            <div className="col-6">
-                                <Input label="Password: " name="password" id="password" placeholder="Enter your password " type="password" />
-                            </div>
-                            <div className="col-6">
-                                <Input label="Re-password: " name="repassword" id="repassword" placeholder="Enter your repassword " type="password" />
-                            </div>
-                        </div>
-                        <div className="col-12 d-flex gap-4 py-1">
-                            <Input
-                                select
-                                label="Blood Group: (Select your blood group) "
-                                name="bloodType"
-                                options={[
-                                    { value: 'A+', label: 'A+' },
-                                    { value: 'A-', label: 'A-' },
-                                    { value: 'B+', label: 'B+' },
-                                    { value: 'B-', label: 'B-' },
-                                    { value: 'AB+', label: 'AB+' },
-                                    { value: 'AB-', label: 'AB-' },
-                                    { value: 'O+', label: 'O+' },
-                                    { value: 'O-', label: 'O-' },
-                                ]}
-                            />
-                        </div>
-                    </div>
-                    <div>
-                        <Link to="/login" type="submit" className='btn' id="btnSignup">Sign up</Link> 
-                    </div>
-                </form>
-                <p className="text-muted text-center">Already have an account? <Link to="/login" className='btn btn-sm btn-outline-dark'>Login</Link></p>
-            </div>
-        </>
-    );
-}
+	return (
+		<>
+			<div className="signup-container row">
+				<h2 className="py-3 form-heading text-center">Signup</h2>
+				<form onSubmit={handleSignup}>
+					{" "}
+					{/* Add form submission handler */}
+					<div className="row px-2">
+						<div className="col-12 d-flex gap-4 py-1">
+							<div className="col-6">
+								<Input
+									label="Firstname: "
+									name="firstname"
+									id="firstname"
+									placeholder="Enter your firstname "
+									type="text"
+									error={errors.firstname}
+									onClearError={() => handleClearError("firstname")}
+
+								/>
+								
+							</div>
+							<div className="col-6">
+								<Input
+									label="Lastname: "
+									name="lastname"
+									id="lastname"
+									placeholder="Enter your lastname "
+									type="text"
+									error={errors.lastname}
+									onClearError={() => handleClearError("lastname")}
+
+								/>
+							</div>
+						</div>
+						<div className="col-12 d-flex gap-4 py-1">
+							<div className="col-6">
+								<Input
+									label="Username: "
+									name="username"
+									id="username"
+									placeholder="Enter your username "
+									type="text"
+									error={errors.username}
+									onClearError={() => handleClearError("username")}
+								/>
+							</div>
+							<div className="col-6">
+								<Input
+									label="Email: "
+									name="email"
+									id="email"
+									placeholder="Enter your email address "
+									type="email"
+									error={errors.email}
+									onClearError={() => handleClearError("email")}
+
+								/>
+							</div>
+						</div>
+						<div className="col-12 d-flex gap-4 py-1">
+							<div className="col-6">
+								<Input
+									label="Phone no.: "
+									name="phone"
+									id="phone"
+									placeholder="Enter your phone number "
+									type="tel"
+									error={errors.phone}
+									onClearError={() => handleClearError("phone")}
+
+								/>
+							</div>
+							<div className="col-6">
+                                
+                                <label htmlFor="role" className='form-label'>Role</label>
+                                
+								<select className='form-select form-control' name="role" id="role" onChange={handleRoleChange} defaultValue="user">
+									<option value="admin">Admin</option>
+									<option value="user">User</option>
+								</select>
+							</div>
+						</div>
+						{isAdmin && (
+								<div>
+								<Input
+									label="Admin Auth Code: "
+									name="adminAuthCode"
+									id="adminAuthCode"
+									placeholder="Enter the secret admin key"
+									type="text"
+									onClearError={() => handleClearError("adminAuthCode")}
+
+								/>
+								    { errors.adminAuthCode && <p className="error">{ errors.adminAuthCode}</p>}
+								</div>
+								
+						)}
+						
+						<div className="col-12 d-flex gap-4 py-1">
+							<div className="col-6">
+								<Input
+									label="Password: "
+									name="password"
+									id="password"
+									placeholder="Enter your password "
+									type="password"
+									error={errors.password}
+									onClearError={() => handleClearError("password")}
+
+								/>
+							</div>
+							<div className="col-6">
+								<Input
+									label="Re-password: "
+									name="repassword"
+									id="repassword"
+									placeholder="Enter your repassword "
+									type="password"
+									onClearError={() => handleClearError("repassword")}
+
+								/>
+							</div>
+						</div>
+						<div className="col-12 d-flex gap-4 py-1">
+							<Input
+								select
+								label="Blood Group: (Select your blood group) "
+								name="bloodType"
+								options={[
+									{ value: "A+", label: "A+" },
+									{ value: "A-", label: "A-" },
+									{ value: "B+", label: "B+" },
+									{ value: "B-", label: "B-" },
+									{ value: "AB+", label: "AB+" },
+									{ value: "AB-", label: "AB-" },
+									{ value: "O+", label: "O+" },
+									{ value: "O-", label: "O-" },
+								]}
+							/>
+						</div>
+					</div>
+					<div>
+						<button type="submit" className="btn" id="btnSignup">
+							Sign up
+						</button>
+					</div>
+				</form>
+				<p className="text-muted text-center">
+					Already have an account?{" "}
+					<Link to="/login" className="btn btn-sm btn-outline-dark">
+						Login
+					</Link>
+				</p>
+			</div>
+		</>
+	);
+};
 
 export default Signup;
