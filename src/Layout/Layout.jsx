@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from '../components/dashboard/Dashboard';
 import Sidebar from '../components/Sidebar/Sidebar';
-import Topbar from '../components/topbar/Topbar';
+// import Topbar from '../components/topbar/Topbar';
 import Login from '../components/Registration/Login';
 import Signup from '../Components/Registration/Signup';
 import CenterList from '../Components/AddDonor/CenterList';
@@ -21,7 +21,7 @@ const Layout = () => {
     <>
         <Router>
           <div className="row topbar">
-            <Topbar />
+            {/* <Topbar /> */}
           </div>
       <div className='row main-wrapper gap-0'>
         <div className="col-2 sidebar-container">

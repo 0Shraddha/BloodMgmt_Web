@@ -26,7 +26,7 @@ class ApexChart extends React.Component {
         },
         tooltip: {
             y: {
-              formatter: (value, { seriesIndex }) => {
+              formatter: (value) => {
                 return `${value} units`;
               }
             }
