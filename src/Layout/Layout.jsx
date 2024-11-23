@@ -14,6 +14,7 @@ import Map from '../components/MapWithSearch/Map';
 // import DisplayBloodInventory from '../components/Inventory/DisplayBloodInventory';
 import BloodInventoryList from '../components/Inventory/BloodInventoryList';
 import BloodInventoryForm from '../components/Inventory/BloodInventoryForm';
+import CampaignCard from '../components/Campaign/CampaignCard';
 
 
 const Layout = () => {
@@ -39,6 +40,8 @@ const Layout = () => {
             <Route path="/add-center" element={<AddDonor />} />
             <Route path="/request-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
+            <Route path="/campaign-list" element={<CampaignCard/>} />
+
             <Route path="/map" element={<Map/>} />
             <Route path="/blood-inventory-list" element={<BloodInventoryList/>} />
             <Route path="/blood-inventory-form" element={<BloodInventoryForm/>} />

@@ -85,7 +85,7 @@ const Campaign = () => {
       console.log('Saved Data:', data);
 
       // Redirect to campaign list
-      navigate('/campaignlist');
+      navigate('/campaign-list');
     } catch (error) {
       console.error('Error saving campaign data:', error);
       alert('Failed to save data. Please try again.');

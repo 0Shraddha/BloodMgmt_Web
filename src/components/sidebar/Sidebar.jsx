@@ -32,7 +32,7 @@ const Sidebar = () => {
               <NavLink className="nav-link fw-semibold" to="/request-list"><FaRegFile /><span className="px-3">Request List</span></NavLink>
             </li>
             <li>
-              <NavLink className="nav-link fw-semibold" to="/campaign"><MdOutlineCampaign size={21} /><span className="px-3">Campaign</span></NavLink>
+              <NavLink className="nav-link fw-semibold" to="/campaign-list"><MdOutlineCampaign size={21} /><span className="px-3">Campaign</span></NavLink>
             </li>
             <li>
               <NavLink className="nav-link fw-semibold" to="/login"><MdOutlineLogout size={21} /><span className="px-3">Logout</span></NavLink>
