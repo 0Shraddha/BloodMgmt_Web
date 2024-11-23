@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import UserDashboard from '../dashboard/UserDashboard';
 
 class ApexChart extends React.Component {
   constructor(props) {
@@ -7,14 +8,14 @@ class ApexChart extends React.Component {
 
     this.state = {
       // Data for the polarArea chart
-      polarSeries: [24, 33, 22, 27, 25, 40, 22, 27, 41],
+      polarSeries: [24, 33, 22, 27, 25, 40, 22, 27],
       polarOptions: {
         chart: {
           type: 'polarArea',
           height: 300,
           width: 300,
         },
-        labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-', 'Other'], 
+        labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'], 
         stroke: {
           colors: ['#fff']
         },
@@ -22,7 +23,12 @@ class ApexChart extends React.Component {
           opacity: 0.8
         },
         legend: {
-          show: false
+          show: true, // Display legend for labels
+          position: 'right', // Position legend below the chart
+          markers: {
+            width: 10,
+            height: 10,
+          }
         },
         tooltip: {
             y: {
@@ -47,12 +53,12 @@ class ApexChart extends React.Component {
       radialOptions: {
         chart: {
           type: 'radialBar',
-          height: 200,
+          height: 250,
         },
         plotOptions: {
           radialBar: {
             hollow: {
-              size: '60%',
+              size: '65%',
             },
             track: {
                 background: '#e7e7e7', // Background color of the track
@@ -70,7 +76,7 @@ class ApexChart extends React.Component {
             dataLabels: {
               name: {
                 show: true,
-                fontSize: '16px',
+                fontSize: '14px',
                 color: '#3577f1'
               },
               value: {
@@ -85,16 +91,16 @@ class ApexChart extends React.Component {
       },
 
        // Data for the radialBar chart
-       radialSeries1: [50],  
+       radialSeries1: [60],  
        radialOptions1: {
          chart: {
            type: 'radialBar',
-           height: 200,
+           height: 350,
          },
          plotOptions: {
            radialBar: {
              hollow: {
-               size: '60%',
+               size: '65%',
              },
             track: {
               background: '#e7e7e7', // Background color of the track
@@ -112,8 +118,8 @@ class ApexChart extends React.Component {
              dataLabels: {
                name: {
                  show: true,
-                 fontSize: '16px',
-                 color: '#3577f1'
+                 fontSize: '14px',
+                 color: '#fcba28'
                },
                value: {
                  show: true,
@@ -124,7 +130,7 @@ class ApexChart extends React.Component {
            }
          },
          fill: {
-            colors: ['#0AB39C'] // Change this color to set the progress color
+            colors: ['#fcba28'] // Change this color to set the progress color
           },
          labels: ['Blood Received'],  // Label for radialBar
        }
@@ -134,36 +140,46 @@ class ApexChart extends React.Component {
   render() {
     return (
       <div>
-        <div className="row mt-5 ">
-            <div className="col-4 p-4">
-                <div className="text-center my-3">
+        <div className="row ">
+          <div className='col-5'>
+          <div className="p-5">
+                {/* <div className="text-center my-3">
                     <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:'#FB8E3B',backgroundColor: '#FFF2E8'}}>Blood Inventory</span>
-                </div>
+                </div> */}
                 <div id="chart" className="mt-4">
                     <ReactApexChart options={this.state.polarOptions} series={this.state.polarSeries} type="polarArea" />
                 </div>
             
             </div>
-            <div className="col-4 p-4">
-                 {/* Radial Bar Chart */}
-                 <div className="text-center my-3">
-                    <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #3577f1',backgroundColor: 'rgba(53, 119, 241, .1)'}}>Blood Requests</span>
+          </div>
+          <div className="col-6">
+          
+          <div className="col d-flex me-3 mt-5 pt-5">
+                <div className="col-6">
+                      {/* Radial Bar Chart */}
+                      {/* <div className="text-center my-3">
+                          <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #3577f1',backgroundColor: 'rgba(53, 119, 241, .1)'}}>Blood Requests</span>
+                      </div> */}
+                      <div id="radial-chart">
+                      <ReactApexChart options={this.state.radialOptions} series={this.state.radialSeries} type="radialBar" />
+                      </div>
                 </div>
-                <div id="radial-chart" className="mt-4">
-                <ReactApexChart options={this.state.radialOptions} series={this.state.radialSeries} type="radialBar" />
-                </div>
-            </div>
-                <div className="col-4 p-4">
+                <div className="col-6">
                     {/* Radial Bar Chart */}
-                    <div className="text-center my-3">
+                    {/* <div className="text-center my-3">
                         <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #0AB39C',backgroundColor: 'rgba(3, 259, 141, .1)'}}>Blood Received</span>
-                    </div>
-                    <div id="radial-chart" className="mt-4">
+                    </div> */}
+                    <div id="radial-chart">
                     <ReactApexChart options={this.state.radialOptions1} series={this.state.radialSeries1} type="radialBar" />
                     </div>
                 </div>
+          </div>
+         </div>
+           
+           
             
         </div>
+        
        
       </div>
     );

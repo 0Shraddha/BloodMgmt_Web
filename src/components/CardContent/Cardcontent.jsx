@@ -1,14 +1,15 @@
 import React from 'react'
 import Card from './Card'
 import Heading from '../Heading/Heading'
+import '../../Styles/Card.scss'
 
 const Cardcontent = () => {
   return (
     <>
     <Heading title="Weekly Sumup"
               desc="Get summary of weekly transactions here."/>
-        <div className="row d-flex" id="main_contents">
-            <div className="col">
+        <div className="row d-flex gap-3 mt-3" id="main_contents">
+            <div className="col-3">
               <Card title="Total Donors"
                   detail="+5.2% from last month"
                   number={1540}
@@ -16,7 +17,7 @@ const Cardcontent = () => {
                   bodyColor="#FFF2E8"
               />
             </div>
-            <div className="col">
+            <div className="col-3">
               <Card title="Total Donations"
                   detail="+8.2% from last month"
                   number={2340}
@@ -24,7 +25,7 @@ const Cardcontent = () => {
                   bodyColor="#EEF6FF"
               />
             </div>
-            <div className="col">
+            <div className="col-3">
               <Card title="Active Donors"
                   detail="+5.2% from last month"
                   number={1540}
@@ -32,7 +33,7 @@ const Cardcontent = () => {
                   bodyColor="#FFF0F0"
               />
             </div>
-            <div className="col">
+            <div className="col-3">
               <Card title="Recent Activity"
                   detail="New donors in the last week"
                   number={+340}

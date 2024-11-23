@@ -4,6 +4,7 @@ import '../../Styles/Dashboard.scss'
 import Cardcontent from '../CardContent/Cardcontent';
 import TabButtonWrapper from '../TabButton/TabButtonWrapper';
 import ApexChart from '../Charts/ApexChart';
+import UserDashboard from './UserDashboard';
 
 
 
@@ -20,23 +21,18 @@ const Dashboard = () => {
   
   return (
     <>
-         
+      <Cardcontent  />
+
+      <div className="row bg-light my-3 rounded-border"></div>   
       <ApexChart />
       {/* THE CONTENTS GOES HERE */}
       
      
 
-      <Cardcontent  />
             <TabButtonWrapper />
 
- 
-            <h1>Leaflet Map with React</h1>
-      <input
-        type="text"
-        placeholder="Enter latitude, longitude"
-        onBlur={handleLocationChange}
-      />
-      {/* <MapComponent location={location} /> */}
+        <UserDashboard />
+
     </>
   )
 }
