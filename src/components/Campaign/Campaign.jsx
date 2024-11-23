@@ -161,7 +161,7 @@ const Campaign = () => {
                 onChange={handleQuillChange}
                 modules={quillModules}
                 theme="snow"
-                style={{ minHeight: '150px' }}
+                style={{ height: '150px', marginBottom : '35px' }}
               />
             </div>
           </div>
