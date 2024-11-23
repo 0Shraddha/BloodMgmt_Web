@@ -8,7 +8,7 @@ import Signup from '../Components/Registration/Signup';
 import CenterList from '../Components/AddDonor/CenterList';
 import AddDonor from '../components/AddDonor/AddDonor';
 import RequestList from '../components/Request/RequestList';
-import Campaign from '../Components/Campaign/Campaign';
+import Campaign from '../components/Campaign/Campaign';
 import Request from '../components/Request/Request';
 import Map from '../components/MapWithSearch/Map';
 // import DisplayBloodInventory from '../components/Inventory/DisplayBloodInventory';
