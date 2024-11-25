@@ -1,14 +1,11 @@
 import React from 'react'
 import Card from './Card'
-import Heading from '../Heading/Heading'
 import '../../Styles/Card.scss'
 
 const Cardcontent = () => {
   return (
     <>
-    <Heading title="Weekly Sumup"
-              desc="Get summary of weekly transactions here."/>
-        <div className="row d-flex gap-3 mt-3" id="main_contents">
+        <div className="row d-flex gap-3 my-3" id="main_contents">
             <div className="col-3">
               <Card title="Total Donors"
                   detail="+5.2% from last month"

@@ -151,12 +151,12 @@ const BloodInventoryList = () => {
                           <small>Units Available:</small> {inventory.units}
                         </p>
                         <div className="text-end">
-                          <span style={{ cursor: "pointer", marginRight: "10px" }} title="Edit" onClick={() => handleEdit(inventory)}>
+                          {/* <span style={{ cursor: "pointer", marginRight: "10px" }} title="Edit" onClick={() => handleEdit(inventory)}>
                             <FaRegEdit size={"16px"} color="#fcba28" />
                           </span>
                           <span style={{ cursor: "pointer" }} onClick={() => handleDelete(inventory)}>
                             <MdDeleteOutline size={"17px"} color="#e1002d" title="Delete" />
-                          </span>
+                          </span> */}
                         </div>
                       </div>
                     </div>

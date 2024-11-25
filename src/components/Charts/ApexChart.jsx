@@ -1,189 +1,185 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import UserDashboard from '../dashboard/UserDashboard';
+import PolarAreaChart from '../Charts/PolarAreaChart';
+import { fetchCenterData } from '../../Services/BloodInventoryService';
 
-class ApexChart extends React.Component {
-  constructor(props) {
-    super(props);
+const ApexChart = () => {
+  const [centerBlood, setCenterBlood] = useState({ totalBlood: [] });
 
-    this.state = {
-      // Data for the polarArea chart
-      polarSeries: [24, 33, 22, 27, 25, 40, 22, 27],
-      polarOptions: {
-        chart: {
-          type: 'polarArea',
-          height: 300,
-          width: 300,
-        },
-        labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'], 
-        stroke: {
-          colors: ['#fff']
-        },
-        fill: {
-          opacity: 0.8
-        },
-        legend: {
-          show: true, // Display legend for labels
-          position: 'right', // Position legend below the chart
-          markers: {
-            width: 10,
-            height: 10,
-          }
-        },
-        tooltip: {
-            y: {
-              formatter: (value) => {
-                return `${value} units`;
-              }
-            }
-          },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-              height: 200
-            },
-          }
-        }]
-      }, 
-      
-      // Data for the radialBar chart
-      radialSeries: [20],  
-      radialOptions: {
-        chart: {
-          type: 'radialBar',
-          height: 250,
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '65%',
-            },
-            track: {
-                background: '#e7e7e7', // Background color of the track
-                strokeWidth: '100%',
-                margin: 5, // Space between track and filled part
-                dropShadow: {
-                  enabled: true,
-                  top: 2,
-                  left: 0,
-                  color: '#999',
-                  opacity: 0.5,
-                  blur: 2
-                }
-              },
-            dataLabels: {
-              name: {
-                show: true,
-                fontSize: '14px',
-                color: '#3577f1'
-              },
-              value: {
-                show: true,
-                fontSize: '20px',
-                color: '#333'
-              }
-            }
-          }
-        },
-        labels: ['Blood Requests'],  // Label for radialBar
-      },
-
-       // Data for the radialBar chart
-       radialSeries1: [60],  
-       radialOptions1: {
-         chart: {
-           type: 'radialBar',
-           height: 350,
-         },
-         plotOptions: {
-           radialBar: {
-             hollow: {
-               size: '65%',
-             },
-            track: {
-              background: '#e7e7e7', // Background color of the track
-              strokeWidth: '100%',
-              margin: 5, // Space between track and filled part
-              dropShadow: {
-                enabled: true,
-                top: 2,
-                left: 0,
-                color: '#999',
-                opacity: 0.5,
-                blur: 2
-              }
-            },
-             dataLabels: {
-               name: {
-                 show: true,
-                 fontSize: '14px',
-                 color: '#fcba28'
-               },
-               value: {
-                 show: true,
-                 fontSize: '20px',
-                 color: '#333'
-               }
-             }
-           }
-         },
-         fill: {
-            colors: ['#fcba28'] // Change this color to set the progress color
-          },
-         labels: ['Blood Received'],  // Label for radialBar
-       }
+  useEffect(() => {
+    const loadBloodDetails = async () => {
+      try {
+        const fetchedBloodDetails = await fetchCenterData(); // Assuming fetchCenterData is a valid function
+        setCenterBlood(fetchedBloodDetails);
+      } catch (error) {
+        console.error("Error fetching center data:", error);
+      }
     };
-  }
 
-  render() {
-    return (
-      <div>
-        <div className="row ">
-          <div className='col-5'>
+    loadBloodDetails();
+  }, []); // Empty dependency array means this will run once when the component mounts
+
+  // Mapping totalBlood to chart data
+  const labels = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+  const series = labels.map((bloodType) => {
+    // Finding the blood type count in the fetched data
+    const blood = centerBlood.totalBlood.find(
+      (bloodItem) => bloodItem.bloodType === bloodType
+    );
+    return blood ? blood.units : 0; // Default to 0 if the blood type is not found
+  });
+
+  const options = {
+    chart: {
+      type: 'polarArea',
+      height: 300,
+      width: 300,
+    },
+    labels: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+    stroke: {
+      colors: ['#fff'],
+    },
+    fill: {
+      opacity: 0.8,
+    },
+    legend: {
+      show: true,
+      position: 'right',
+      markers: {
+        width: 10,
+        height: 10,
+      },
+    },
+    tooltip: {
+      y: {
+        formatter: (value) => {
+          return `${value} units`;
+        },
+      },
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+            height: 200,
+          },
+        },
+      },
+    ],
+  };
+
+  const radialOptions = {
+    chart: {
+      type: 'radialBar',
+      height: 250,
+    },
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          size: '65%',
+        },
+        track: {
+          background: '#e7e7e7',
+          strokeWidth: '100%',
+          margin: 5,
+          dropShadow: {
+            enabled: true,
+            top: 2,
+            left: 0,
+            color: '#999',
+            opacity: 0.5,
+            blur: 2,
+          },
+        },
+        dataLabels: {
+          name: {
+            show: true,
+            fontSize: '14px',
+            color: '#3577f1',
+          },
+          value: {
+            show: true,
+            fontSize: '20px',
+            color: '#333',
+          },
+        },
+      },
+    },
+    labels: ['Blood Requests'],
+  };
+
+  const radialOptions1 = {
+    chart: {
+      type: 'radialBar',
+      height: 350,
+    },
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          size: '65%',
+        },
+        track: {
+          background: '#e7e7e7',
+          strokeWidth: '100%',
+          margin: 5,
+          dropShadow: {
+            enabled: true,
+            top: 2,
+            left: 0,
+            color: '#999',
+            opacity: 0.5,
+            blur: 2,
+          },
+        },
+        dataLabels: {
+          name: {
+            show: true,
+            fontSize: '14px',
+            color: '#fcba28',
+          },
+          value: {
+            show: true,
+            fontSize: '20px',
+            color: '#333',
+          },
+        },
+      },
+    },
+    fill: {
+      colors: ['#fcba28'],
+    },
+    labels: ['Blood Received'],
+  };
+
+  return (
+    <div>
+      <div className="row">
+        <div className='col-5'>
           <div className="p-5">
-                {/* <div className="text-center my-3">
-                    <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:'#FB8E3B',backgroundColor: '#FFF2E8'}}>Blood Inventory</span>
-                </div> */}
-                <div id="chart" className="mt-4">
-                    <ReactApexChart options={this.state.polarOptions} series={this.state.polarSeries} type="polarArea" />
-                </div>
-            
+            <div id="chart" className="mt-4">
+              <PolarAreaChart series={series} options={options} />
             </div>
           </div>
-          <div className="col-6">
-          
-          <div className="col d-flex me-3 mt-5 pt-5">
-                <div className="col-6">
-                      {/* Radial Bar Chart */}
-                      {/* <div className="text-center my-3">
-                          <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #3577f1',backgroundColor: 'rgba(53, 119, 241, .1)'}}>Blood Requests</span>
-                      </div> */}
-                      <div id="radial-chart">
-                      <ReactApexChart options={this.state.radialOptions} series={this.state.radialSeries} type="radialBar" />
-                      </div>
-                </div>
-                <div className="col-6">
-                    {/* Radial Bar Chart */}
-                    {/* <div className="text-center my-3">
-                        <span className="px-3 py-2 fw-semibold rounded-pill" style={{ color:' #0AB39C',backgroundColor: 'rgba(3, 259, 141, .1)'}}>Blood Received</span>
-                    </div> */}
-                    <div id="radial-chart">
-                    <ReactApexChart options={this.state.radialOptions1} series={this.state.radialSeries1} type="radialBar" />
-                    </div>
-                </div>
-          </div>
-         </div>
-           
-           
-            
         </div>
-        
-       
+        <div className="col-6">
+          <div className="col d-flex me-3 mt-5 pt-5">
+            <div className="col-6">
+              <div id="radial-chart">
+                <ReactApexChart options={radialOptions} series={[20]} type="radialBar" />
+              </div>
+            </div>
+            <div className="col-6">
+              <div id="radial-chart">
+                <ReactApexChart options={radialOptions1} series={[60]} type="radialBar" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ApexChart;

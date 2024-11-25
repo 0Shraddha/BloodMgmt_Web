@@ -13,7 +13,7 @@ const RequestList = () => {
 
   return (
    <>
-    <div className="row" style={{ marginTop : '10px'}}>
+    <div className="row my-5" style={{ marginTop : '10px', width: '1250px'}}>
       <Heading title="Blood Request Lists" desc="Blood Request Status to be checked" />
 
         <div className="btn-container d-flex my-3">

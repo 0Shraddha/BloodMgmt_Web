@@ -4,16 +4,18 @@ import '../../Styles/Input.scss';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import { toast, ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
@@ -23,24 +25,34 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
       });
-
+  
       if (!response.ok) {
         throw new Error('Login failed. Please try again.');
       }
-
+  
       const data = await response.json();
       console.log('response', data);
-      navigate('/')
+      toast.success("Login successful!");
+  
+      setTimeout(() => {
+        navigate("/"); // Redirect after 2 seconds
+      }, 2000);
+  
     } catch (err) {
       console.error(err);
-      setError(err.message); // Display error message if request fails
+      toast.error(err.message); // Display error message in toast
     }
   };
 
   return (
-    <div className="login-container align-items-center">
-      <h2 className="py-3 form-heading text-center">Login</h2>
+    <div className="login-container row">
+      <ToastContainer position="top-right" autoClose={3000} />
 
+
+    <div className='col-12'>
+      <h2 className="py-3 form-heading text-center">Login</h2>
+		</div>
+    <div className='col-11'>
       <form className="py-4 px-5" onSubmit={handleSubmit}>
         <Input
           label="Username"
@@ -59,11 +71,12 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div>
-          <button type="submit" className="btn" id="btnSubmit">
+          <button type="submit" className="btn  my-3 mx-1" id="btnSubmit">
             Login
           </button>
         </div>
       </form>
+    </div>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
@@ -74,6 +87,7 @@ const Login = () => {
         </Link>
       </p>
     </div>
+
   );
 };
 

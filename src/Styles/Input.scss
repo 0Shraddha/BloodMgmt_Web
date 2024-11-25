@@ -25,10 +25,13 @@ body{
 .signup-container,
 .add-container,
 .req-container {
-  margin-top: 100px;
-  margin-left: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4%;
+  margin-left: 30%;
   padding: 18px;
-  width: 65%;
+  width:45%;
   background: $container-bg;
   border: 1px solid #44444444;
   // box-shadow: 0px 0px 10px $box-shadow-color;
@@ -39,7 +42,7 @@ body{
 .input, .textarea {
   background-color: $input-bg-color;
   border: 1px solid $input-border-color;
-  padding: 5px 10px;
+  padding: 5px 15px;
 
   &::placeholder {
     color: $placeholder-color;

@@ -14,7 +14,7 @@ const TabButtonWrapper = () => {
     }
   return (
     <>
-     <div className="row" style={{ marginTop : '10px'}}>
+     <div className="row mt-5" style={{ marginTop : '10px'}}>
       <Heading title="Blood Availability In Different Center" desc="Blood Available  in various Centers (1 UNITS equals to 450/500 ml)" />
 
       <Tabs

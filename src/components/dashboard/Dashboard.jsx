@@ -1,37 +1,31 @@
-import {React, useState} from 'react'
+import React ,{ useState} from 'react'
 import '../../App.css';
 import '../../Styles/Dashboard.scss'
 import Cardcontent from '../CardContent/Cardcontent';
 import TabButtonWrapper from '../TabButton/TabButtonWrapper';
 import ApexChart from '../Charts/ApexChart';
-import UserDashboard from './UserDashboard';
+// import UserDashboard from './UserDashboard';
+import Heading from '../Heading/Heading';
 
 
 
 const Dashboard = () => {
+ 
 
-  const [location, setLocation] = useState([51.505, -0.09]);
-
-  const handleLocationChange = (e) => {
-    const [lat, lon] = e.target.value.split(',').map(Number);
-    if (lat && lon) {
-      setLocation([lat, lon]);
-    }
-  };
-  
   return (
     <>
+
+      <div className="row mt-5 rounded-border">
+      <Heading title="Weekly Sumup"
+              desc="Get summary of weekly transactions here."/>
+        </div>   
+      <ApexChart />
+      
+    
+      <TabButtonWrapper />
       <Cardcontent  />
 
-      <div className="row bg-light my-3 rounded-border"></div>   
-      <ApexChart />
-      {/* THE CONTENTS GOES HERE */}
-      
-     
-
-            <TabButtonWrapper />
-
-        <UserDashboard />
+      {/* <UserDashboard /> */}
 
     </>
   )

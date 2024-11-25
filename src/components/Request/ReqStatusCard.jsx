@@ -5,7 +5,12 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
   return (
     <div style={styles.card}>
       <div style={styles.header}>
-        <img src={profileImage} alt={`${name}'s avatar`} style={styles.avatar} />
+      <img
+        src={"https://img.freepik.com/free-photo/girl-with-backpack-sunset-generative-al_169016-28612.jpg?t=st=1732550746~exp=1732554346~hmac=8b52b71b44b84446a07986c16f01134d8fa74aa6a5e29fb871088fa2d257e222&w=740"}
+        alt={`${name}'s avatar`}
+        style={styles.avatar}
+      />
+
         <div>
           <h2 style={styles.name}>{name}</h2>
           <p style={styles.location}>{location}</p>

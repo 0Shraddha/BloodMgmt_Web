@@ -13,6 +13,13 @@ const CampaignCard = () => {
 	const navigate = useNavigate();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedCampaign, setSelectedCampaign] = useState(null);
+
+	const stripHtmlTags = (content) => {
+		const tempDiv = document.createElement("div");
+		tempDiv.innerHTML = content;
+		return tempDiv.textContent || tempDiv.innerText || "";
+	  };
+
 	// Fetch Campaigns from the backend when the component loads
 	useEffect(() => {
 		const fetchCampaigns = async () => {
@@ -146,10 +153,14 @@ const CampaignCard = () => {
 											width: "100%",
 											overflow: "hidden",
 											textOverflow: "ellipsis",
-											whiteSpace: "nowrap",
+											display: "-webkit-box",
+											WebkitLineClamp: 1, // Limit text to 2 lines
+											WebkitBoxOrient: "vertical",
 										}}
-										dangerouslySetInnerHTML={{ __html: campaign.description }}
-									></div>
+										// dangerouslySetInnerHTML={{ __html: campaign.description }}
+										>
+										{stripHtmlTags(campaign.description)}
+									</div>
 									<div className="d-flex justify-content-between align-items-baseline">
                   <button
 										className="btn btn-dark"
