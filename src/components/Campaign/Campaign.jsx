@@ -1,21 +1,38 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactQuill from 'react-quill';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
+
+
 import 'react-quill/dist/quill.snow.css';
 import '../../Styles/Input.scss'; // Assuming this has form styles
 import Heading from '../Heading/Heading';
 
-const Campaign = () => {
+const Campaign = ({ isEdit = false }) => {
+  const location = useLocation();
+  const initialData = location.state?.campaign || {};
+
   const [formData, setFormData] = useState({
-    campaignName: '',
-    organizer: '',
-    location: '',
-    date: '',
-    description: '',
+    campaignName: initialData.campaignName || '',
+    organizer: initialData.organizer || '',
+    location: initialData.location || '',
+    date: initialData.date || '',
+    description: initialData.description || '',
   });
 
-  const quillRef = useRef(null); // UseRef to avoid reinitializing Quill
+  const quillRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isEdit && initialData) {
+      setFormData({
+        campaignName: initialData.campaignName || '',
+        organizer: initialData.organizer || '',
+        location: initialData.location || '',
+        date: initialData.date || '',
+        description: initialData.description || '',
+      });
+    }
+  }, [isEdit, initialData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,31 +41,14 @@ const Campaign = () => {
 
   const handleQuillChange = (value) => {
     setFormData((prev) => ({ ...prev, description: value }));
-    console.log(value)
   };
 
-  // Custom Image Upload Handler
-  // const handleImageUpload = () => {
-  //   const input = document.createElement('input');
-  //   input.setAttribute('type', 'file');
-  //   input.setAttribute('accept', 'image/*');
-  //   input.click();
-
-  //   input.onchange = async () => {
-  //     const file = input.files[0];
-  //     const uploadFormData = new FormData();
-  //     uploadFormData.append('image', file);
-
-  //     const response = await fetch('https://api.example.com/upload', {
-  //       method: 'POST',
-  //       body: uploadFormData,
-  //     });
-
-  //     const data = await response.json();
-  //     const range = quillRef.current.getEditor().getSelection();
-  //     quillRef.current.getEditor().insertEmbed(range.index, 'image', data.url);
-  //   };
-  // };
+  const getTomorrowDate = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0];
+  };
 
   const quillModules = {
     toolbar: {
@@ -59,42 +59,50 @@ const Campaign = () => {
         ['link'],
         ['clean'],
       ],
-      // handlers: {
-      //   image: handleImageUpload,
-      // },
     },
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const url = isEdit
+      ? `http://localhost:5000/campaign/${initialData._id}`
+      : 'http://localhost:5000/campaign';
+    const method = isEdit ? 'PUT' : 'POST';
+
     try {
-      const response = await fetch('http://localhost:5000/campaign', {
-        method: 'POST',
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData), // Convert formData to JSON string
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save campaign data');
+        throw new Error(`Failed to ${isEdit ? 'update' : 'create'} campaign`);
       }
 
       const data = await response.json();
-      console.log('Saved Data:', data);
+      console.log(`${isEdit ? 'Updated' : 'Created'} Data:`, data || "Campaign updated successfully!");
 
-      // Redirect to campaign list
       navigate('/campaign-list');
     } catch (error) {
-      console.error('Error saving campaign data:', error);
-      alert('Failed to save data. Please try again.');
+      console.error(`Error ${isEdit ? 'updating' : 'creating'} campaign:`, error);
+      alert(`Failed to ${isEdit ? 'update' : 'create'} campaign. Please try again.`);
     }
   };
 
   return (
-    <div className="add-container px-5 py-4" style={{ backgroundColor: '#f9f9f9', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-      <Heading title="Campaign Form" />
+    <div
+      className="add-container px-5 py-4"
+      style={{
+        backgroundColor: '#f9f9f9',
+        borderRadius: '8px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+      }}
+    >
+      <Heading title={isEdit ? 'Edit Campaign' : 'Create Campaign'} />
       <form onSubmit={handleSubmit} className="addCampaignForm">
         <div className="row">
           <div className="form-group col-12 mb-3">
@@ -118,10 +126,11 @@ const Campaign = () => {
               type="text"
               id="organizer"
               name="organizer"
-              placeholder="Enter event Organizer"
+              placeholder="Enter event organizer"
               value={formData.organizer}
               onChange={handleInputChange}
               required
+              
             />
           </div>
 
@@ -148,6 +157,7 @@ const Campaign = () => {
               name="date"
               value={formData.date}
               onChange={handleInputChange}
+              min={getTomorrowDate()}
               required
             />
           </div>
@@ -156,12 +166,12 @@ const Campaign = () => {
             <label htmlFor="description">Description:</label>
             <div className="quill-container">
               <ReactQuill
-                ref={quillRef} // useRef to avoid re-initialization
+                ref={quillRef}
                 value={formData.description}
                 onChange={handleQuillChange}
                 modules={quillModules}
                 theme="snow"
-                style={{ height: '150px', marginBottom : '35px' }}
+                style={{ height: '150px', marginBottom: '35px' }}
               />
             </div>
           </div>
@@ -169,8 +179,17 @@ const Campaign = () => {
 
         <div className="text-center">
           <button className="btn btn-primary px-4" type="submit">
-            Submit
+            {isEdit ? 'Update' : 'Submit'}
           </button>
+          {isEdit && (
+            <button
+              className="btn btn-secondary px-4 ms-2"
+              type="button"
+              onClick={() => navigate('/campaign-list')}
+            >
+              Cancel
+            </button>
+          )}
         </div>
       </form>
     </div>

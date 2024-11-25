@@ -1,39 +1,251 @@
-import React from 'react';
-import { MdLocationOn, MdAccessTime } from 'react-icons/md';
-import Heading from '../Heading/Heading';
-import { Link } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import { MdLocationOn, MdAccessTime } from "react-icons/md";
+import Heading from "../Heading/Heading";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const CampaignCard = () => {
-    return (
-        <>
-        <div className="row d-flex text-end">
-          <ToastContainer position="top-right" autoClose={3000} />
+	const [campaigns, setCampaigns] = useState([]);
+	const [error, setError] = useState(null);
+	const navigate = useNavigate();
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [selectedCampaign, setSelectedCampaign] = useState(null);
+	// Fetch Campaigns from the backend when the component loads
+	useEffect(() => {
+		const fetchCampaigns = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/campaign", {
+					method: "GET",
+					credentials: "include",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				});
 
-            <span>
-              <Link to="/campaign" className="btn text-end" id="btnSubmit">
-                Add Campaign
-              </Link>
-            </span>
-          </div>
-        <Heading title='Campaign Details' desc='Join the donation camp events and save lives' />
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
 
-        <br />
-        <div className="card" style= {{ width : '23rem'}}>
-            <div className="card-body">
-                <h5 className="card-title py-1">Youth Led Donation Camp</h5>
-                <h6 className="card-subtitle mb-2 text-muted">
-                <MdLocationOn size={18} color="#444" /> <span>Location, Address</span>
-                </h6>
-                <h6 className="card-subtitle mb-2 text-muted">
-                <MdAccessTime size={18} color="#444" /> <span>2034-12-01</span>
-                </h6>
-                <p className="card-text py-2">Some quick example text to build on the card title and make up the bulk of the cards content.</p>
-                <a href="#" className="card-link">Card link</a>
-            </div>
-        </div>
-        </>
-    );
-}
+				const data = await response.json();
+				setCampaigns(data);
+			} catch (error) {
+				setError(error.message);
+			}
+		};
+
+		fetchCampaigns();
+	}, []);
+
+	const formatDate = (dateString) => {
+		const date = new Date(dateString);
+		const year = date.getFullYear().toString();
+		const month = String(date.getMonth() + 1).padStart(2, "0");
+		const day = String(date.getDate()).padStart(2, "0");
+		return `${year}-${month}-${day}`;
+	};
+
+	const handleLearnMore = (campaign) => {
+		// navigate(`/detail/${id}`);
+		setSelectedCampaign(campaign);
+		setIsModalOpen(true);
+	};
+
+	const closeModal = () => {
+		setIsModalOpen(false);
+		setSelectedCampaign(null);
+	};
+
+	const handleEdit = (campaign) => {
+		navigate(`/edit-campaign/${campaign._id}`, { state: { campaign } });
+	};
+
+	const handleDelete = async (campaignToDelete) => {
+    console.log("helo", campaignToDelete)
+		if (campaignToDelete) {
+			console.log("Deleting campaign:", campaignToDelete);
+			try {
+				const response = await fetch(
+					`http://localhost:5000/campaign/${campaignToDelete._id}`,
+					{
+						method: "DELETE",
+						credentials: "include",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				);
+
+				if (!response.ok) {
+					const errorData = await response.json();
+					throw new Error(errorData.message || "Failed to delete campaign");
+				}
+
+				const result = await response.json(); // Parse JSON for the success message
+				toast.success(result.message || "Campaign deleted successfully!");
+
+				// Update state by filtering out the deleted campaign
+				setCampaigns((prevCampaigns) =>
+					prevCampaigns.filter((c) => c._id !== campaignToDelete._id)
+				);
+				closeModal(); // Close modal after successful deletion
+			} catch (error) {
+				toast.error(error.message); // Show error message in toast
+			}
+		}
+	};
+
+	return (
+		<>
+			<div className="row d-flex text-end  mt-4">
+				<ToastContainer position="top-right" autoClose={3000} />
+
+				<span>
+					<Link to="/campaign" className="btn text-end" id="btnSubmit">
+						Add Campaign
+					</Link>
+				</span>
+			</div>
+			<Heading
+				title="Campaign Details"
+				desc="Join the donation camp events and save lives"
+			/>
+
+			<br />
+			<div className="campaign-container row">
+				{error ? (
+					<p className="text-danger">Failed to load campaigns: {error}</p>
+				) : campaigns.length > 0 ? (
+					campaigns.map((campaign) => (
+						<div className="col-md-6 col-lg-4 col-sm-6 mb-3" key={campaign._id}>
+							<div className="card my-3 " style={{ width: "23rem" }}>
+								<div className="card-body">
+									<h5
+										className="card-title py-1"
+										style={{ textTransform: "capitalize" }}
+									>
+										{campaign.campaignName}
+									</h5>
+									<hr />
+									<div className="d-flex justify-content-between">
+										<h6 className="card-subtitle mb-2 text-muted">
+											<MdLocationOn size={18} color="#444" />{" "}
+											<span>{campaign.location}</span>
+										</h6>
+										<h6 className="card-subtitle mb-2 text-muted">
+											<MdAccessTime size={18} color="#444" />{" "}
+											<span>{formatDate(campaign.date)}</span>
+										</h6>
+									</div>
+									<div
+										className="card-text py-2 mb-3"
+										style={{
+											height: "5.7rem",
+											width: "100%",
+											overflow: "hidden",
+											textOverflow: "ellipsis",
+											whiteSpace: "nowrap",
+										}}
+										dangerouslySetInnerHTML={{ __html: campaign.description }}
+									></div>
+									<div className="d-flex justify-content-between align-items-baseline">
+                  <button
+										className="btn btn-dark"
+										onClick={() => handleLearnMore(campaign)}
+									>
+										Learn more
+									</button>
+									<div>
+										<span
+											style={{ cursor: "pointer", marginRight: "10px" }}
+											onClick={() => handleEdit(campaign)}
+										>
+											<FaRegEdit size={"16px"} color="#fcba28" />
+										</span>
+										<span
+											style={{ cursor: "pointer" }}
+											onClick={() => handleDelete(campaign)}
+										>
+											<MdDeleteOutline size={"17px"} color="#e1002d" />
+										</span>
+									</div>
+                  </div>
+								</div>
+							</div>
+						</div>
+					))
+				) : (
+					<p className="text-muted">No campaigns available</p>
+				)}
+			</div>
+
+			{isModalOpen && selectedCampaign && (
+				<div
+					className="modal fade show"
+					style={{
+						display: "block",
+						backgroundColor: "rgba(0, 0, 0, 0.5)",
+					}}
+				>
+					<div className="modal-dialog modal-lg">
+						<div className="modal-content">
+							<div className="modal-header">
+								<h5
+									className="modal-title fw-bold"
+									style={{ textTransform: "capitalize" }}
+								>
+									{selectedCampaign.campaignName}
+								</h5>
+								<button
+									type="button"
+									className="btn-close"
+									onClick={closeModal}
+								></button>
+							</div>
+							<div className="modal-body">
+								<p>
+									<strong>Location:</strong> {selectedCampaign.location}
+								</p>
+								<p>
+									<strong>Date:</strong> {formatDate(selectedCampaign.date)}
+								</p>
+								<div
+									dangerouslySetInnerHTML={{
+										__html: selectedCampaign.description,
+									}}
+								></div>
+							</div>
+							<div className="modal-footer">
+								<button
+									type="button"
+									className="btn btn-primary"
+									onClick={() => handleEdit(selectedCampaign)}
+								>
+									Edit
+								</button>
+								<button
+									type="button"
+									className="btn btn-danger"
+                  onClick={() => handleDelete(selectedCampaign)}
+								>
+									Delete
+								</button>
+								<button
+									type="button"
+									className="btn btn-secondary"
+									onClick={closeModal}
+								>
+									Close
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			)}
+		</>
+	);
+};
 
 export default CampaignCard;

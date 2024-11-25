@@ -132,38 +132,38 @@ const BloodInventoryList = () => {
             ))}
           </div>
 
-          <div className="container mt-4">
-            <div className="row">
-              {filteredInventory?.map((inventory, index) => (
-                <div className="col-md-4 col-sm-6 mb-3" key={inventory._id}>
-                  <div className="card mb-2">
-                    <div className="card-body mb-2">
-                      <h6 className="card-title">
-                        <span className="rounded-pill me-2">{index + 1}.</span>
-                        {inventory.centerId.centerName}
-                      </h6>
-                      <hr />
-                      <p className="card-text">
-                        <small>Blood Type:</small>{" "}
-                        <span style={{ color: "#224e9f" }}>{inventory.bloodType}</span>
-                      </p>
-                      <p className="card-text">
-                        <small>Units Available:</small> {inventory.units}
-                      </p>
-                      <div className="text-end">
-                        <span style={{ cursor: "pointer", marginRight: "10px" }} title="Edit" onClick={() => handleEdit(inventory)}>
-                          <FaRegEdit size={"16px"} color="#fcba28" />
-                        </span>
-                        <span style={{ cursor: "pointer" }} onClick={() => handleDelete(inventory)}>
-                          <MdDeleteOutline size={"17px"} color="#e1002d" title="Delete" />
-                        </span>
+            <div className="container mt-4">
+              <div className="row">
+                {filteredInventory?.map((inventory, index) => (
+                  <div className="col-md-4 col-sm-6 mb-3" key={inventory._id}>
+                    <div className="card mb-2">
+                      <div className="card-body mb-2">
+                        <h6 className="card-title">
+                          <span className="rounded-pill me-2">{index + 1}.</span>
+                          {inventory.centerId.centerName}
+                        </h6>
+                        <hr />
+                        <p className="card-text">
+                          <small>Blood Type:</small>{" "}
+                          <span style={{ color: "#224e9f" }}>{inventory.bloodType}</span>
+                        </p>
+                        <p className="card-text">
+                          <small>Units Available:</small> {inventory.units}
+                        </p>
+                        <div className="text-end">
+                          <span style={{ cursor: "pointer", marginRight: "10px" }} title="Edit" onClick={() => handleEdit(inventory)}>
+                            <FaRegEdit size={"16px"} color="#fcba28" />
+                          </span>
+                          <span style={{ cursor: "pointer" }} onClick={() => handleDelete(inventory)}>
+                            <MdDeleteOutline size={"17px"} color="#e1002d" title="Delete" />
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
         </>
       ) : (
         <h2>No data</h2>

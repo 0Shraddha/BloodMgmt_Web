@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 // import Topbar from '../components/topbar/Topbar';
 import Login from '../components/Registration/Login';
 import Signup from '../Components/Registration/Signup';
-import CenterList from '../Components/AddDonor/CenterList';
+import CenterList from '../components/AddDonor/CenterList';
 import AddDonor from '../components/AddDonor/AddDonor';
 import RequestList from '../components/Request/RequestList';
 import Campaign from '../components/Campaign/Campaign';
@@ -41,6 +41,8 @@ const Layout = () => {
             <Route path="/request-blood" element={<Request />} />
             <Route path="/campaign" element={<Campaign/>} />
             <Route path="/campaign-list" element={<CampaignCard/>} />
+            <Route path="/edit-campaign/:id" element={<Campaign isEdit={true} />} />
+
 
             <Route path="/map" element={<Map/>} />
             <Route path="/blood-inventory-list" element={<BloodInventoryList/>} />
