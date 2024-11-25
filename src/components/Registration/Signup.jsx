@@ -50,7 +50,7 @@ const Signup = () => {
       const data = await response.json();
       console.log("Signup successful", data);
       setErrors({});
-	  toast.success(data.message); t
+	  toast.success(data.message); 
 
 	  setTimeout(() => {
 		navigate("/login");

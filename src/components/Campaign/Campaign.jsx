@@ -95,10 +95,12 @@ const Campaign = ({ isEdit = false }) => {
 
   return (
     <div
-      className="add-container px-5 py-4"
+      className="add-container row px-5 py-4"
       style={{
         backgroundColor: '#f9f9f9',
         borderRadius: '8px',
+        width: '65%',
+        marginLeft: '10%',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
       }}
     >

@@ -113,7 +113,11 @@ const AddDonor = () => {
         <>
 
             <ToastContainer position="top-right" autoClose={3000} />
-            <div className="add-container px-5 py-4 mb-5">
+            <div className="add-container row px-5 py-4 mb-5"
+            style={{
+                width: '65%',
+                marginLeft: '10%',
+            }}>
                 <Heading title="Center Form" className="py-3"/>
 
                 <form onSubmit={handleSubmit} className='addDonorForm'>
