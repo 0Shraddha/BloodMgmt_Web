@@ -1,50 +1,83 @@
-import React from "react";
-import { BiBorderBottom } from "react-icons/bi";
+import React, { useState } from "react";
 
-
-
-const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, bloodFor, profileImage, document, id }) => {
+const ReqStatusCard = ({
+  name,
+  location,
+  bloodGroup,
+  status1,
+  status2,
+  reason,
+  bloodFor,
+  profileImage,
+  document,
+  id,
+  currentStatus,
+  onStatusChange, // Callback to notify parent
+}) => {
   const handleClick = async (status) => {
     try {
-      const response = await fetch(`http://localhost:5000/admin/blood-request/${id}`, {
-        method: "PUT", // Adjust method (GET/POST/PUT/DELETE) as needed
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status }),
-      });
-  
+      const response = await fetch(
+        `http://localhost:5000/admin/blood-request/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status }),
+        }
+      );
+
       if (!response.ok) {
         throw new Error("Failed to update status");
       }
-  
+
       const data = await response.json();
       console.log("Response:", data);
       alert(`Status updated to ${status}`);
+
+      // Notify parent about the status change
+      onStatusChange(id, status);
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to update status");
     }
   };
+
   return (
-    <>
-            
     <div style={styles.card}>
       <div style={styles.header}>
-      <img
-        src={"https://img.freepik.com/free-photo/girl-with-backpack-sunset-generative-al_169016-28612.jpg?t=st=1732550746~exp=1732554346~hmac=8b52b71b44b84446a07986c16f01134d8fa74aa6a5e29fb871088fa2d257e222&w=740"}
-        alt={`${name}'s avatar`}
-        style={styles.avatar}
-      />
-
+        <img
+          src={
+            "https://img.freepik.com/free-photo/girl-with-backpack-sunset-generative-al_169016-28612.jpg"
+           || "default_image_url.jpg"}
+          alt={`avatar`}
+          style={styles.avatar}
+        />
         <div>
-          
           <h2 style={styles.name}>{name}</h2>
           <p style={styles.location}>{location}</p>
         </div>
         <div style={styles.statusContainer}>
-          <button className="btn btn-outline-success  mx-3"  onClick={() => handleClick(status1)} >{status1}</button>
-          <button className="btn btn-outline-danger"  onClick={() => handleClick(status2)}>{status2}</button>
+          <button
+            className={`btn ${
+              currentStatus === status1
+                ? "btn-success"
+                : "btn-outline-success"
+            } mx-3`}
+            onClick={() => handleClick(status1)}
+          >
+            {status1}
+          </button>
+          <button
+            className={`btn ${
+              currentStatus === status2
+                ? "btn-danger"
+                : "btn-outline-danger"
+            }`}
+            onClick={() => handleClick(status2)}
+          >
+            {status2}
+          </button>
         </div>
       </div>
       <div style={styles.content}>
@@ -60,22 +93,22 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
           <strong>Blood for :</strong>
           <span>{bloodFor}</span>
         </div>
-      </div>
-      {document && (
+        {document && (
           <div style={{ marginTop: "16px" }}>
             <strong>Uploaded Document:</strong>
-            <button className="btn btn-success" onClick={viewDocument}>View</button>
+            <a href={`http://localhost:5000/${document}`} target="_blank" rel="noreferrer">
+              View Document
+            </a>
           </div>
         )}
+      </div>
     </div>
-    </>
   );
 };
 
+
 const styles = {
   card: {
-    // border: "1px solid #ddd",
-    // borderRadius: "8px",
     padding: "25px 16px",
     marginBottom: "16px",
     backgroundColor: "#fff",
@@ -83,7 +116,6 @@ const styles = {
     flexDirection: "column",
     gap: "8px",
     borderBottom: "1px solid #ddd",
-    // boxShadow: "0 0 4px rgba(0, 0, 0, 0.1)"
   },
   header: {
     display: "flex",
@@ -99,7 +131,7 @@ const styles = {
   },
   name: {
     margin: 0,
-    color : "#404F9C",
+    color: "#404F9C",
     fontSize: "18px",
     fontWeight: "bold",
   },
@@ -123,7 +155,7 @@ const styles = {
   row: {
     display: "flex",
     gap: "8px",
-    marginBottom :  "5px"
+    marginBottom: "5px",
   },
   bloodGroup: {
     padding: "4px 8px",
@@ -135,7 +167,38 @@ const styles = {
   reason: {
     color: "#555",
     flex: 1,
-  }
+  },
+  modalOverlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: "20px",
+    position: "relative",
+    width: "100%",
+    maxWidth: "1400px",
+
+    height: "800px",
+    borderRadius: "8px",
+  },
+  closeButton: {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    fontSize: "20px",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+  },
 };
 
 export default ReqStatusCard;
