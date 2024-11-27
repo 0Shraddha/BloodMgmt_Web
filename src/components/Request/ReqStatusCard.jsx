@@ -3,6 +3,8 @@ import { BiBorderBottom } from "react-icons/bi";
 
 const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, bloodFor, profileImage }) => {
   return (
+    <>
+            
     <div style={styles.card}>
       <div style={styles.header}>
       <img
@@ -35,6 +37,7 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
         </div>
       </div>
     </div>
+    </>
   );
 };
 
