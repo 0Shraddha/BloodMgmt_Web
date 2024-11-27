@@ -19,7 +19,7 @@ const CampaignCard = () => {
 		tempDiv.innerHTML = content;
 		return tempDiv.textContent || tempDiv.innerText || "";
 	  };
-
+ 
 	// Fetch Campaigns from the backend when the component loads
 	useEffect(() => {
 		const fetchCampaigns = async () => {
@@ -162,7 +162,7 @@ const CampaignCard = () => {
 										{stripHtmlTags(campaign.description)}
 									</div>
 									<div className="d-flex justify-content-between align-items-baseline">
-                  <button
+                 	 				<button
 										className="btn btn-dark"
 										onClick={() => handleLearnMore(campaign)}
 									>

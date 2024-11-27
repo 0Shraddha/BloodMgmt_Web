@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import '../../App.css'
 // import Input from '../Registration/Input'
 import '../../Styles/Input.scss'
@@ -7,9 +8,39 @@ import ReqStatusCard from './ReqStatusCard'
 import Heading from '../Heading/Heading'
 
 const RequestList = () => {
+
+    const [requestList, setRequestList] = useState([]);
+	const [error, setError] = useState(null);
+	const navigate = useNavigate();
+
     function handleStatus(){
         console.log("approved?");
     }
+
+    useEffect(() => {
+		const fetchBloodRequests = async () => {
+			try {
+				const response = await fetch("http://localhost:5000/admin/blood-request", {
+					method: "GET",
+					credentials: "include",
+					// headers: {
+					// 	"Content-Type": "application/json",
+					// },
+				});
+
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+
+				const data = await response.json();
+				setRequestList(data);
+			} catch (error) {
+				setError(error.message);
+			}
+		};
+
+		fetchBloodRequests();
+	}, []);
 
   return (
    <>
@@ -24,37 +55,30 @@ const RequestList = () => {
         </div>
 
         <div className="request-container" style={{width:'80vw'}}>
-            <ReqStatusCard
-                name="Jenna Sanders"
-                location="Location-10, Address"
-                bloodGroup="AB+"
-                status1="Approved"
-                status2="Rejected"
-                reason="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Lorem Ipsum is not simply random text.Lorem Ipsum is not simply random text.Lorem Ipsum is not simply random text."
-                bloodFor="Self"
-                profileImage="path/to/profile/image.jpg"
-            />
-              <ReqStatusCard
-                name="Anna Anders"
-                location="Location-30, Address"
-                bloodGroup="AB+"
-                status1="Approved"
-                status2="Rejected"
-                reason="Lorem Ipsum is not simply random text.Contrary to popular belief, Contrary to popular belief,Contrary to popular belief, It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Lorem Ipsum is not simply random text.Lorem Ipsum is not simply random text.Lorem Ipsum is not simply random text."
-                bloodFor="Self"
-                profileImage="path/to/profile/image.jpg"
-            />
-            <ReqStatusCard
-                name="Jenna Sanders"
-                location="Location-10, Address"
-                bloodGroup="O+"
-                status1="Approved"
-                status2="Rejected"
-                reason="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Lorem Ipsum is not simply random text.Lorem Ipsum is not simply random text.Lorem Ipsum is not simply random text."
-                bloodFor="Self"
-                profileImage="path/to/profile/image.jpg"
-            />
+        {error ? (
+					<p className="text-danger">Failed to load requestList: {error}</p>
+				) : requestList.length > 0 ? (
+					requestList.map((request) => (
+                        <ReqStatusCard
+                            name={request.requestedBy}
+                            location={request.location}
+                            bloodGroup={request.bloodType}
+                            status1="Approved"
+                            status2="Rejected"
+                            reason={request.reason}
+                            // bloodFor="Self"
+                            profileImage="path/to/profile/image.jpg"
+                            key={request._id}
+                            id ={request._id}
+                            document={request.document}
+                        />
+                        
+                    ))
+                ) : (
+                <p className="text-muted">No requestList available</p>
+        )}
         </div>
+        
        
     </div>    
 

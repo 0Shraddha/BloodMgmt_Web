@@ -1,7 +1,31 @@
 import React from "react";
 import { BiBorderBottom } from "react-icons/bi";
 
-const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, bloodFor, profileImage }) => {
+
+
+const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, bloodFor, profileImage, document, id }) => {
+  const handleClick = async (status) => {
+    try {
+      const response = await fetch(`http://localhost:5000/admin/blood-request/${id}`, {
+        method: "PUT", // Adjust method (GET/POST/PUT/DELETE) as needed
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to update status");
+      }
+  
+      const data = await response.json();
+      console.log("Response:", data);
+      alert(`Status updated to ${status}`);
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to update status");
+    }
+  };
   return (
     <div style={styles.card}>
       <div style={styles.header}>
@@ -12,12 +36,13 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
       />
 
         <div>
+          
           <h2 style={styles.name}>{name}</h2>
           <p style={styles.location}>{location}</p>
         </div>
         <div style={styles.statusContainer}>
-          <button className="btn btn-outline-success  mx-3">{status1}</button>
-          <button className="btn btn-outline-danger">{status2}</button>
+          <button className="btn btn-outline-success  mx-3"  onClick={() => handleClick(status1)} >{status1}</button>
+          <button className="btn btn-outline-danger"  onClick={() => handleClick(status2)}>{status2}</button>
         </div>
       </div>
       <div style={styles.content}>
@@ -34,6 +59,12 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
           <span>{bloodFor}</span>
         </div>
       </div>
+      {document && (
+          <div style={{ marginTop: "16px" }}>
+            <strong>Uploaded Document:</strong>
+            <button className="btn btn-success" onClick={viewDocument}>View</button>
+          </div>
+        )}
     </div>
   );
 };

@@ -34,7 +34,7 @@ const Request = () => {
         formData.append('reason', requestDetail.reason);
         formData.append('document', document);
         try{
-            const response = await fetch('http://localhost:5000/blood-request',{
+            const response = await fetch('http://localhost:5000/user/blood-request',{
                 method : 'POST',
                 credentials : 'include',
                 body: formData,
