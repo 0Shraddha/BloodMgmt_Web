@@ -21,20 +21,15 @@ body{
 }
 
 // Container styles
-.login-container, 
+.login-container,
 .signup-container,
 .add-container,
 .req-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 4%;
-  margin-left: 30%;
-  padding: 18px;
-  width:45%;
-  background: $container-bg;
+  flex-direction: column;
+  width: 40%;
   border: 1px solid #44444444;
-  // box-shadow: 0px 0px 10px $box-shadow-color;
   border-radius: 20px;
 }
 
@@ -43,6 +38,7 @@ body{
   background-color: $input-bg-color;
   border: 1px solid $input-border-color;
   padding: 5px 15px;
+  margin-bottom: 10px;
 
   &::placeholder {
     color: $placeholder-color;

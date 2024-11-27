@@ -6,6 +6,8 @@ import '../../Styles/Input.scss'
 import StatusBtn from './StatusBtn'
 import ReqStatusCard from './ReqStatusCard'
 import Heading from '../Heading/Heading'
+import { Link } from 'react-router-dom';
+
 
 const RequestList = () => {
 
@@ -45,6 +47,11 @@ const RequestList = () => {
   return (
    <>
     <div className="row my-5" style={{ marginTop : '10px', width: '1250px'}}>
+            <div className='text-end'>
+              <Link to="/request-blood" className="btn" id="btnSubmit">
+                Add Data
+              </Link>
+            </div>
       <Heading title="Blood Request Lists" desc="Blood Request Status to be checked" />
 
         <div className="btn-container d-flex my-3">

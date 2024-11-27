@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import Input from "./Input";
 import "../../Styles/Input.scss";
-import { Link, useNavigate } from "react-router-dom"; 
-import { toast, ToastContainer } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-  
+
   const handleSignup = async (e) => {
     e.preventDefault();
-  
+
     const formData = {
       firstname: e.target.firstname.value.trim(),
       lastname: e.target.lastname.value.trim(),
@@ -24,7 +24,7 @@ const Signup = () => {
       adminAuthCode: e.target.adminAuthCode ? e.target.adminAuthCode.value : "",
       role: e.target.role.value
     };
-  
+
     // Validate the form data (example)
     if (formData.password !== formData.repassword) {
       toast.error("Passwords do not match!"); // Show toast error
@@ -43,18 +43,18 @@ const Signup = () => {
       if (!response.ok) {
         const data = await response.json();
         setErrors(data);
-        toast.error("Signup failed: " + data.message); // Show toast error
-        throw new Error("Signup failed: " + response.statusText);
+        toast.error("Signup failed! Please try again later"); // Show toast error
+        throw new Error("Signup failed: ");
       }
 
       const data = await response.json();
       console.log("Signup successful", data);
       setErrors({});
-	  toast.success(data.message); 
+      toast.success(data.message);
 
-	  setTimeout(() => {
-		navigate("/login");
-	  }, 2000); 
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
 
     } catch (error) {
       console.error("Error during signup:", error);
@@ -66,7 +66,7 @@ const Signup = () => {
   const handleClearError = (fieldName) => {
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [fieldName]: '', 
+      [fieldName]: '',
     }));
   };
 
@@ -76,151 +76,154 @@ const Signup = () => {
 
   return (
     <>
-
-      <div className="signup-container row">
-		<div className='col-12'>
-        	<h2 className="py-3 form-heading text-center">Signup</h2>
-		</div>
-       <div className='col-11'>
-	   <form onSubmit={handleSignup}>
-          <div className="row px-2">
-            <div className="col-12 d-flex gap-4 py-1">
-              <div className="col-6">
-                <Input
-                  label="Firstname: "
-                  name="firstname"
-                  id="firstname"
-                  placeholder="Enter your firstname"
-                  type="text"
-                  error={errors.firstname}
-                  onClearError={() => handleClearError("firstname")}
-                />
+      <div className="form-container d-flex justify-content-center mt-5">
+        <div className="signup-container row ps-3">
+          <div className='col-12'>
+            <h2 className="py-3 form-heading text-center">Signup</h2>
+          </div>
+          <div className='col-11'>
+            <form onSubmit={handleSignup}>
+              <div className="row px-2">
+                <div className="col-12 d-flex gap-4 py-1">
+                  <div className="col-6">
+                    <Input
+                      label="Firstname: "
+                      name="firstname"
+                      id="firstname"
+                      placeholder="Enter your firstname"
+                      type="text"
+                      error={errors.firstname}
+                      onClearError={() => handleClearError("firstname")}
+                    />
+                  </div>
+                  <div className="col-6">
+                    <Input
+                      label="Lastname: "
+                      name="lastname"
+                      id="lastname"
+                      placeholder="Enter your lastname"
+                      type="text"
+                      error={errors.lastname}
+                      onClearError={() => handleClearError("lastname")}
+                    />
+                  </div>
+                </div>
+                <div className="col-12 d-flex gap-4 py-1">
+                  <div className="col-6">
+                    <Input
+                      label="Username: "
+                      name="username"
+                      id="username"
+                      placeholder="Enter your username"
+                      type="text"
+                      error={errors.username}
+                      onClearError={() => handleClearError("username")}
+                    />
+                  </div>
+                  <div className="col-6">
+                    <Input
+                      label="Email: "
+                      name="email"
+                      id="email"
+                      placeholder="Enter your email address"
+                      type="email"
+                      error={errors.email}
+                      onClearError={() => handleClearError("email")}
+                    />
+                  </div>
+                </div>
+                <div className="col-12 d-flex gap-4 py-1">
+                  <div className="col-6">
+                    <Input
+                      label="Phone no.: "
+                      name="phone"
+                      id="phone"
+                      placeholder="Enter your phone number"
+                      type="tel"
+                      error={errors.phone}
+                      onClearError={() => handleClearError("phone")}
+                    />
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="role" className="form-label">Role</label>
+                    <select className="form-select form-control" name="role" id="role" onChange={handleRoleChange} defaultValue="user">
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
+                    </select>
+                  </div>
+                </div>
+                {isAdmin && (
+                  <div>
+                    <Input
+                      label="Admin Auth Code: "
+                      name="adminAuthCode"
+                      id="adminAuthCode"
+                      placeholder="Enter the secret admin key"
+                      type="text"
+                      onClearError={() => handleClearError("adminAuthCode")}
+                    />
+                    {errors.adminAuthCode && <p className="error">{errors.adminAuthCode}</p>}
+                  </div>
+                )}
+                <div className="col-12 d-flex gap-4 py-1">
+                  <div className="col-6">
+                    <Input
+                      label="Password: "
+                      name="password"
+                      id="password"
+                      placeholder="Enter your password"
+                      type="password"
+                      error={errors.password}
+                      onClearError={() => handleClearError("password")}
+                    />
+                  </div>
+                  <div className="col-6">
+                    <Input
+                      label="Re-password: "
+                      name="repassword"
+                      id="repassword"
+                      placeholder="Enter your repassword"
+                      type="password"
+                      onClearError={() => handleClearError("repassword")}
+                    />
+                  </div>
+                </div>
+                <div className="col-12 d-flex gap-4 py-1">
+                  <Input
+                    select
+                    label="Blood Group: (Select your blood group)"
+                    name="bloodType"
+                    options={[
+                      { value: "A+", label: "A+" },
+                      { value: "A-", label: "A-" },
+                      { value: "B+", label: "B+" },
+                      { value: "B-", label: "B-" },
+                      { value: "AB+", label: "AB+" },
+                      { value: "AB-", label: "AB-" },
+                      { value: "O+", label: "O+" },
+                      { value: "O-", label: "O-" },
+                    ]}
+                  />
+                </div>
               </div>
-              <div className="col-6">
-                <Input
-                  label="Lastname: "
-                  name="lastname"
-                  id="lastname"
-                  placeholder="Enter your lastname"
-                  type="text"
-                  error={errors.lastname}
-                  onClearError={() => handleClearError("lastname")}
-                />
-              </div>
-            </div>
-            <div className="col-12 d-flex gap-4 py-1">
-              <div className="col-6">
-                <Input
-                  label="Username: "
-                  name="username"
-                  id="username"
-                  placeholder="Enter your username"
-                  type="text"
-                  error={errors.username}
-                  onClearError={() => handleClearError("username")}
-                />
-              </div>
-              <div className="col-6">
-                <Input
-                  label="Email: "
-                  name="email"
-                  id="email"
-                  placeholder="Enter your email address"
-                  type="email"
-                  error={errors.email}
-                  onClearError={() => handleClearError("email")}
-                />
-              </div>
-            </div>
-            <div className="col-12 d-flex gap-4 py-1">
-              <div className="col-6">
-                <Input
-                  label="Phone no.: "
-                  name="phone"
-                  id="phone"
-                  placeholder="Enter your phone number"
-                  type="tel"
-                  error={errors.phone}
-                  onClearError={() => handleClearError("phone")}
-                />
-              </div>
-              <div className="col-6">
-                <label htmlFor="role" className="form-label">Role</label>
-                <select className="form-select form-control" name="role" id="role" onChange={handleRoleChange} defaultValue="user">
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                </select>
-              </div>
-            </div>
-            {isAdmin && (
               <div>
-                <Input
-                  label="Admin Auth Code: "
-                  name="adminAuthCode"
-                  id="adminAuthCode"
-                  placeholder="Enter the secret admin key"
-                  type="text"
-                  onClearError={() => handleClearError("adminAuthCode")}
-                />
-                {errors.adminAuthCode && <p className="error">{errors.adminAuthCode}</p>}
+                <button type="submit" className="btn my-2 mx-3" id="btnSignup">
+                  Sign up
+                </button>
               </div>
-            )}
-            <div className="col-12 d-flex gap-4 py-1">
-              <div className="col-6">
-                <Input
-                  label="Password: "
-                  name="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  type="password"
-                  error={errors.password}
-                  onClearError={() => handleClearError("password")}
-                />
-              </div>
-              <div className="col-6">
-                <Input
-                  label="Re-password: "
-                  name="repassword"
-                  id="repassword"
-                  placeholder="Enter your repassword"
-                  type="password"
-                  onClearError={() => handleClearError("repassword")}
-                />
-              </div>
-            </div>
-            <div className="col-12 d-flex gap-4 py-1">
-              <Input
-                select
-                label="Blood Group: (Select your blood group)"
-                name="bloodType"
-                options={[
-                  { value: "A+", label: "A+" },
-                  { value: "A-", label: "A-" },
-                  { value: "B+", label: "B+" },
-                  { value: "B-", label: "B-" },
-                  { value: "AB+", label: "AB+" },
-                  { value: "AB-", label: "AB-" },
-                  { value: "O+", label: "O+" },
-                  { value: "O-", label: "O-" },
-                ]}
-              />
-            </div>
+            </form>
           </div>
-          <div>
-            <button type="submit" className="btn my-2 mx-3" id="btnSignup">
-              Sign up
-            </button>
-          </div>
-        </form>
-	   </div>
-        <p className="text-muted text-center">
-          Already have an account?{" "}
-          <Link to="/login" className="btn btn-sm btn-outline-dark">
+      
+          <p className="text-muted text-center">
+              Already have an account?<br/>
+            <Link to="/login" className="btn btn-sm btn-outline-dark my-2">
             Login
-          </Link>
-        </p>
+            </Link>
+          </p>
+        </div>
       </div>
       <ToastContainer position="top-right" autoClose={3000} />
+
     </>
   );
 };

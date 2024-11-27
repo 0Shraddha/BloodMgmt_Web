@@ -29,7 +29,7 @@ const Layout = () => {
             <Sidebar />
           </div>
         )}
-        <div className="col px-5"> 
+        <div className="col me-3"> 
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/center" element={<CenterList />} />

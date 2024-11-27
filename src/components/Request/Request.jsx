@@ -58,7 +58,9 @@ const Request = () => {
 
 
     return (
+      <>
         <div className="login-container align-items-center">
+          
           <h2 className="py-3 form-heading text-center">Request</h2>
     
           <form className="py-4 px-5" onSubmit={handleSubmit} encType="multipart/form-data">
@@ -122,6 +124,7 @@ const Request = () => {
           {error && <p style={{ color: 'red' }}>{error}</p>}
     
         </div>
+      </>
       );
 }
 

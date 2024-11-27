@@ -27,6 +27,8 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
     }
   };
   return (
+    <>
+            
     <div style={styles.card}>
       <div style={styles.header}>
       <img
@@ -66,6 +68,7 @@ const ReqStatusCard = ({ name, location, bloodGroup, status1, status2, reason, b
           </div>
         )}
     </div>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
+import { BiSolidDonateBlood } from 'react-icons/bi';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -45,7 +46,8 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container row">
+    <div className="form-container d-flex justify-content-center mt-5">
+      <div className="login-container row">
       <ToastContainer position="top-right" autoClose={3000} />
 
 
@@ -53,7 +55,7 @@ const Login = () => {
       <h2 className="py-3 form-heading text-center">Login</h2>
 		</div>
     <div className='col-11'>
-      <form className="py-4 px-5" onSubmit={handleSubmit}>
+      <form className="py-2 ps-4" onSubmit={handleSubmit}>
         <Input
           label="Username"
           type="text"
@@ -71,7 +73,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div>
-          <button type="submit" className="btn  my-3 mx-1" id="btnSubmit">
+          <button type="submit" className="btn my-2 mx-1" id="btnSubmit">
             Login
           </button>
         </div>
@@ -81,11 +83,12 @@ const Login = () => {
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <p className="text-muted text-center">
-        Don't have an account?{' '}
-        <Link to="/signup" className="btn btn-sm btn-outline-dark">
+        Don't have an account?<br/>
+        <Link to="/signup" className="btn btn-sm btn-outline-dark my-2">
           Sign up
         </Link>
       </p>
+    </div>
     </div>
 
   );
