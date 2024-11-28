@@ -20,7 +20,7 @@ const BloodInventoryForm = () => {
     // lastUpdated: centerData ? centerData.lastUpdated : '',
   });
 
-  const [centerList, setCenterList] = useState([]);
+  const [centerList, setCenterList] = useState([]); 
   const [error, setError] = useState(null);
 
  // State to hold blood inventory data, only shown after successful submission

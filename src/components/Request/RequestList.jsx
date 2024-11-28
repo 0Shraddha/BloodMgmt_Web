@@ -54,6 +54,9 @@ const RequestList = () => {
         (request) => request.status === filter
       );
       setFilteredRequests(newFilteredRequests);
+    }else{
+      setFilteredRequests(updatedList);
+      
     }
   };
 
@@ -101,6 +104,7 @@ const RequestList = () => {
           ) : filteredRequests.length > 0 ? (
             filteredRequests.map((request) => (
               <ReqStatusCard
+                savedStatus={request.status}
                 key={request._id}
                 name={request.requestedBy}
                 location={request.location}
@@ -109,10 +113,12 @@ const RequestList = () => {
                 status2="Rejected"
                 reason={request.reason}
                 profileImage="path/to/profile/image.jpg"
+                units={request.units}
                 id={request._id}
                 document={request.document}
                 currentStatus={request.status}
                 onStatusChange={updateStatus} // Pass the callback
+
               />
             ))
           ) : (

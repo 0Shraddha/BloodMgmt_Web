@@ -7,36 +7,40 @@ const ReqStatusCard = ({
   status1,
   status2,
   reason,
-  bloodFor,
+  units,
   profileImage,
   document,
   id,
+  savedStatus,
   currentStatus,
   onStatusChange, // Callback to notify parent
 }) => {
   const handleClick = async (status) => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/admin/blood-request/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status }),
+      if(status != currentStatus){
+        console.log("...........", units)
+        const response = await fetch(
+          `http://localhost:5000/admin/blood-request/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status, units, bloodType: bloodGroup }),
+          }
+        );
+  
+        if (!response.ok) {
+          throw new Error("Failed to update status");
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update status");
+  
+        const data = await response.json();
+        console.log("Response:", data);
+        alert(`Status updated to ${status}`);
+  
+        // Notify parent about the status change
+        onStatusChange(id, status);
       }
-
-      const data = await response.json();
-      console.log("Response:", data);
-      alert(`Status updated to ${status}`);
-
-      // Notify parent about the status change
-      onStatusChange(id, status);
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to update status");
@@ -54,7 +58,7 @@ const ReqStatusCard = ({
           style={styles.avatar}
         />
         <div>
-          <h2 style={styles.name}>{name}</h2>
+          <h2 style={styles.name}>{name} {savedStatus}</h2>
           <p style={styles.location}>{location}</p>
         </div>
         <div style={styles.statusContainer}>
@@ -90,8 +94,8 @@ const ReqStatusCard = ({
           <span style={styles.reason}>{reason}</span>
         </div>
         <div style={styles.row}>
-          <strong>Blood for :</strong>
-          <span>{bloodFor}</span>
+          <strong>Requested Blood units:</strong>
+          <span>{units}</span>
         </div>
         {document && (
           <div style={{ marginTop: "16px" }}>

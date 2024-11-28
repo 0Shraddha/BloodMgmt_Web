@@ -72,6 +72,7 @@ const Request = () => {
               value={requestDetail.requestedBy}
               onChange={handleChange}
             />
+            <label htmlFor="bloodType">Blood Type:</label>
              <select
               className='form-control'
                 id="bloodType"

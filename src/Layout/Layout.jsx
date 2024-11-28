@@ -13,6 +13,7 @@ import Map from '../components/MapWithSearch/Map';
 import BloodInventoryList from '../components/Inventory/BloodInventoryList';
 import BloodInventoryForm from '../components/Inventory/BloodInventoryForm';
 import CampaignCard from '../components/Campaign/CampaignCard';
+import BloodRequestForm from '../components/Request/BloodRequestForm';
 
 const Layout = () => {
   const location = useLocation(); // Get the current location
@@ -36,6 +37,7 @@ const Layout = () => {
             <Route path="/request-list" element={<RequestList />} />
             <Route path="/add-center" element={<AddDonor />} />
             <Route path="/request-blood" element={<Request />} />
+            <Route path="/user/request-blood" element={<BloodRequestForm />} />
             <Route path="/campaign" element={<Campaign />} />
             <Route path="/campaign-list" element={<CampaignCard />} />
             <Route path="/edit-campaign/:id" element={<Campaign isEdit={true} />} />
