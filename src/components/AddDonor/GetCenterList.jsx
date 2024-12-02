@@ -127,7 +127,8 @@ const GetCenterList = () => {
         });
   
         if (!response.ok) {
-          throw new Error('Failed to delete the center');
+          const data = await response.json(); 
+          toast.error(data.message);
         }else{
           toast.success("Successfully deleted!");
           setTimeout(() => {
