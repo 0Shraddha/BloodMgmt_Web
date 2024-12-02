@@ -13,6 +13,7 @@ const ReqStatusCard = ({
   id,
   savedStatus,
   currentStatus,
+  centerId,
   onStatusChange, // Callback to notify parent
 }) => {
   const handleClick = async (status) => {
@@ -26,7 +27,7 @@ const ReqStatusCard = ({
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ status, units, bloodType: bloodGroup }),
+            body: JSON.stringify({ status, units, bloodType: bloodGroup, centerId: centerId._id }),
           }
         );
   
@@ -58,7 +59,7 @@ const ReqStatusCard = ({
           style={styles.avatar}
         />
         <div>
-          <h2 style={styles.name}>{name} {savedStatus}</h2>
+          <h2 style={styles.name}>{name}</h2>
           <p style={styles.location}>{location}</p>
         </div>
         <div style={styles.statusContainer}>
@@ -84,7 +85,12 @@ const ReqStatusCard = ({
           </button>
         </div>
       </div>
+      
       <div style={styles.content}>
+      <div style={styles.row}>
+          <strong>Center:</strong>
+          <span style={styles.reason}>{centerId.centerName}</span>
+        </div>
         <div style={styles.row}>
           <strong>In search of :</strong>
           <span style={styles.bloodGroup}>{bloodGroup}</span>

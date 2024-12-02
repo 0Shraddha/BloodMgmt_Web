@@ -8,6 +8,7 @@ const BloodRequestForm = () => {
         units: "",
         bloodType: "",
         reason: "",
+        centerId: ""
     });
 
     const [error, setError] = useState(null);
@@ -112,6 +113,7 @@ const BloodRequestForm = () => {
         formData.append("units", requestDetail.units);
         formData.append("reason", requestDetail.reason);
         formData.append("document", document);
+        formData.append("centerId", selectedCenter)
 
         try {
             const response = await fetch("http://localhost:5000/user/blood-request", {

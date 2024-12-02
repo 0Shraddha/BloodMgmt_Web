@@ -115,6 +115,7 @@ const RequestList = () => {
                 profileImage="path/to/profile/image.jpg"
                 units={request.units}
                 id={request._id}
+                centerId = {request.centerId}
                 document={request.document}
                 currentStatus={request.status}
                 onStatusChange={updateStatus} // Pass the callback
