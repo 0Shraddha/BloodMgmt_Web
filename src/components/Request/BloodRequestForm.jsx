@@ -140,7 +140,7 @@ const BloodRequestForm = () => {
     console.log("Is Error:", isError);
 
     return (
-        <div className="login-container align-items-center">
+        <div className="align-items-center">
             <h2 className="py-3 form-heading text-center">Request</h2>
 
             {error ? (

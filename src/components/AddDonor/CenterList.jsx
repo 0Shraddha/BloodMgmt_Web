@@ -9,7 +9,7 @@ import Heading from '../Heading/Heading'
 const CenterList = () => {
   return (
     <>
-    <div className="row d-flex align-items-start" style={{ marginTop:'80px', marginBottom:'20px'}}>
+    <div className="row d-flex align-items-start" style={{ marginTop:'80px', marginBottom:'20px', marginRight : '30px'}}>
         <div className="col-6">
           <Heading title="Different Centers" desc="Various centers that manage the blood inventory" />
         </div>

@@ -32,6 +32,17 @@ const Login = () => {
       }
   
       const data = await response.json();
+
+       // Store the relevant data in local storage
+    const userToken = {
+      firstname: data.user.firstname,
+      lastname: data.user.lastname,
+      role: data.user.role,
+      username: data.user.username,
+    };
+    localStorage.setItem('userToken', JSON.stringify(userToken));
+
+
       console.log('response', data);
       toast.success("Login successful!");
   
@@ -61,7 +72,7 @@ const Login = () => {
     <div className='col-11'>
       <form className="py-2 ps-4" onSubmit={handleSubmit}>
         <Input
-          label="Username"
+          label="Email"
           type="text"
           placeholder="Enter your email"
           name="email"

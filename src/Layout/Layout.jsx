@@ -15,23 +15,28 @@ import BloodInventoryForm from '../components/Inventory/BloodInventoryForm';
 import CampaignCard from '../components/Campaign/CampaignCard';
 import BloodRequestForm from '../components/Request/BloodRequestForm';
 import ProtectedRoute from './ProtectedRoute'; // Import your ProtectedRoute component
+import Topbar from '../components/topbar/Topbar';
+
 
 const Layout = () => {
   const location = useLocation(); // Get the current location
 
   return (
     <>
-      <div className="row topbar">
-        {/* <Topbar /> */}
+      <div className="topbar">
+      {(location.pathname !== '/login' && location.pathname !== '/signup') && (
+          <div className="col-2 sidebar-container">
+                    <Topbar />
+          </div>
+        )}
       </div>
-      <div className='row main-wrapper gap-0'>
-        {/* Only show Sidebar for routes other than Login and Signup */}
+      <div className='row d-flex main-wrapper gap-0'>
         {(location.pathname !== '/login' && location.pathname !== '/signup') && (
           <div className="col-2 sidebar-container">
             <Sidebar />
           </div>
         )}
-        <div className="col me-3"> 
+        <div className="col"> 
           <Routes>
             {/* Protected routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

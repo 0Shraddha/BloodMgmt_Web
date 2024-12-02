@@ -157,9 +157,14 @@ const AddDonor = () => {
                                 />
                             </div>
                         </div>
+                        
                         <div className="row">
                           
-                            <Map onLocationChange={handleLocationChange}/>
+                            <Map onLocationChange={handleLocationChange}
+                              initialLatitude={centerValues.latitude}
+                              initialLongitude={centerValues.longitude}
+                              initialAddress={centerValues.location}
+                            />
                     
                             </div>
                         {/* <Input

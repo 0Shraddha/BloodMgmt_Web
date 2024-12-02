@@ -6,6 +6,7 @@ import { FaListUl } from "react-icons/fa6";
 import { MdOutlineInventory2, MdOutlineCampaign, MdOutlineLogout } from "react-icons/md";
 import { FaRegFile } from "react-icons/fa";
 import { BiSolidDonateBlood } from "react-icons/bi";
+import { RxAvatar } from 'react-icons/rx';
 
 const Sidebar = () => {
   const handleLogout = () => {
@@ -14,9 +15,8 @@ const Sidebar = () => {
   
   return (
 
-    <nav id="sidebar">
+    <nav id="sidebar" className='row  justify-content-between'>
       <ul>
-
             <li className='text-center'>
             <span className="text-center" to="/">
               <BiSolidDonateBlood color='#B60C0C' size={90} />
@@ -38,11 +38,17 @@ const Sidebar = () => {
             <li>
               <NavLink className="nav-link fw-semibold" to="/campaign-list"><MdOutlineCampaign size={21} /><span className="px-3">Campaign</span></NavLink>
             </li>
+            
+            
+      </ul>
+
+      <div>
+          <ul style={{ marginTop : '18rem'}}>
             <li>
               <NavLink className="nav-link fw-semibold" to="/login" onClick={handleLogout}><MdOutlineLogout size={21} /><span className="px-3">Logout</span></NavLink>
             </li>
-            
-      </ul>
+          </ul>
+      </div>
     </nav>
 
   );
