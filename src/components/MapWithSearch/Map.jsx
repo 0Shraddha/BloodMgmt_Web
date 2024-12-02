@@ -7,11 +7,11 @@ import Input from '../Registration/Input';
 import { FaSearch } from 'react-icons/fa';
 import "../../Styles/Map.scss"
 
-const Map = ({ onLocationChange }) => {
+const Map = ({ onLocationChange, initialLatitude, initialLongitude, initialAddress }) => {
   const mapContainerRef = useRef(null); // Ref to store the map container
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [address, setAddress] = useState('');
+  const [latitude, setLatitude] = useState(initialLatitude || null);
+  const [longitude, setLongitude] = useState(initialLongitude || null);
+  const [address, setAddress] = useState(initialAddress || '');
   const [searchQuery, setSearchQuery] = useState('');
   const mapRef = useRef(null); // Store the map instance in a ref
 
@@ -39,9 +39,9 @@ const Map = ({ onLocationChange }) => {
 
   const handleMapClick = (event) => {
     console.log('Map clicked!', event.latlng); // Debugging line
-
+  
     const { lat, lng } = event.latlng;
-
+  
     // Remove previous markers if they exist
     if (mapRef.current) {
       mapRef.current.eachLayer((layer) => {
@@ -50,29 +50,39 @@ const Map = ({ onLocationChange }) => {
         }
       });
     }
-
-    // Add new marker and update state
-    const newMarker = L.marker([lat, lng]).addTo(mapRef.current);
+  
+    // Add a new draggable marker and update state
+    const newMarker = L.marker([lat, lng], { draggable: true }).addTo(mapRef.current);
+  
     setLatitude(lat);
     setLongitude(lng);
-
-    // Fetch address via reverse geocoding
-    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`)
-      .then(response => response.json())
-      .then(data => {
-        const newAddress = data.display_name || 'Address not found';
-        setAddress(newAddress);
-        setSearchQuery(newAddress); // Update search input
-        if (onLocationChange) {
-          onLocationChange(newAddress, lat, lng); // Send data to parent component
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        setAddress('Error retrieving address.');
-      });
+  
+    // Add dragend event listener to update the state and fetch the address
+    newMarker.on('dragend', function (e) {
+      const newLatLng = newMarker.getLatLng();
+      const { lat: newLat, lng: newLng } = newLatLng;
+  
+      setLatitude(newLat);
+      setLongitude(newLng);
+  
+      // Fetch updated address via reverse geocoding
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${newLat}&lon=${newLng}&format=json&addressdetails=1`)
+        .then(response => response.json())
+        .then(data => {
+          const updatedAddress = data.display_name || 'Address not found';
+          setAddress(updatedAddress);
+          setSearchQuery(updatedAddress); // Update search input
+          if (onLocationChange) {
+            onLocationChange(updatedAddress, newLat, newLng); // Send updated data to parent component
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          setAddress('Error retrieving address.');
+        });
+    });
   };
-
+  
   const handleSearch = async (event) => {
     // Ensure search is triggered on Enter key
     if (event.key === 'Enter' && searchQuery.trim()) {
@@ -94,9 +104,20 @@ const Map = ({ onLocationChange }) => {
         }
 
         // Update marker
-        const newMarker = L.marker([lat, lng]).addTo(mapRef.current);
+        const newMarker = L.marker([lat, lng], { draggable: true }).addTo(mapRef.current);
         mapRef.current.setView([lat, lng], 13);
 
+        newMarker.on('dragstart', () => {
+          console.log('Drag started!');
+        });
+        newMarker.on('drag', () => {
+          console.log('Dragging...');
+        });
+        newMarker.on('dragend', (e) => {
+          console.log('Drag ended at:', e.target.getLatLng());
+        });
+
+        
         // Update state
         setLatitude(lat);
         setLongitude(lng);

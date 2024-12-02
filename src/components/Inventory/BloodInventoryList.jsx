@@ -37,26 +37,11 @@ const BloodInventoryList = () => {
     
   }, []);
 
-  const handleEdit = (inventory) => {
+  const handleRequest = (inventory) => {
     // Navigate to the form with the selected inventory as state
-    navigate("/blood-inventory-form", {
+    navigate("/request-blood", {
       state: { centerData: inventory },
     });
-  };
-
-  const handleDelete = async (inventory) => {
-    if (window.confirm(`Are you sure you want to delete ${inventory.bloodType}?`)) {
-      try {
-        await deleteBloodData(inventory);
-        setCenterBlood((prev) =>
-          prev.bloodInventory.filter((item) => item._id !== inventory._id)
-        ); // Optimistic update
-        toast.success("Deleted successfully!");
-      } catch (error) {
-        toast.error("Error deleting data");
-        console.error(error);
-      }
-    }
   };
 
   const labels = centerBlood.totalBlood?.map((blood) => blood.bloodType) || [];
@@ -99,7 +84,7 @@ const BloodInventoryList = () => {
     <>
       {centerBlood ? (
         <>
-          <div className="row d-flex text-end">
+          <div className="row d-flex text-end"  style={{ marginTop:'60px', marginBottom:'20px', marginRight : '30px'}}>
           <ToastContainer position="top-right" autoClose={3000} />
 
             <span>
@@ -108,7 +93,7 @@ const BloodInventoryList = () => {
               </Link>
             </span>
           </div>
-          <section className="chart-section mb-4">
+          <section className="chart-section mb-2">
             <Heading title="Blood Inventory Overview" />
             <BarChart series={series} options={options} />
           </section>
@@ -151,12 +136,9 @@ const BloodInventoryList = () => {
                           <small>Units Available:</small> {inventory.units}
                         </p>
                         <div className="text-end">
-                          {/* <span style={{ cursor: "pointer", marginRight: "10px" }} title="Edit" onClick={() => handleEdit(inventory)}>
-                            <FaRegEdit size={"16px"} color="#fcba28" />
-                          </span>
-                          <span style={{ cursor: "pointer" }} onClick={() => handleDelete(inventory)}>
-                            <MdDeleteOutline size={"17px"} color="#e1002d" title="Delete" />
-                          </span> */}
+                          <button className="btn btn-sm btn-warning text-white" style={{ cursor: "pointer", marginRight: "10px" , color: "#fcba28" }} title="Request" onClick={() => handleRequest(inventory)}>
+                             Request
+                          </button>
                         </div>
                       </div>
                     </div>
