@@ -35,8 +35,11 @@ const Login = () => {
       console.log('response', data);
       toast.success("Login successful!");
   
+      // Store token in localStorage
+      localStorage.setItem('token', data.token);
+  
       setTimeout(() => {
-        navigate("/"); // Redirect after 2 seconds
+        navigate("/dashboard"); // Redirect after 2 seconds
       }, 2000);
   
     } catch (err) {
@@ -44,6 +47,7 @@ const Login = () => {
       toast.error(err.message); // Display error message in toast
     }
   };
+  
 
   return (
     <div className="form-container d-flex justify-content-center mt-5">

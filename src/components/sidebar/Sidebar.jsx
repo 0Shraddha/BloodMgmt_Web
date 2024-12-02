@@ -8,6 +8,10 @@ import { FaRegFile } from "react-icons/fa";
 import { BiSolidDonateBlood } from "react-icons/bi";
 
 const Sidebar = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove token
+  };
+  
   return (
 
     <nav id="sidebar">
@@ -20,7 +24,7 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <NavLink className="nav-link fw-semibold" aria-current="page" to="/"><LuLayoutDashboard /><span className="px-3">Dashboard</span></NavLink>
+              <NavLink className="nav-link fw-semibold" aria-current="page" to="/dashboard"><LuLayoutDashboard /><span className="px-3">Dashboard</span></NavLink>
             </li>
             <li>
               <NavLink className="nav-link fw-semibold" to="/center"><FaListUl/><span className="px-3">Center List</span></NavLink>
@@ -35,7 +39,7 @@ const Sidebar = () => {
               <NavLink className="nav-link fw-semibold" to="/campaign-list"><MdOutlineCampaign size={21} /><span className="px-3">Campaign</span></NavLink>
             </li>
             <li>
-              <NavLink className="nav-link fw-semibold" to="/login"><MdOutlineLogout size={21} /><span className="px-3">Logout</span></NavLink>
+              <NavLink className="nav-link fw-semibold" to="/login" onClick={handleLogout}><MdOutlineLogout size={21} /><span className="px-3">Logout</span></NavLink>
             </li>
             
       </ul>

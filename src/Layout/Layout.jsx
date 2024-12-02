@@ -14,6 +14,7 @@ import BloodInventoryList from '../components/Inventory/BloodInventoryList';
 import BloodInventoryForm from '../components/Inventory/BloodInventoryForm';
 import CampaignCard from '../components/Campaign/CampaignCard';
 import BloodRequestForm from '../components/Request/BloodRequestForm';
+import ProtectedRoute from './ProtectedRoute'; // Import your ProtectedRoute component
 
 const Layout = () => {
   const location = useLocation(); // Get the current location
@@ -32,21 +33,23 @@ const Layout = () => {
         )}
         <div className="col me-3"> 
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/center" element={<CenterList />} />
-            <Route path="/request-list" element={<RequestList />} />
-            <Route path="/add-center" element={<AddDonor />} />
-            <Route path="/request-blood" element={<BloodRequestForm />} />
-            <Route path="/user/request-blood" element={<BloodRequestForm />} />
-            <Route path="/campaign" element={<Campaign />} />
-            <Route path="/campaign-list" element={<CampaignCard />} />
-            <Route path="/edit-campaign/:id" element={<Campaign isEdit={true} />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/blood-inventory-list" element={<BloodInventoryList />} />
-            <Route path="/blood-inventory-form" element={<BloodInventoryForm />} />
+            {/* Protected routes */}
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/center" element={<ProtectedRoute><CenterList /></ProtectedRoute>} />
+            <Route path="/request-list" element={<ProtectedRoute><RequestList /></ProtectedRoute>} />
+            <Route path="/add-center" element={<ProtectedRoute><AddDonor /></ProtectedRoute>} />
+            <Route path="/request-blood" element={<ProtectedRoute><BloodRequestForm /></ProtectedRoute>} />
+            <Route path="/user/request-blood" element={<ProtectedRoute><BloodRequestForm /></ProtectedRoute>} />
+            <Route path="/campaign" element={<ProtectedRoute><Campaign /></ProtectedRoute>} />
+            <Route path="/campaign-list" element={<ProtectedRoute><CampaignCard /></ProtectedRoute>} />
+            <Route path="/edit-campaign/:id" element={<ProtectedRoute><Campaign isEdit={true} /></ProtectedRoute>} />
+            <Route path="/map" element={<ProtectedRoute><Map /></ProtectedRoute>} />
+            <Route path="/blood-inventory-list" element={<ProtectedRoute><BloodInventoryList /></ProtectedRoute>} />
+            <Route path="/blood-inventory-form" element={<ProtectedRoute><BloodInventoryForm /></ProtectedRoute>} />
           </Routes>
         </div>
       </div>
+      {/* Unprotected routes */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
