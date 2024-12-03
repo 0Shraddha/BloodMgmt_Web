@@ -12,10 +12,11 @@ import Request from '../components/Request/Request';
 import Map from '../components/MapWithSearch/Map';
 import BloodInventoryList from '../components/Inventory/BloodInventoryList';
 import BloodInventoryForm from '../components/Inventory/BloodInventoryForm';
-import CampaignCard from '../components/Campaign/CampaignCard';
+import CampaignContainer from '../components/Campaign/CampaignContainer';
 import BloodRequestForm from '../components/Request/BloodRequestForm';
 import ProtectedRoute from './ProtectedRoute'; // Import your ProtectedRoute component
 import Topbar from '../components/topbar/Topbar';
+import RoleCheckComponent from '../components/AuthContext/RoleCheckComponent';
 
 
 const Layout = () => {
@@ -39,6 +40,7 @@ const Layout = () => {
         <div className="col"> 
           <Routes>
             {/* Protected routes */}
+
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/center" element={<ProtectedRoute><CenterList /></ProtectedRoute>} />
             <Route path="/request-list" element={<ProtectedRoute><RequestList /></ProtectedRoute>} />
@@ -46,11 +48,13 @@ const Layout = () => {
             <Route path="/request-blood" element={<ProtectedRoute><BloodRequestForm /></ProtectedRoute>} />
             <Route path="/user/request-blood" element={<ProtectedRoute><BloodRequestForm /></ProtectedRoute>} />
             <Route path="/campaign" element={<ProtectedRoute><Campaign /></ProtectedRoute>} />
-            <Route path="/campaign-list" element={<ProtectedRoute><CampaignCard /></ProtectedRoute>} />
+            <Route path="/campaign-list" element={<ProtectedRoute><CampaignContainer /></ProtectedRoute>} />
             <Route path="/edit-campaign/:id" element={<ProtectedRoute><Campaign isEdit={true} /></ProtectedRoute>} />
             <Route path="/map" element={<ProtectedRoute><Map /></ProtectedRoute>} />
             <Route path="/blood-inventory-list" element={<ProtectedRoute><BloodInventoryList /></ProtectedRoute>} />
             <Route path="/blood-inventory-form" element={<ProtectedRoute><BloodInventoryForm /></ProtectedRoute>} />
+            <Route path="/role" element={<ProtectedRoute><RoleCheckComponent /></ProtectedRoute>} />
+
           </Routes>
         </div>
       </div>

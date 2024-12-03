@@ -6,11 +6,10 @@ import TabButtonWrapper from '../TabButton/TabButtonWrapper';
 import ApexChart from '../Charts/ApexChart';
 // import UserDashboard from './UserDashboard';
 import Heading from '../Heading/Heading';
-
-
+import BloodInventorCards from '../Inventory/BloodInventoryCards';
+import CampaignCard from '../Campaign/CampaignCard';
 
 const Dashboard = () => {
- 
 
   return (
     <>
@@ -22,11 +21,13 @@ const Dashboard = () => {
       <ApexChart />
       
     
-      <TabButtonWrapper />
-      <Cardcontent  />
+      {/* <TabButtonWrapper /> */}
+      {/* <Cardcontent  /> */}
 
       {/* <UserDashboard /> */}
-
+      <BloodInventorCards/>
+      <h2>Upcoming Campaigns</h2>
+      <CampaignCard/>
     </>
   )
 }
