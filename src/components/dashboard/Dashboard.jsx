@@ -10,7 +10,6 @@ import Heading from '../Heading/Heading';
 
 
 const Dashboard = () => {
- 
 
   return (
     <>

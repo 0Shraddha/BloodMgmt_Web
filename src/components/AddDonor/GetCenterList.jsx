@@ -71,7 +71,7 @@ const GetCenterList = () => {
       selector: row => row.email,
       
     },
-    (role === 'admin'
+    ...(role === 'admin'
       ? [
           {
             name: 'Action',
