@@ -8,9 +8,13 @@ import { useAuth } from "../AuthContext/AuthContext";
 
 const CampaignContainer = ()=>{
     const { role } = useAuth();
+	const userDetail = localStorage.getItem('userToken');
+  
+  	const parsedUser = JSON.parse(userDetail);
+  	const parsedUserRole = parsedUser.role
     return(
         <>
-            {role === 'admin' ? (
+            {parsedUserRole === 'admin' ? (
 				<div className="row d-flex text-end"  style={{ marginTop:'60px', marginRight : '30px'}}>
 					<ToastContainer position="top-right" autoClose={3000} />
 

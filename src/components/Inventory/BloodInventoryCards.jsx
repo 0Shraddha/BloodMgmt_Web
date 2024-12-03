@@ -8,6 +8,10 @@ import { useAuth } from "../AuthContext/AuthContext";
 const BloodInventorCards = ()=>{
 
   const { role } = useAuth();
+  const userDetail = localStorage.getItem('userToken');
+  
+  const parsedUser = JSON.parse(userDetail);
+  const parsedUserRole = parsedUser.role
 
     const [selectedBloodType, setSelectedBloodType] = useState("");
   const [centerBlood, setCenterBlood] = useState([]);
@@ -75,7 +79,7 @@ const BloodInventorCards = ()=>{
                           <small>Units Available:</small> {inventory.units}
                         </p>
                         
-                        { role === 'admin' ? null : (
+                        { parsedUserRole === 'admin' ? null : (
                           <div className="text-end">
                             <Link to="/request-blood" state={{ centerName: inventory.centerId.centerName, centerId: inventory.centerId._id, bloodType: inventory.bloodType, availableUnits: inventory.units }} className="btn btn-sm btn-outline-success" style={{ cursor: "pointer", marginRight: "10px" }} title="Request">
                             Request

@@ -14,9 +14,8 @@ const GetCenterList = () => {
   const { role } = useAuth();
   const userDetail = localStorage.getItem('userToken');
   
-    const parsedUser = JSON.parse(userDetail);
-    const parsedUserRole = parsedUser.role
-  console.log("11111111111111", parsedUserRole)
+  const parsedUser = JSON.parse(userDetail);
+  const parsedUserRole = parsedUser.role
 
 
   // Fetch centers from the backend when the component loads

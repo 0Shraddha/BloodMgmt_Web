@@ -15,6 +15,11 @@ const CampaignCard = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedCampaign, setSelectedCampaign] = useState(null);
 	const { role } = useAuth();
+	const userDetail = localStorage.getItem('userToken');
+  
+  	const parsedUser = JSON.parse(userDetail);
+ 	const parsedUserRole = parsedUser.role
+	
 
 
 	const stripHtmlTags = (content) => {
@@ -158,7 +163,7 @@ const CampaignCard = () => {
 									>
 										Learn more
 									</button>
-									{role === 'admin' ?
+									{parsedUserRole === 'admin' ?
 									 (
 										<div>
 										<span
@@ -222,7 +227,7 @@ const CampaignCard = () => {
 									}}
 								></div>
 							</div>
-							{role === 'admin' ?
+							{parsedUserRole === 'admin' ?
 								(
 									<div className="modal-footer">
 											<button

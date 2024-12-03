@@ -9,6 +9,12 @@ import { BiSolidDonateBlood } from "react-icons/bi";
 import { RxAvatar } from 'react-icons/rx';
 
 const Sidebar = () => {
+
+  const userDetail = localStorage.getItem('userToken');
+  
+  const parsedUser = JSON.parse(userDetail);
+ 	const parsedUserRole = parsedUser.role
+
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove token
   };
@@ -30,11 +36,16 @@ const Sidebar = () => {
               <NavLink className="nav-link fw-semibold" to="/center"><FaListUl/><span className="px-3">Center List</span></NavLink>
             </li>
             <li>
-              <NavLink className="nav-link fw-semibold" to="/blood-inventory-list"><MdOutlineInventory2 /><span className="px-3">Blood Inventory</span></NavLink>
+              <NavLink className="nav-link fw-semibold" to="/blood-inventory-list"><MdOutlineInventory2 /><span className="px-3"> {parsedUserRole == "admin"? "Blood Inventory" : "Request Blood"} </span></NavLink>
             </li>
-            <li>
-              <NavLink className="nav-link fw-semibold" to="/request-list"><FaRegFile /><span className="px-3">Request List</span></NavLink>
-            </li>
+           { parsedUserRole == "admin"
+            ? 
+              <li>
+                <NavLink className="nav-link fw-semibold" to="/request-list"><FaRegFile /><span className="px-3">Request List</span></NavLink>
+              </li>
+            :
+            null}
+
             <li>
               <NavLink className="nav-link fw-semibold" to="/campaign-list"><MdOutlineCampaign size={21} /><span className="px-3">Campaign</span></NavLink>
             </li>

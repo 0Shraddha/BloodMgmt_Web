@@ -10,6 +10,10 @@ import { useAuth } from '../AuthContext/AuthContext'
 
 const CenterList = () => {
   const { role } = useAuth();
+  const userDetail = localStorage.getItem('userToken');
+  
+  const parsedUser = JSON.parse(userDetail);
+  const parsedUserRole = parsedUser.role
 
   return (
     <>
@@ -18,7 +22,7 @@ const CenterList = () => {
           <Heading title="Different Centers" desc="Various centers that manage the blood inventory" />
         </div>
 
-        {role === 'admin' && 
+        {parsedUserRole === 'admin' && 
           <div className="col-6 text-end">
             <Link to="/add-center" className='btn' id="btnSubmit">Add Center</Link>
           </div>
