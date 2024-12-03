@@ -42,32 +42,32 @@ const GetCenterList = () => {
     {
       name: 'No.',
       selector: (row, index) => index + 1,
-      width: '55px',
+      width: '10%',
     },
     {
       name: 'Center Name',
       selector: row => row.centerName,
       sortable: true,
       style: { color: '#404f9c', fontWeight: '500', textTransform: 'capitalize' },
-      width: '400px',
+      width: '25%',
 
     },
     {
       name: 'Location',
       selector: row => row.location,
-      width: '350px',
+      width: '25%',
       sortable: true,
     },
     {
       name: 'Contact',
       selector: row => row.phone,
-      width: '200px',
+      width: '15%',
 
     },
     {
       name: 'Email',
       selector: row => row.email,
-      width: '300px',
+      width: '15%',
     },
     {
       name: 'Action',

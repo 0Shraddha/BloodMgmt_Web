@@ -19,6 +19,9 @@ $font-family: "Lato", sans-serif;
   top: 0;
   background-color: #f5f6f7;
   font-family: $font-family;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   // Optional: Add a shadow for a subtle 3D effect
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);

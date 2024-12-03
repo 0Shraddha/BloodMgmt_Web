@@ -43,7 +43,7 @@ const Sidebar = () => {
       </ul>
 
       <div>
-          <ul style={{ marginTop : '18rem'}}>
+          <ul>
             <li>
               <NavLink className="nav-link fw-semibold" to="/login" onClick={handleLogout}><MdOutlineLogout size={21} /><span className="px-3">Logout</span></NavLink>
             </li>
