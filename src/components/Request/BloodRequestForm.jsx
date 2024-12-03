@@ -140,117 +140,121 @@ const BloodRequestForm = () => {
     console.log("Is Error:", isError);
 
     return (
-        <div className="align-items-center">
-            <h2 className="py-3 form-heading text-center">Request</h2>
+        <>
+        <div className="d-flex justify-content-center mt-5">
+            <div className="request-form">
+                <h2 className="py-3 form-heading text-center">Request</h2>
 
-            {error ? (
-                <p style={{ color: "red" }}>Error: {error}</p>
-            ) : (
-                <form className="py-4 px-5" onSubmit={handleSubmit} encType="multipart/form-data">
-                    <Input
-                        label="Fullname"
-                        type="text"
-                        placeholder="Enter your fullname"
-                        name="requestedBy"
-                        value={requestDetail.requestedBy}
-                        onChange={handleChange}
-                    />
+                {error ? (
+                    <p style={{ color: "red" }}>Error: {error}</p>
+                ) : (
+                    <form className="py-4 px-5" onSubmit={handleSubmit} encType="multipart/form-data">
+                        <Input
+                            label="Fullname"
+                            type="text"
+                            placeholder="Enter your fullname"
+                            name="requestedBy"
+                            value={requestDetail.requestedBy}
+                            onChange={handleChange}
+                        />
 
-                    <label htmlFor="centerId">Center</label>
-                    <select
-                        className="form-select"
-                        name="centerId"
-                        onChange={handleCenterChange}
-                        required
-                    >
-                        <option value="">
-                            Select Center
-                        </option>
-                        {inventoryCenters && inventoryCenters.length > 0 ? (
-                            [...new Set(inventoryCenters.map((center) => center.centerId._id))].map(
-                                (centerId) => {
-                                    const center = inventoryCenters.find(
-                                        (item) => item.centerId._id === centerId
-                                    );
-                                    return (
-                                        <option key={centerId} value={centerId}>
-                                            {center.centerId.centerName}
-                                        </option>
-                                    );
-                                }
-                            )
-                        ) : (
-                            <option disabled>Loading centers...</option>
-                        )}
-                    </select>
-
-                    <label htmlFor="bloodType">Blood Type</label>
-                    <select
-                        className="form-control"
-                        id="bloodType"
-                        name="bloodType"
-                        value={requestDetail.bloodType}
-                        onChange={handleBloodTypeChange}
-                        required
-                    >
-                        <option value="">Select blood type</option>
-                        {availableBloodTypes.length > 0 ? (
-                            availableBloodTypes.map((bloodType) => (
-                                <option key={bloodType} value={bloodType}>
-                                    {bloodType}
-                                </option>
-                            ))
-                        ) : (
-                            <option disabled>No available blood types</option>
-                        )}
-                    </select>
-
-                    <Input
-                        label="Blood Units"
-                        type="number"
-                        placeholder="Enter blood units"
-                        name="units"
-                        value={requestDetail.units}
-                        onChange={handleUnitsChange}
-                    />
-
-                    {isError && (
-                        <p style={{ color: "red" }}>
-                            Entered units exceed available units: {availableUnits}
-                        </p>
-                    )}
-
-                    <Input
-                        label="Document"
-                        type="file"
-                        name="document"
-                        accept="application/pdf"
-                        onChange={handleFileChange}
-                    />
-
-                    <Input
-                        textarea
-                        label="Reason"
-                        type="text"
-                        placeholder="Reason for requesting blood..."
-                        name="reason"
-                        value={requestDetail.reason}
-                        onChange={handleChange}
-                    />
-
-                    <div>
-                        <button
-                            type="submit"
-                            className="btn"
-                            id="btnSubmit"
-                            disabled={isError} // Disable submit if there's an error
+                        <label htmlFor="centerId">Center</label>
+                        <select
+                            className="form-select mb-2"
+                            name="centerId"
+                            onChange={handleCenterChange}
+                            required
                         >
-                            Request
-                        </button>
-                    </div>
-                </form>
-            )}
+                            <option value="">
+                                Select Center
+                            </option>
+                            {inventoryCenters && inventoryCenters.length > 0 ? (
+                                [...new Set(inventoryCenters.map((center) => center.centerId._id))].map(
+                                    (centerId) => {
+                                        const center = inventoryCenters.find(
+                                            (item) => item.centerId._id === centerId
+                                        );
+                                        return (
+                                            <option key={centerId} value={centerId}>
+                                                {center.centerId.centerName}
+                                            </option>
+                                        );
+                                    }
+                                )
+                            ) : (
+                                <option disabled>Loading centers...</option>
+                            )}
+                        </select>
+
+                        <label htmlFor="bloodType">Blood Type</label>
+                        <select
+                            className="form-control mb-2"
+                            id="bloodType"
+                            name="bloodType"
+                            value={requestDetail.bloodType}
+                            onChange={handleBloodTypeChange}
+                            required
+                        >
+                            <option value="">Select blood type</option>
+                            {availableBloodTypes.length > 0 ? (
+                                availableBloodTypes.map((bloodType) => (
+                                    <option key={bloodType} value={bloodType}>
+                                        {bloodType}
+                                    </option>
+                                ))
+                            ) : (
+                                <option disabled>No available blood types</option>
+                            )}
+                        </select>
+
+                        <Input
+                            label="Blood Units"
+                            type="number"
+                            placeholder="Enter blood units"
+                            name="units"
+                            value={requestDetail.units}
+                            onChange={handleUnitsChange}
+                        />
+
+                        {isError && (
+                            <p style={{ color: "red" }}>
+                                Entered units exceed available units: {availableUnits}
+                            </p>
+                        )}
+
+                        <Input
+                            label="Document"
+                            type="file"
+                            name="document"
+                            accept="application/pdf"
+                            onChange={handleFileChange}
+                        />
+
+                        <Input
+                            textarea
+                            label="Reason"
+                            type="text"
+                            placeholder="Reason for requesting blood..."
+                            name="reason"
+                            value={requestDetail.reason}
+                            onChange={handleChange}
+                        />
+
+                        <div>
+                            <button
+                                type="submit"
+                                className="btn"
+                                id="btnSubmit"
+                                disabled={isError} // Disable submit if there's an error
+                            >
+                                Request
+                            </button>
+                        </div>
+                    </form>
+                )}
+            </div>
         </div>
+        </>
     );
 };
 

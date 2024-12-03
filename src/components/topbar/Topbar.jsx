@@ -3,7 +3,6 @@ import { RxAvatar } from 'react-icons/rx'
 
 const Topbar = () => {
 
-  // Parse the string into an object
   const userDetail = localStorage.getItem('userToken');
   let fullname = '';
   let role = '';

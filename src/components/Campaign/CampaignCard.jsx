@@ -6,6 +6,7 @@ import { MdLocationOn, MdAccessTime } from "react-icons/md";
 import Heading from "../Heading/Heading";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../AuthContext/AuthContext";
 
 const CampaignCard = () => {
 	const [campaigns, setCampaigns] = useState([]);
@@ -13,12 +14,15 @@ const CampaignCard = () => {
 	const navigate = useNavigate();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedCampaign, setSelectedCampaign] = useState(null);
+	const { role } = useAuth();
+
 
 	const stripHtmlTags = (content) => {
 		const tempDiv = document.createElement("div");
 		tempDiv.innerHTML = content;
 		return tempDiv.textContent || tempDiv.innerText || "";
 	  };
+
  
 	// Fetch Campaigns from the backend when the component loads
 	useEffect(() => {
@@ -106,7 +110,8 @@ const CampaignCard = () => {
 
 	return (
 		<>
-			<div className="row d-flex text-end  mt-4">
+			{role === 'admin' ? (
+				<div className="row d-flex text-end"  style={{ marginTop:'60px', marginRight : '30px'}}>
 				<ToastContainer position="top-right" autoClose={3000} />
 
 				<span>
@@ -115,10 +120,14 @@ const CampaignCard = () => {
 					</Link>
 				</span>
 			</div>
-			<Heading
-				title="Campaign Details"
-				desc="Join the donation camp events and save lives"
-			/>
+			) : null}
+			
+			<div className=" mb-2 mt-5">
+				<Heading
+					title="Campaign Details"
+					desc="Join the donation camp events and save lives"
+				/>
+			</div>
 
 			<br />
 			<div className="campaign-container row">
@@ -168,7 +177,9 @@ const CampaignCard = () => {
 									>
 										Learn more
 									</button>
-									<div>
+									{role === 'admin' ?
+									 (
+										<div>
 										<span
 											style={{ cursor: "pointer", marginRight: "10px" }}
 											onClick={() => handleEdit(campaign)}
@@ -182,6 +193,8 @@ const CampaignCard = () => {
 											<MdDeleteOutline size={"17px"} color="#e1002d" />
 										</span>
 									</div>
+									 ) : null
+									}
                   </div>
 								</div>
 							</div>
@@ -228,29 +241,44 @@ const CampaignCard = () => {
 									}}
 								></div>
 							</div>
-							<div className="modal-footer">
-								<button
-									type="button"
-									className="btn btn-primary"
-									onClick={() => handleEdit(selectedCampaign)}
-								>
-									Edit
-								</button>
-								<button
-									type="button"
-									className="btn btn-danger"
-                  onClick={() => handleDelete(selectedCampaign)}
-								>
-									Delete
-								</button>
-								<button
-									type="button"
-									className="btn btn-secondary"
-									onClick={closeModal}
-								>
-									Close
-								</button>
-							</div>
+							{role === 'admin' ?
+								(
+									<div className="modal-footer">
+											<button
+											type="button"
+											className="btn btn-primary"
+											onClick={() => handleEdit(selectedCampaign)}
+										>
+											Edit
+										</button>
+										<button
+											type="button"
+											className="btn btn-danger"
+											onClick={() => handleDelete(selectedCampaign)}
+										>
+											Delete
+										</button>
+										<button
+											type="button"
+											className="btn btn-secondary"
+											onClick={closeModal}
+										>
+											Close
+										</button>
+									</div>
+								) : (
+									<div className="modal-footer">
+										<button
+											type="button"
+											className="btn btn-secondary"
+											onClick={closeModal}
+										>
+											Close
+										</button>
+									</div>
+								)
+									
+							}
 						</div>
 					</div>
 				</div>

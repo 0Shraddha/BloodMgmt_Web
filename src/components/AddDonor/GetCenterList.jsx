@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegEdit } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
 import { toast, ToastContainer } from 'react-toastify';
+import { useAuth } from '../AuthContext/AuthContext';
 
 const GetCenterList = () => {
   const [centers, setCenters] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { role } = useAuth();
 
   // Fetch centers from the backend when the component loads
   useEffect(() => {
@@ -67,10 +69,12 @@ const GetCenterList = () => {
     {
       name: 'Email',
       selector: row => row.email,
-      width: '300px',
+      
     },
-    {
-      name: 'Action',
+    (role === 'admin'
+      ? [
+          {
+            name: 'Action',
       cell: row => (
         <div>
           <span style={{ cursor: 'pointer', marginRight: '10px' }} onClick={() => handleEdit(row)}>
@@ -81,8 +85,9 @@ const GetCenterList = () => {
           </span>
         </div>
       ),
-      
-    },
+        },
+      ]
+    : []),
   ];
 
   const handleEdit = (row) => {

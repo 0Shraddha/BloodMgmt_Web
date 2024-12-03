@@ -7,12 +7,14 @@ import { MdDeleteOutline } from "react-icons/md";
 import "../../Styles/BloodInventoryList.scss";
 import Heading from "../Heading/Heading";
 import { toast, ToastContainer } from 'react-toastify';
+import { useAuth } from "../AuthContext/AuthContext";
 
 
 const BloodInventoryList = () => {
   const [centerBlood, setCenterBlood] = useState([]);
   const [selectedBloodType, setSelectedBloodType] = useState("");
   const navigate = useNavigate();
+  const { role } = useAuth();
 
   const handleTabClick = (bloodType) => {
     setSelectedBloodType(bloodType);
@@ -84,7 +86,8 @@ const BloodInventoryList = () => {
     <>
       {centerBlood ? (
         <>
-          <div className="row d-flex text-end"  style={{ marginTop:'60px', marginBottom:'20px', marginRight : '30px'}}>
+        { role === 'admin' ? (
+          <div className="row d-flex text-end"  style={{ marginTop:'60px', marginRight : '30px'}}>
           <ToastContainer position="top-right" autoClose={3000} />
 
             <span>
@@ -93,7 +96,9 @@ const BloodInventoryList = () => {
               </Link>
             </span>
           </div>
-          <section className="chart-section mb-2">
+        ): null}
+         
+          <section className="chart-section mb-2 mt-5">
             <Heading title="Blood Inventory Overview" />
             <BarChart series={series} options={options} />
           </section>
@@ -135,11 +140,14 @@ const BloodInventoryList = () => {
                         <p className="card-text">
                           <small>Units Available:</small> {inventory.units}
                         </p>
-                        <div className="text-end">
-                          <button className="btn btn-sm btn-warning text-white" style={{ cursor: "pointer", marginRight: "10px" , color: "#fcba28" }} title="Request" onClick={() => handleRequest(inventory)}>
+                        
+                        { role === 'admin' ? null : (
+                          <div className="text-end">
+                          <button className="btn btn-sm btn-outline-success" style={{ cursor: "pointer", marginRight: "10px" }} title="Request" onClick={() => handleRequest(inventory)}>
                              Request
                           </button>
                         </div>
+                        )}
                       </div>
                     </div>
                   </div>
