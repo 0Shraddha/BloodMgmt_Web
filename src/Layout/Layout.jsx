@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Dashboard from '../components/dashboard/Dashboard';
-import Sidebar from '../components/Sidebar/Sidebar';
+import Sidebar from '../components/sidebar/Sidebar';
 import Login from '../components/Registration/Login';
-import Signup from '../Components/Registration/Signup';
+import Signup from '../components/Registration/Signup';
 import CenterList from '../components/AddDonor/CenterList';
 import AddDonor from '../components/AddDonor/AddDonor';
 import RequestList from '../components/Request/RequestList';
+import RequestHistory from '../components/Request/RequestHistory';
 import Campaign from '../components/Campaign/Campaign';
 import Request from '../components/Request/Request';
 import Map from '../components/MapWithSearch/Map';
@@ -44,6 +45,7 @@ const Layout = () => {
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/center" element={<ProtectedRoute><CenterList /></ProtectedRoute>} />
             <Route path="/request-list" element={<ProtectedRoute><RequestList /></ProtectedRoute>} />
+            <Route path="/request-history" element={<ProtectedRoute><RequestHistory /></ProtectedRoute>} />
             <Route path="/add-center" element={<ProtectedRoute><AddDonor /></ProtectedRoute>} />
             <Route path="/request-blood" element={<ProtectedRoute><BloodRequestForm /></ProtectedRoute>} />
             <Route path="/user/request-blood" element={<ProtectedRoute><BloodRequestForm /></ProtectedRoute>} />

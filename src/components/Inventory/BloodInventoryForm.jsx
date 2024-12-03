@@ -173,7 +173,7 @@ const BloodInventoryForm = () => {
               id="btnAdd"
               disabled={!isFormValid}
           >
-              {centerData ? 'Update Data' : '+ Add Data'}
+              {centerData ? 'Update Blood' : '+ Add Blood'}
           </button>
           </div>
         </form>

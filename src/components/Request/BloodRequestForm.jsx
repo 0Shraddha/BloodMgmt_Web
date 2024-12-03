@@ -10,6 +10,11 @@ const BloodRequestForm = () => {
     const navigate = useNavigate()
     const location = useLocation();
     const { centerName: cn, centerId: ci, bloodType: bt, availableUnits: au } = location.state || {};
+    const userDetail = localStorage.getItem('userToken');
+  
+    const parsedUser = JSON.parse(userDetail);
+    const parsedUserRole = parsedUser.role
+    const parsedUsername = parsedUser.username
     const [requestDetail, setRequestDetail] = useState({
         requestedBy: "",
         units: "",
@@ -64,7 +69,7 @@ const BloodRequestForm = () => {
         }
 
         const formData = new FormData();
-        formData.append("requestedBy", requestDetail.requestedBy);
+        formData.append("requestedBy", parsedUsername);
         formData.append("bloodType", bt);
         formData.append("units", requestDetail.units);
         formData.append("reason", requestDetail.reason);
@@ -105,7 +110,7 @@ const BloodRequestForm = () => {
                     <p style={{ color: "red" }}>Error: {error}</p>
                 ) : (
                     <form className="py-4 px-5" onSubmit={handleSubmit} encType="multipart/form-data">
-                        <Input
+                        {/* <Input
                             label="Fullname"
                             type="text"
                             placeholder="Enter your fullname"
@@ -114,7 +119,7 @@ const BloodRequestForm = () => {
                             onChange={handleChange}
                             error={fieldErrors.requestedBy} 
                             onClearError={() => handleClearError("requestedBy")}
-                        />
+                        /> */}
 
                         <label htmlFor="centerId">Center</label>
                         <input

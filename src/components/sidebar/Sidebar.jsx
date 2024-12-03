@@ -46,6 +46,14 @@ const Sidebar = () => {
             :
             null}
 
+          { parsedUserRole !== "admin"
+            ? 
+              <li>
+                <NavLink className="nav-link fw-semibold" to="/request-history"><FaRegFile /><span className="px-3">Requested History</span></NavLink>
+              </li>
+            :
+            null}
+
             <li>
               <NavLink className="nav-link fw-semibold" to="/campaign-list"><MdOutlineCampaign size={21} /><span className="px-3">Campaign</span></NavLink>
             </li>

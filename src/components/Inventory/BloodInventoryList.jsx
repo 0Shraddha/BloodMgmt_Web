@@ -92,7 +92,7 @@ const BloodInventoryList = () => {
 
             <span>
               <Link to="/blood-inventory-form" className="btn text-end" id="btnSubmit">
-                Add Data
+                Add Blood
               </Link>
             </span>
           </div>
