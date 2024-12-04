@@ -122,7 +122,7 @@ const CampaignCard = () => {
 				) : campaigns.length > 0 ? (
 					campaigns.map((campaign) => (
 						<div className="col-md-6 col-lg-4 col-sm-6 mb-3" key={campaign._id}>
-							<div className="card my-3 " style={{ width: "23rem" }}>
+							<div className="card my-3 " style={{ width: "30rem" }}>
 								<div className="card-body">
 									<h5
 										className="card-title py-1"

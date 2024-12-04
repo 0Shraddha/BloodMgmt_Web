@@ -98,7 +98,7 @@ const BloodInventoryList = () => {
           </div>
         ): null}
          
-          <section className="chart-section mb-2 mt-5">
+          <section className="chart-section mb-2">
             <Heading title="Blood Inventory Overview" />
             <BarChart series={series} options={options} />
           </section>

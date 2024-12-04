@@ -49,7 +49,7 @@ const Sidebar = () => {
           { parsedUserRole !== "admin"
             ? 
               <li>
-                <NavLink className="nav-link fw-semibold" to="/request-history"><FaRegFile /><span className="px-3">Requested History</span></NavLink>
+                <NavLink className="nav-link fw-semibold" to="/request-history"><FaRegFile /><span className="px-3">Request History</span></NavLink>
               </li>
             :
             null}

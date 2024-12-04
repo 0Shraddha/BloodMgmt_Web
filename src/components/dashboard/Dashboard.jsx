@@ -8,6 +8,7 @@ import ApexChart from '../Charts/ApexChart';
 import Heading from '../Heading/Heading';
 import BloodInventorCards from '../Inventory/BloodInventoryCards';
 import CampaignCard from '../Campaign/CampaignCard';
+import SortedCampaign from '../Campaign/SortedCampaign';
 
 const Dashboard = () => {
 
@@ -18,7 +19,17 @@ const Dashboard = () => {
       <Heading title="Weekly Sumup"
               desc="Get summary of weekly transactions here."/>
         </div>   
-      <ApexChart />
+
+        <div className="row">
+          <div className="col-6">
+            <ApexChart />
+          </div>
+          <div className="col-6">
+            <SortedCampaign />
+          </div>
+        </div>
+
+   
       
     
       {/* <TabButtonWrapper /> */}
@@ -26,8 +37,8 @@ const Dashboard = () => {
 
       {/* <UserDashboard /> */}
       <BloodInventorCards/>
-      <h2>Upcoming Campaigns</h2>
-      <CampaignCard/>
+      {/* <h2>Upcoming Campaigns</h2>
+      <CampaignCard/> */}
     </>
   )
 }

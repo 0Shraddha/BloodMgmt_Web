@@ -71,7 +71,7 @@ const RequestList = () => {
 
   return (
     <>
-      <div className="row my-5" style={{ marginTop: "10px", width: "1250px" }}>
+      <div className="row my-5" style={{ marginTop: "10px" }}>
         {/* <div className="text-end">
           <Link to="/request-blood" className="btn" id="btnSubmit">
             Add Data

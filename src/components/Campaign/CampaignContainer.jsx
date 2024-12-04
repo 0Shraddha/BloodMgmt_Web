@@ -26,7 +26,7 @@ const CampaignContainer = ()=>{
 			</div>
 			) : null}
 			
-			<div className=" mb-2 mt-5">
+			<div className=" mb-2">
 				<Heading
 					title="Campaign Details"
 					desc="Join the donation camp events and save lives"

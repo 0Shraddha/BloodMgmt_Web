@@ -3,6 +3,7 @@ import ReactApexChart from 'react-apexcharts';
 import PolarAreaChart from '../Charts/PolarAreaChart';
 import { fetchCenterData } from '../../Services/BloodInventoryService';
 
+
 const ApexChart = () => {
   const [centerBlood, setCenterBlood] = useState({ totalBlood: [] });
 
@@ -70,113 +71,15 @@ const ApexChart = () => {
     ],
   };
 
-  const radialOptions = {
-    chart: {
-      type: 'radialBar',
-      height: 250,
-    },
-    plotOptions: {
-      radialBar: {
-        hollow: {
-          size: '65%',
-        },
-        track: {
-          background: '#e7e7e7',
-          strokeWidth: '100%',
-          margin: 5,
-          dropShadow: {
-            enabled: true,
-            top: 2,
-            left: 0,
-            color: '#999',
-            opacity: 0.5,
-            blur: 2,
-          },
-        },
-        dataLabels: {
-          name: {
-            show: true,
-            fontSize: '14px',
-            color: '#3577f1',
-          },
-          value: {
-            show: true,
-            fontSize: '20px',
-            color: '#333',
-          },
-        },
-      },
-    },
-    labels: ['Blood Requests'],
-  };
-
-  const radialOptions1 = {
-    chart: {
-      type: 'radialBar',
-      height: 350,
-    },
-    plotOptions: {
-      radialBar: {
-        hollow: {
-          size: '65%',
-        },
-        track: {
-          background: '#e7e7e7',
-          strokeWidth: '100%',
-          margin: 5,
-          dropShadow: {
-            enabled: true,
-            top: 2,
-            left: 0,
-            color: '#999',
-            opacity: 0.5,
-            blur: 2,
-          },
-        },
-        dataLabels: {
-          name: {
-            show: true,
-            fontSize: '14px',
-            color: '#fcba28',
-          },
-          value: {
-            show: true,
-            fontSize: '20px',
-            color: '#333',
-          },
-        },
-      },
-    },
-    fill: {
-      colors: ['#fcba28'],
-    },
-    labels: ['Blood Received'],
-  };
 
   return (
     <div>
       <div className="row">
-        <div className='col-5'>
           <div className="p-5">
             <div id="chart" className="mt-4">
               <PolarAreaChart series={series} options={options} />
             </div>
           </div>
-        </div>
-        <div className="col-6">
-          <div className="col d-flex me-3 mt-5 pt-5">
-            <div className="col-6">
-              <div id="radial-chart">
-                <ReactApexChart options={radialOptions} series={[20]} type="radialBar" />
-              </div>
-            </div>
-            <div className="col-6">
-              <div id="radial-chart">
-                <ReactApexChart options={radialOptions1} series={[60]} type="radialBar" />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
