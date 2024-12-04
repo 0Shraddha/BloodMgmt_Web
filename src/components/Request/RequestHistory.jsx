@@ -44,7 +44,11 @@ const RequestHistory = () => {
             <div key={request._id} style={styles.card}>
               <div style={styles.cardHeader}>
                 <h2 style={styles.requestedBy}>{request.requestedBy}</h2>
-                <p style={styles.status}>{request.status}</p>
+                <p style={{ fontSize: '16px',
+    color: '#fff',
+    backgroundColor: request.status === 'Approved' ? '#28a745' : request.status == "Pending"? ' #e6b800': '#dc3545', 
+    padding: '6px 12px',
+    borderRadius: '20px',}}>{request.status}</p>
               </div>
               <div style={styles.cardBody}>
                 <div style={styles.infoRow}>
@@ -114,13 +118,7 @@ const styles = {
     fontWeight: 'bold',
     color: '#333',
   },
-  status: {
-    fontSize: '16px',
-    color: '#fff',
-    backgroundColor: request => (request.status === 'Approved' ? '#28a745' : '#dc3545'), 
-    padding: '6px 12px',
-    borderRadius: '20px',
-  },
+ 
   cardBody: {
     display: 'flex',
     flexDirection: 'column',

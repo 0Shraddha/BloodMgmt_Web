@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 
-export const fetchCenterData = async () => {
+export const fetchCenterData = async (lat, lng) => {
     const method = 'GET';
-    const url = 'http://localhost:5000/blood-inventory';
+    const url = `http://localhost:5000/blood-inventory?userLat=${lat}&userLng=${lng}`;
 
     const response = await fetch(url, {
         method,
@@ -13,7 +13,8 @@ export const fetchCenterData = async () => {
         const errorData = await response.json();
         throw errorData;
     }
-    return response.json();
+    const data = await response.json()
+    return data;
 
 }
 

@@ -54,6 +54,36 @@ const BloodRequestForm = () => {
         }));
     };
 
+    function handleGeolocation(event, path) {
+    
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const userLat = position.coords.latitude;
+              const userLng = position.coords.longitude;
+    
+              console.log("User Location:", { userLat, userLng });
+    
+              // Navigate to the desired route with query parameters
+              navigate(path, {
+                state: { lat: userLat, lng: userLng },
+              });
+            },
+            (error) => {
+              console.error("Geolocation error:", error.message);
+    
+              // Fallback if geolocation fails
+              navigate(path);
+            }
+          );
+        } else {
+          alert("Geolocation is not supported by this browser.");
+    
+          // Fallback if geolocation is unavailable
+          navigate(path);
+        }
+      }
+
     const handleClearError = (fieldName) => {
         setFieldErrors((prevErrors) => ({
           ...prevErrors,
@@ -94,7 +124,8 @@ const BloodRequestForm = () => {
             toast.success(data.message);
 
             setTimeout(() => {
-              navigate("/blood-inventory-list");
+                handleGeolocation('',"/blood-inventory-list" )
+            //   navigate("/blood-inventory-list");
             }, 2000);
         } catch (err) {
             // setError(err.message);

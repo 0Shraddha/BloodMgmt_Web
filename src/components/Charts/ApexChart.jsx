@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import PolarAreaChart from '../Charts/PolarAreaChart';
+import {useLocation } from 'react-router-dom';
+
 import { fetchCenterData } from '../../Services/BloodInventoryService';
 
 
 const ApexChart = () => {
+  const location = useLocation();
+  const { lat, lng } = location.state || {};
   const [centerBlood, setCenterBlood] = useState({ totalBlood: [] });
 
   useEffect(() => {
     const loadBloodDetails = async () => {
       try {
+        console.log("ddddddddddashoooooooooord")
         const fetchedBloodDetails = await fetchCenterData(); // Assuming fetchCenterData is a valid function
         setCenterBlood(fetchedBloodDetails);
       } catch (error) {

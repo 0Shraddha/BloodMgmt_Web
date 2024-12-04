@@ -3,14 +3,14 @@ import { addOrUpdateBloodData, fetchCenterData } from '../../Services/BloodInven
 import { toast, ToastContainer } from 'react-toastify';
 import Heading from '../Heading/Heading';
 import Input from '../Registration/Input';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const BloodInventoryForm = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const { lat, lng } = location.state || {};
   const centerData = location.state?.centerData || null;
 
   const [centerValues, setCenterValues] = useState({
@@ -30,7 +30,7 @@ const BloodInventoryForm = () => {
  useEffect(() => {
   const loadCenterData = async () => {
     try {
-      const fetchedData = await fetchCenterData();
+      const fetchedData = await fetchCenterData(lat, lng);
       setCenterList(fetchedData.center || []); // Set center data only
       // console.log("Fetched center data:", fetchedData);
     } catch (err) {

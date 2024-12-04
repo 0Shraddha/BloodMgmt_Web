@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Heading from "../Heading/Heading";
 import { deleteBloodData, fetchCenterData } from "../../Services/BloodInventoryService";
 import { useAuth } from "../AuthContext/AuthContext";
 
 
 const BloodInventorCards = ()=>{
+  const location = useLocation();
+  const { lat, lng } = location.state || {};
 
   const { role } = useAuth();
   const userDetail = localStorage.getItem('userToken');
@@ -21,8 +23,9 @@ const BloodInventorCards = ()=>{
   useEffect(() => {
     const loadBloodDetails = async () => {
       try {
-        const fetchedBloodDetails = await fetchCenterData();
+        const fetchedBloodDetails = await fetchCenterData(lat, lng);
         setCenterBlood(fetchedBloodDetails);
+        
       } catch (error) {
         console.error("Error fetching center data:", error);
       }
@@ -64,12 +67,16 @@ const BloodInventorCards = ()=>{
               <div className="row">
                 {filteredInventory?.map((inventory, index) => (
                   <div className="col-md-4 col-sm-6 mb-3" key={inventory._id}>
-                    <div className="card mb-2">
+                   <div> </div>
+                    <div className="card mb-2">   
                       <div className="card-body mb-2">
+                        <div className="d-flex justify-content-between">
                         <h6 className="card-title">
                           <span className="rounded-pill me-2">{index + 1}.</span>
-                          {inventory.centerId.centerName}
+                          {inventory.centerId.centerName} 
                         </h6>
+                        {/* <h6>{centerBlood.centersWithDistance.find(c => c.centerName == inventory.centerId.centerName).distance.toFixed(3)} km</h6> */}
+                        </div>
                         <hr />
                         <p className="card-text">
                           <small>Blood Type:</small>{" "}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { deleteBloodData, fetchCenterData } from "../../Services/BloodInventoryService";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import BarChart from "../Charts/BarChart";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
@@ -12,6 +12,10 @@ import BloodInventorCards from "./BloodInventoryCards";
 
 
 const BloodInventoryList = () => {
+  const location = useLocation();
+  const { lat, lng } = location.state || {};
+
+
   const [centerBlood, setCenterBlood] = useState([]);
 
   const navigate = useNavigate();
@@ -28,7 +32,8 @@ const BloodInventoryList = () => {
   useEffect(() => {
     const loadBloodDetails = async () => {
       try {
-        const fetchedBloodDetails = await fetchCenterData();
+        const fetchedBloodDetails = await fetchCenterData(lat, lng);
+        
         setCenterBlood(fetchedBloodDetails);
       } catch (error) {
         console.error("Error fetching center data:", error);
@@ -110,7 +115,7 @@ const BloodInventoryList = () => {
       ) : (
         <h2>No data</h2>
       )}
-      <BloodInventorCards/>
+      <BloodInventorCards lat={lat} lng={lng} />
       
     </>
   );

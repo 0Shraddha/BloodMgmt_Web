@@ -22,7 +22,7 @@ import RoleCheckComponent from '../components/AuthContext/RoleCheckComponent';
 
 const Layout = () => {
   const location = useLocation(); // Get the current location
-
+  
   return (
     <>
       <div className="topbar">
