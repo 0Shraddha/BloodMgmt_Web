@@ -87,7 +87,7 @@ const styles = {
   cardContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', // Adjusted for responsive grid
-    gap: '20px',
+    gap: '30px',
     marginTop: '20px',
     padding: '0 20px',
   },

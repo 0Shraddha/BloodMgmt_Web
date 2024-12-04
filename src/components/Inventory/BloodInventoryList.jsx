@@ -98,7 +98,7 @@ const BloodInventoryList = () => {
           </div>
         ): null}
          
-          <section className="chart-section mb-2">
+          <section className="chart-section my-5 pt-2" style={{ marginTop : '60px'}}>
             <Heading title="Blood Inventory Overview" />
             <BarChart series={series} options={options} />
           </section>

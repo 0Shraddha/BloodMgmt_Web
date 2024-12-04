@@ -116,7 +116,7 @@ const CampaignCard = () => {
 	return (
 		<>
 			
-			<div className="campaign-container row">
+			<div className="campaign-container row ">
 				{error ? (
 					<p className="text-danger">Failed to load campaigns: {error}</p>
 				) : campaigns.length > 0 ? (
