@@ -6,12 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
-import { BiSolidDonateBlood } from 'react-icons/bi';
+import { BiSolidDonateBlood } from 'react-icons/bi'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -26,8 +27,11 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
       });
-  
+      console.log("red hari")
       if (!response.ok) {
+        const data = await response.json();
+        console.log("data", data)
+        setErrors(data);
         throw new Error('Login failed. Please try again.');
       }
   
@@ -48,6 +52,8 @@ const Login = () => {
   
       // Store token in localStorage
       localStorage.setItem('token', data.token);
+      setErrors({});
+
   
       setTimeout(() => {
         navigate("/dashboard"); // Redirect after 2 seconds
@@ -59,6 +65,12 @@ const Login = () => {
     }
   };
   
+  const handleClearError = (fieldName) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: '',
+    }));
+  };
 
   return (
     <div className="form-container d-flex justify-content-center mt-5">
@@ -77,6 +89,8 @@ const Login = () => {
           placeholder="Enter your email"
           name="email"
           value={email}
+          error={errors.email}
+          onClearError={() => handleClearError("email")}
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
@@ -85,6 +99,8 @@ const Login = () => {
           placeholder="Enter your password"
           name="password"
           value={password}
+          error={errors.password}
+          onClearError={() => handleClearError("password")}
           onChange={(e) => setPassword(e.target.value)}
         />
         <div>

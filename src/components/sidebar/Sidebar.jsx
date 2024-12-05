@@ -23,7 +23,6 @@ const Sidebar = () => {
           const userLat = position.coords.latitude;
           const userLng = position.coords.longitude;
 
-          console.log("User Location:", { userLat, userLng });
 
           // Navigate to the desired route with query parameters
           navigate(path, {
@@ -33,7 +32,6 @@ const Sidebar = () => {
         (error) => {
           console.error("Geolocation error:", error.message);
 
-          // Fallback if geolocation fails
           navigate(path);
         }
       );

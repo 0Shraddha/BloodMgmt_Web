@@ -75,7 +75,7 @@ const BloodInventorCards = ()=>{
                           <span className="rounded-pill me-2">{index + 1}.</span>
                           {inventory.centerId.centerName} 
                         </h6>
-                        {/* <h6>{centerBlood.centersWithDistance.find(c => c.centerName == inventory.centerId.centerName).distance.toFixed(3)} km</h6> */}
+                        <h6>{inventory.distance.toFixed(3)} km</h6>
                         </div>
                         <hr />
                         <p className="card-text">
