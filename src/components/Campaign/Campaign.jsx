@@ -95,17 +95,14 @@ const Campaign = ({ isEdit = false }) => {
 
   return (
     <div
-      className="add-container row px-5"
+      className="add-container row px-5 py-5"
       style={{
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
         width: '65%',
         marginLeft: '10%',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
       }}
     >
       <Heading title={isEdit ? 'Edit Campaign' : 'Create Campaign'} />
-      <form onSubmit={handleSubmit} className="addCampaignForm">
+      <form onSubmit={handleSubmit} className=" mt-3 addCampaignForm">
         <div className="row">
           <div className="form-group col-12 mb-3">
             <label htmlFor="campaignName">Campaign Name:</label>
@@ -180,7 +177,8 @@ const Campaign = ({ isEdit = false }) => {
         </div>
 
         <div className="text-center">
-          <button className="btn btn-primary px-4" type="submit">
+         
+          <button className="btn btn-primary px-4" type="submit" style={{ backgroundColor : '#405189'}}>
             {isEdit ? 'Update' : 'Submit'}
           </button>
           {isEdit && (

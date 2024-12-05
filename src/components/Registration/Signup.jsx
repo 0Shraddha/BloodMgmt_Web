@@ -25,6 +25,14 @@ const Signup = () => {
       role: e.target.role.value
     };
 
+     // Validate the phone number
+  const phoneRegex = /^\d{10}$/; // Matches exactly 10 digits
+  if (!phoneRegex.test(formData.phone)) {
+    toast.error("Phone number must be 10 digits and contain only numbers!");
+    return;
+  }
+
+
     // Validate the form data (example)
     if (formData.password !== formData.repassword) {
       toast.error("Passwords do not match!"); // Show toast error
@@ -76,12 +84,13 @@ const Signup = () => {
 
   return (
     <>
-      <div className="form-container d-flex justify-content-center mt-5">
-        <div className="signup-container row ps-3">
-          <div className='col-12'>
-            <h2 className="py-3 form-heading text-center">Signup</h2>
-          </div>
-          <div className='col-11'>
+      <div className="login-page d-flex justify-content-center vh-100">
+
+        <div className="signup-container ps-3 me-3">
+       <div className="text-center my-4">
+        <h1 className="form-title mb-4">Sign up</h1>
+        <p className="text-muted">Register and login into the system.</p>
+       </div>
             <form onSubmit={handleSignup}>
               <div className="row px-2">
                 <div className="col-12 d-flex gap-4 py-1">
@@ -139,7 +148,7 @@ const Signup = () => {
                       name="phone"
                       id="phone"
                       placeholder="Enter your phone number"
-                      type="tel"
+                      type="number"
                       error={errors.phone}
                       onClearError={() => handleClearError("phone")}
                     />
@@ -207,12 +216,11 @@ const Signup = () => {
                 </div>
               </div>
               <div>
-                <button type="submit" className="btn my-2 mx-3" id="btnSignup">
+                <button type="submit" className="btn my-5 mx-3" id="btnSignup">
                   Sign up
                 </button>
               </div>
             </form>
-          </div>
       
           <p className="text-muted text-center">
               Already have an account?<br/>

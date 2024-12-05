@@ -1,111 +1,101 @@
 import React, { useState } from 'react';
-import Input from './Input';
-import '../../Styles/Input.scss';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
-import { toast, ToastContainer } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
-import { BiSolidDonateBlood } from 'react-icons/bi';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../../Styles/Input.scss'; // Ensure this file is styled as per new design
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
     try {
       const response = await fetch('http://localhost:5000/login', {
         method: 'POST',
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('Login failed. Please try again.');
       }
-  
+
       const data = await response.json();
-
-       // Store the relevant data in local storage
-    const userToken = {
-      firstname: data.user.firstname,
-      lastname: data.user.lastname,
-      role: data.user.role,
-      username: data.user.username,
-    };
-    localStorage.setItem('userToken', JSON.stringify(userToken));
-
-
-      console.log('response', data);
-      toast.success("Login successful!");
-  
-      // Store token in localStorage
+      const userToken = {
+        firstname: data.user.firstname,
+        lastname: data.user.lastname,
+        role: data.user.role,
+        username: data.user.username,
+      };
+      localStorage.setItem('userToken', JSON.stringify(userToken));
       localStorage.setItem('token', data.token);
-  
-      setTimeout(() => {
-        navigate("/dashboard"); // Redirect after 2 seconds
-      }, 2000);
-  
+
+      toast.success('Login successful!');
+      setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       console.error(err);
-      toast.error(err.message); // Display error message in toast
+      toast.error(err.message);
     }
   };
-  
 
   return (
-    <div className="form-container d-flex justify-content-center mt-5">
-      <div className="login-container row">
+    <div className="login-page d-flex justify-content-center vh-100">
       <ToastContainer position="top-right" autoClose={3000} />
 
+   
+      <div className="login-form-container col-md-6 d-flex flex-column justify-content-center align-items-center px-5">
+        <h1 className="form-title mb-4">Welcome back!</h1>
+        <p className="text-muted">Enter your email and password to log in.</p>
 
-    <div className='col-12'>
-      <h2 className="py-3 form-heading text-center">Login</h2>
-		</div>
-    <div className='col-11'>
-      <form className="py-2 ps-4" onSubmit={handleSubmit}>
-        <Input
-          label="Email"
-          type="text"
-          placeholder="Enter your email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          label="Password"
-          type="password"
-          placeholder="Enter your password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div>
-          <button type="submit" className="btn my-2 mx-1" id="btnSubmit">
-            Login
+        <form className="w-100" onSubmit={handleSubmit}>
+          <div className="form-group mb-4">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control rounded"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group mb-4">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control rounded"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <input type="checkbox" id="remember" />
+              <label htmlFor="remember" className="ms-2">Remember me</label>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary w-100 py-2 rounded" style={{ backgroundColor : '#405189'}}>
+            Log in
           </button>
-        </div>
-      </form>
-    </div>
+        </form>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        <p className="text-muted mt-4">
+          Don’t have an account? <Link to="/signup" className="text-primary">Register here</Link>
+        </p>
 
-      <p className="text-muted text-center">
-        Don't have an account?<br/>
-        <Link to="/signup" className="btn btn-sm btn-outline-dark my-2">
-          Sign up
-        </Link>
-      </p>
-    </div>
-    </div>
+      </div>
 
+     
+    </div>
   );
 };
 
