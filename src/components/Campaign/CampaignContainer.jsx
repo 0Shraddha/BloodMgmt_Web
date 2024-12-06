@@ -19,14 +19,14 @@ const CampaignContainer = ()=>{
 					<ToastContainer position="top-right" autoClose={3000} />
 
 				<span>
-					<Link to="/campaign" className="btn text-end" id="btnSubmit">
+					<Link to="/campaign" className="btn text-end mt-3" id="btnSubmit">
 						Add Campaign
 					</Link>
 				</span>
 			</div>
 			) : null}
 			
-			<div className=" mb-2 my-5">
+			<div className=" mb-2 my-3">
 				<Heading
 					title="Campaign Details"
 					desc="Join the donation camp events and save lives"

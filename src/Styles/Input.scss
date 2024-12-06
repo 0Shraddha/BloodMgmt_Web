@@ -1,7 +1,7 @@
 // Variables
 $primary-color: #B60C0C;
 $secondary-color: #404F9C;
-$input-bg-color: #f5f5f5;
+$input-bg-color: #fff;
 $input-border-color: #e6e5e5;
 $container-bg: #FFFFFF;
 $box-shadow-color: #ECECEC;
@@ -30,20 +30,29 @@ body{
   justify-content: center;
   flex-direction: column;
   width: 40%;
-  border: 1px solid #44444444;
+  // border: 1px solid #44444444;
   border-radius: 20px;
+  margin-top: 3%;
+  // background-color: #f3f3f9;
+  padding: 30px;
 }
+
 
 // Input styles
 .input, .textarea {
   background-color: $input-bg-color;
   border: 1px solid $input-border-color;
-  padding: 5px 15px;
+  padding: 9px 15px;
   margin-bottom: 10px;
 
   &::placeholder {
     color: $placeholder-color;
     font-size: 15px;
+  }
+
+  &:focus {
+    border-color: #405189;
+    // box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
   }
 }
 
@@ -80,4 +89,96 @@ body{
   color: red;
   font-size: 0.875rem;
   margin-top: 0.25rem;
+}
+
+
+.login-page {
+  display: flex;
+  flex-direction: row;
+
+  .login-form-container {
+    width: 40%;
+    background: #fff;
+    text-align: center;
+
+    .form-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #3b3b3b;
+    }
+
+    .form-group {
+      text-align: left;
+
+      label {
+        font-weight: 500;
+      }
+
+      .form-control {
+        height: 45px;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        &:focus {
+          border-color: #405189;
+          box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+        }
+      }
+    }
+
+    button {
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  }
+
+  .decorative-container {
+    background: linear-gradient(135deg, #405189, #405189);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .decorative-bg {
+      // background-image: url('https://img.freepik.com/free-vector/leaves-background-color-year_23-2148380575.jpg?t=st=1733397208~exp=1733400808~hmac=745785d3a5b3f2eaca51f754cf1988543b2a8431b552e4944e096298927aefa3&w=1380'); /* Replace with your background image */
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+}
+
+
+
+/* Update your CSS file */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+
+button#btnSignup {
+  width: 100%;
+  background-color: #3b5998;
+  color: white;
+  font-weight: bold;
+}
+
+button#btnSignup:hover {
+  background-color: #334d84;
+}
+
+/* For links */
+a {
+  text-decoration: none;
+  color: #3b5998;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #2c4176;
 }
