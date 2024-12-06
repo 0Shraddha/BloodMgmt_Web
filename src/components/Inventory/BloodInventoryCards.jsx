@@ -5,9 +5,9 @@ import { deleteBloodData, fetchCenterData } from "../../Services/BloodInventoryS
 import { useAuth } from "../AuthContext/AuthContext";
 
 
-const BloodInventorCards = ()=>{
+const BloodInventorCards = ({centerBloods})=>{
+  console.log(centerBloods)
   const location = useLocation();
-  const { lat, lng } = location.state || {};
 
   const { role } = useAuth();
   const userDetail = localStorage.getItem('userToken');
@@ -16,32 +16,32 @@ const BloodInventorCards = ()=>{
   const parsedUserRole = parsedUser.role
 
     const [selectedBloodType, setSelectedBloodType] = useState("");
-  const [centerBlood, setCenterBlood] = useState([]);
+  const [centerBlood, setCenterBlood] = useState(centerBloods);
   const bloodTypes = ["All", "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
 
 
-  useEffect(() => {
-    const loadBloodDetails = async () => {
-      try {
-        const fetchedBloodDetails = await fetchCenterData(lat, lng);
-        setCenterBlood(fetchedBloodDetails);
+  // useEffect(() => {
+  //   const loadBloodDetails = async () => {
+  //     try {
+  //       const fetchedBloodDetails = await fetchCenterData(lat, lng);
+  //       setCenterBlood(fetchedBloodDetails);
         
-      } catch (error) {
-        console.error("Error fetching center data:", error);
-      }
-    };
+  //     } catch (error) {
+  //       console.error("Error fetching center data:", error);
+  //     }
+  //   };
 
-    loadBloodDetails();
+  //   loadBloodDetails();
     
-  }, []);
+  // }, []);
 
-  const labels = centerBlood.totalBlood?.map((blood) => blood.bloodType) || [];
+  const labels = centerBloods.totalBlood?.map((blood) => blood.bloodType) || [];
 
     const handleTabClick = (bloodType) => {
         setSelectedBloodType(bloodType);
       };
 
-      const filteredInventory = centerBlood.bloodInventory?.filter((inventory) =>
+      const filteredInventory = centerBloods.bloodInventory?.filter((inventory) =>
         selectedBloodType ? inventory.bloodType === selectedBloodType : true
       );
     return(

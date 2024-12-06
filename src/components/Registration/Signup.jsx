@@ -51,12 +51,10 @@ const Signup = () => {
       if (!response.ok) {
         const data = await response.json();
         setErrors(data);
-        toast.error("Signup failed! Please try again later"); // Show toast error
-        throw new Error("Signup failed: ");
+        toast.error("Signup failed! Please correct the information before submission."); // Show toast error
       }
 
       const data = await response.json();
-      console.log("Signup successful", data);
       setErrors({});
       toast.success(data.message);
 
@@ -65,7 +63,6 @@ const Signup = () => {
       }, 2000);
 
     } catch (error) {
-      console.error("Error during signup:", error);
     }
   };
 
@@ -193,7 +190,6 @@ const Signup = () => {
                       id="repassword"
                       placeholder="Enter your repassword"
                       type="password"
-                      onClearError={() => handleClearError("repassword")}
                     />
                   </div>
                 </div>
@@ -212,6 +208,9 @@ const Signup = () => {
                       { value: "O+", label: "O+" },
                       { value: "O-", label: "O-" },
                     ]}
+                    error = {errors.bloodType}
+                    onClearError={() => handleClearError("bloodType")}
+
                   />
                 </div>
               </div>

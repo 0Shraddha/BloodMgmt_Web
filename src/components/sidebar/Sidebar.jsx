@@ -14,38 +14,6 @@ const Sidebar = () => {
 
   const navigate = useNavigate();
 
-  function handleGeolocation(event, path) {
-    event.preventDefault();
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const userLat = position.coords.latitude;
-          const userLng = position.coords.longitude;
-
-
-          // Navigate to the desired route with query parameters
-          navigate(path, {
-            state: { lat: userLat, lng: userLng },
-          });
-        },
-        (error) => {
-          console.error("Geolocation error:", error.message);
-
-          navigate(path);
-        }
-      );
-    } else {
-      alert("Geolocation is not supported by this browser.");
-
-      // Fallback if geolocation is unavailable
-      navigate(path);
-    }
-  }
-
-
-
-
 
   const userDetail = localStorage.getItem('userToken');
   
@@ -67,13 +35,13 @@ const Sidebar = () => {
             </li>
 
             <li>
-              <NavLink className="nav-link fw-semibold" aria-current="page" to="/dashboard" onClick={(e) => handleGeolocation(e, "/dashboard")}><LuLayoutDashboard /><span className="px-3">Dashboard</span></NavLink>
+              <NavLink className="nav-link fw-semibold" aria-current="page" to="/dashboard" ><LuLayoutDashboard /><span className="px-3">Dashboard</span></NavLink>
             </li>
             <li>
               <NavLink className="nav-link fw-semibold" to="/center"><FaListUl/><span className="px-3">Center List</span></NavLink>
             </li>
             <li>
-              <NavLink className="nav-link fw-semibold" to="/blood-inventory-list" onClick={(e) => handleGeolocation(e, "/blood-inventory-list")}><MdOutlineInventory2 /><span className="px-3"> {parsedUserRole == "admin"? "Blood Inventory" : "Request Blood"} </span></NavLink>
+              <NavLink className="nav-link fw-semibold" to="/blood-inventory-list" ><MdOutlineInventory2 /><span className="px-3"> {parsedUserRole == "admin"? "Blood Inventory" : "Request Blood"} </span></NavLink>
             </li>
            { parsedUserRole == "admin"
             ? 

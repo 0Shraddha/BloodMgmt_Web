@@ -26,9 +26,8 @@ const Login = () => {
 
       if (!response.ok) {
         const data = await response.json();
-        console.log("data", data)
         setErrors(data);
-        throw new Error('Login failed. Please try again.');
+        throw new Error('Login failed. Please correct the information before submission.');
       }
 
       const data = await response.json();
@@ -46,8 +45,8 @@ const Login = () => {
       toast.success('Login successful!');
       setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
-      console.error(err);
-      toast.error(err.message);
+        toast.error(err.message)
+      
     }
   };
   

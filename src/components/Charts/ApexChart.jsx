@@ -14,7 +14,6 @@ const ApexChart = () => {
   useEffect(() => {
     const loadBloodDetails = async () => {
       try {
-        console.log("ddddddddddashoooooooooord")
         const fetchedBloodDetails = await fetchCenterData(); // Assuming fetchCenterData is a valid function
         setCenterBlood(fetchedBloodDetails);
       } catch (error) {

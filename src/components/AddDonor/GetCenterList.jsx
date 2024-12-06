@@ -85,7 +85,7 @@ const GetCenterList = () => {
           <span style={{ cursor: 'pointer', marginRight: '10px' }} onClick={() => handleEdit(row)}>
             <FaRegEdit size={'16px'} color='#fcba28'/>
           </span>
-          <span style={{ cursor: 'pointer' }} onClick={()=> handleDelete(row)}>
+          <span style={{ cursor: 'pointer' }} onClick={()=> {const userConfirmed = confirm("Do you want to Delete the Center?"); if(userConfirmed){handleDelete(row)}}}>
             <MdDeleteOutline size={'17px'} color='#e1002d'/>
           </span>
         </div>
@@ -140,7 +140,7 @@ const GetCenterList = () => {
           const data = await response.json(); 
           toast.error(data.message);
         }else{
-          toast.success("Successfully deleted!");
+          toast.success("Successfully Deleted the Center!");
           setTimeout(() => {
             location.reload();
           }, 2000);

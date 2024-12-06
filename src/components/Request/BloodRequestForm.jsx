@@ -54,35 +54,6 @@ const BloodRequestForm = () => {
         }));
     };
 
-    function handleGeolocation(event, path) {
-    
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const userLat = position.coords.latitude;
-              const userLng = position.coords.longitude;
-    
-              console.log("User Location:", { userLat, userLng });
-    
-              // Navigate to the desired route with query parameters
-              navigate(path, {
-                state: { lat: userLat, lng: userLng },
-              });
-            },
-            (error) => {
-              console.error("Geolocation error:", error.message);
-    
-              // Fallback if geolocation fails
-              navigate(path);
-            }
-          );
-        } else {
-          alert("Geolocation is not supported by this browser.");
-    
-          // Fallback if geolocation is unavailable
-          navigate(path);
-        }
-      }
 
     const handleClearError = (fieldName) => {
         setFieldErrors((prevErrors) => ({
@@ -117,16 +88,17 @@ const BloodRequestForm = () => {
                 const data = await response.json();
                 // Set individual field errors from the response
                 setFieldErrors(data.errors || {});
+                // toast.error("Please Correct the Information and Submit Again.")
                 throw new Error(data.msg || "Request Failed");
             }
 
             const data = await response.json();
-            toast.success(data.message);
+            toast.success("Blood Requested Successfully.");
 
-            setTimeout(() => {
-                handleGeolocation('',"/blood-inventory-list" )
-            //   navigate("/blood-inventory-list");
-            }, 2000);
+            setTimeout(()=>{
+                navigate("/blood-inventory-list");
+            }, 3000)
+           
         } catch (err) {
             // setError(err.message);
         }
@@ -134,6 +106,8 @@ const BloodRequestForm = () => {
 
     return (
         <div className="d-flex justify-content-center mt-5">
+            <ToastContainer position="top-right" autoClose={3000} />
+
             <div className="request-form">
                 <h2 className="py-3 form-heading text-center">Request</h2>
 

@@ -57,21 +57,22 @@ const BloodInventoryForm = () => {
 
     try {
       const data = await addOrUpdateBloodData(centerValues);
-      console.log('response:', data);
-      toast.success(centerData ? "Data updated successfully!" : "Data added successfully!");
+      // toast.success(centerData ? "Data updated successfully!" : "Data added successfully!");
 
       // Set Formand totalBlood only on successful submission
       setBloodInventory(data.bloodInventory);
       setTotalBlood(data.totalBlood);
-      console.log('Submission response:', data);
 
-      navigate('/blood-inventory-list',{
-        state : {
-          centerList : centerList,
-          bloodInventory : data.bloodInventory,
-          totalBlood : data.totalBlood
-        }
-      } )
+      toast.success("Blood Added to Blood Bank Successfully.")
+      setTimeout(()=>{
+        navigate('/blood-inventory-list',{
+          state : {
+            centerList : centerList,
+            bloodInventory : data.bloodInventory,
+            totalBlood : data.totalBlood
+          }
+        } )
+      }, 2200)
     } catch (err) {
       setError(err.message || 'Failed to add blood details. Please try again');
       toast.error(`Error: ${err.message}`);

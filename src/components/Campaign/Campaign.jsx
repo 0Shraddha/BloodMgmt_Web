@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactQuill from 'react-quill';
 import { useNavigate,useLocation } from 'react-router-dom';
-
+import { ToastContainer, toast } from "react-toastify";
 
 import 'react-quill/dist/quill.snow.css';
 import '../../Styles/Input.scss'; // Assuming this has form styles
@@ -10,29 +10,29 @@ import Heading from '../Heading/Heading';
 const Campaign = ({ isEdit = false }) => {
   const location = useLocation();
   const initialData = location.state?.campaign || {};
-
+  const oldDate = new Date(initialData.date).toISOString().split('T')[0]
   const [formData, setFormData] = useState({
     campaignName: initialData.campaignName || '',
     organizer: initialData.organizer || '',
     location: initialData.location || '',
-    date: initialData.date || '',
+    date: oldDate || '',
     description: initialData.description || '',
   });
 
   const quillRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isEdit && initialData) {
-      setFormData({
-        campaignName: initialData.campaignName || '',
-        organizer: initialData.organizer || '',
-        location: initialData.location || '',
-        date: initialData.date || '',
-        description: initialData.description || '',
-      });
-    }
-  }, [isEdit, initialData]);
+  // useEffect(() => {
+  //   if (isEdit && initialData) {
+  //     setFormData({
+  //       campaignName: initialData.campaignName || '',
+  //       organizer: initialData.organizer || '',
+  //       location: initialData.location || '',
+  //       date: initialData.date || '',
+  //       description: initialData.description || '',
+  //     });
+  //   }
+  // }, [isEdit, initialData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -84,9 +84,10 @@ const Campaign = ({ isEdit = false }) => {
       }
 
       const data = await response.json();
-      console.log(`${isEdit ? 'Updated' : 'Created'} Data:`, data || "Campaign updated successfully!");
-
-      navigate('/campaign-list');
+      toast.success(`${isEdit ? 'Updated' : 'Created'} Campaign Successfully:`, data || "Campaign updated successfully!")
+      setTimeout(()=>{
+        navigate('/campaign-list');
+      }, 2200)
     } catch (error) {
       console.error(`Error ${isEdit ? 'updating' : 'creating'} campaign:`, error);
       alert(`Failed to ${isEdit ? 'update' : 'create'} campaign. Please try again.`);
@@ -101,6 +102,7 @@ const Campaign = ({ isEdit = false }) => {
         marginLeft: '10%',
       }}
     >
+       <ToastContainer position="top-right" autoClose={3000} />
       <Heading title={isEdit ? 'Edit Campaign' : 'Create Campaign'} />
       <form onSubmit={handleSubmit} className=" mt-3 addCampaignForm">
         <div className="row">

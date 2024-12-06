@@ -16,7 +16,10 @@ const BloodInventoryList = () => {
   const { lat, lng } = location.state || {};
 
 
+
   const [centerBlood, setCenterBlood] = useState([]);
+  const [userLat, setUserLat] = useState(undefined);
+  const [userLng, setUserLng] = useState(undefined);
 
   const navigate = useNavigate();
   const { role } = useAuth();
@@ -25,14 +28,23 @@ const BloodInventoryList = () => {
   const parsedUser = JSON.parse(userDetail);
   const parsedUserRole = parsedUser.role
 
-
-
+  useEffect(() => {
+    // Access lat and lng from location state
+    if (location.state?.lat && location.state?.lng) {
+      setUserLat(location.state.lat);
+      setUserLng(location.state.lng);
+      console.log('User Location in Dashboard:', {
+        lat: location.state.lat,
+        lng: location.state.lng,
+      });
+    }
+  }, [location.state])
 
   // Fetch blood details with center from backend when the component loads
   useEffect(() => {
     const loadBloodDetails = async () => {
       try {
-        const fetchedBloodDetails = await fetchCenterData(lat, lng);
+        const fetchedBloodDetails = await fetchCenterData(userLat, userLng);
         
         setCenterBlood(fetchedBloodDetails);
       } catch (error) {
@@ -42,7 +54,7 @@ const BloodInventoryList = () => {
 
     loadBloodDetails();
     
-  }, []);
+  }, [userLat, userLng]);
 
   const handleRequest = (inventory) => {
     // Navigate to the form with the selected inventory as state
@@ -115,7 +127,7 @@ const BloodInventoryList = () => {
       ) : (
         <h2>No data</h2>
       )}
-      <BloodInventorCards lat={lat} lng={lng} />
+      <BloodInventorCards centerBloods={centerBlood} />
       
     </>
   );

@@ -174,7 +174,7 @@ const CampaignCard = () => {
 										</span>
 										<span
 											style={{ cursor: "pointer" }}
-											onClick={() => handleDelete(campaign)}
+											onClick={() => {const userConfirmed = confirm("Do you want to Delete the Campaign?"); if(userConfirmed){handleDelete(campaign)}}}
 										>
 											<MdDeleteOutline size={"17px"} color="#e1002d" />
 										</span>
@@ -240,7 +240,7 @@ const CampaignCard = () => {
 										<button
 											type="button"
 											className="btn btn-danger"
-											onClick={() => handleDelete(selectedCampaign)}
+											onClick={() => {const userConfirmed = confirm("Do you want to Delete the Campaign?"); if(userConfirmed){handleDelete(selectedCampaign)}}}
 										>
 											Delete
 										</button>
